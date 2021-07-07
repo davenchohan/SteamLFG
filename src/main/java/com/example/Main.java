@@ -26,6 +26,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import org.springframework.web.bind.annotation.*;
+import org.springframework.http.MediaType;
+
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -50,7 +53,35 @@ public class Main {
 
   @RequestMapping("/")
   String index() {
-    return "index";
+    return "home";
+  }
+
+  @GetMapping(
+    path = "/signup"
+  )
+  public String getSignupForm(Map<String, Object> model){
+    User user = new User();  // creates new rectangle object with empty fname and lname
+    model.put("user", user);
+    return "signup";
+  }
+
+  @PostMapping(
+    path = "/signup",
+    consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
+  )
+  public String handleBrowserSignupSubmit(Map<String, Object> model, User user) throws Exception {
+    // Save the rectangle data into the database
+    try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS user (id serial, name varchar(20), password varchar(20))");
+      String sql = "INSERT INTO user (name,password) VALUES ('" + user.getUsername() + "','" + user.getPassword() + "')";
+      stmt.executeUpdate(sql);
+      System.out.println(user.getUsername() + " " + user.getPassword());
+      return "home";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
   }
 
   @RequestMapping("/db")
