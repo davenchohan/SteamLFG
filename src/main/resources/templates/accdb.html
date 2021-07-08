@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href=".\stylesheets\rectanglestyle.css">
+    <title>Rectangles</title>
+    <script src="../scripts/rec.js" defer></script>
+</head>
+<body>
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>USERNAME</th>
+                    <th>PASSWORD</th>
+                </tr>
+                <tr th:each="record : ${records}">
+                    <td th:text="${record.getId()}"> </td>
+                    <td><a th:href="@{/user/read/{id}(id=${record.getId()})}" th:text="${record.getUsername()}"></a> </td>
+                    <td th:text="${record.getPassword()}"> </td>
+                </tr>
+            </table>
+</body>
+</html>

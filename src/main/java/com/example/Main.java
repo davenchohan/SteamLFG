@@ -62,8 +62,6 @@ public class Main {
     path = "/mainpage"
   )
   public String getUserForm(Map<String, Object> model){
-    User user = new User();  
-    model.put("user", user);
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
       stmt.executeUpdate("CREATE TABLE IF NOT EXISTS accounts (id serial, username varchar(20), password varchar(20), age varchar(20), sex varchar(20), region varchar(20), bio varchar(150), pfp varchar(30), groups varchar(20))");
@@ -92,7 +90,7 @@ public class Main {
     path = "/signup"
   )
   public String getSignUpForm(Map<String, Object> model){
-    User user = new User();  // creates new rectangle object with empty fname and lname
+    User user = new User();
     model.put("user", user);
     return "signup";
   }
@@ -127,7 +125,7 @@ public class Main {
     path = "/signuperror"
   )
   public String getSignUpErrorForm(Map<String, Object> model){
-    User user = new User();  // creates new rectangle object with empty fname and lname
+    User user = new User();
     model.put("user", user);
     return "signuperror";
   }
@@ -162,7 +160,7 @@ public class Main {
     path = "/login"
   )
   public String getLoginForm(Map<String, Object> model) {
-    User user = new User();  // creates new rectangle object with empty fname and lname
+    User user = new User();
     model.put("user", user);
     return "login";
   }
@@ -205,7 +203,7 @@ public class Main {
     path = "/loginerror"
   )
   public String getLoginFormError(Map<String, Object> model) {
-    User user = new User();  // creates new rectangle object with empty fname and lname
+    User user = new User();
     model.put("user", user);
     return "loginerror";
   }
@@ -214,7 +212,6 @@ public class Main {
     path = "/loginerror",
     consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
   )
-  // stuff below this is temporary and wrong
   public String handleBrowserLoginErrorSubmit(Map<String, Object> model, User user) throws Exception {
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
@@ -244,7 +241,32 @@ public class Main {
       return "error";
     }
   }
-    
+
+@GetMapping(
+    path = "/accdb"
+  )
+  public String getAccountDatabase(Map<String, Object> model, User user) {
+      try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      ResultSet rs = stmt.executeQuery("SELECT * FROM accounts");
+      ArrayList<User> output = new ArrayList<User>();
+      while (rs.next()) {
+        User tempuser = new User();
+        int id = rs.getInt("id");
+        String tname = rs.getString("username");
+        String password = rs.getString("password");
+        tempuser.setUsername(tname);
+        tempuser.setPassword(password);
+        tempuser.setId(id);
+        output.add(tempuser);
+      }
+      model.put("records", output);
+      return "accdb";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+  }
 
   @RequestMapping("/db")
   String db(Map<String, Object> model) {
