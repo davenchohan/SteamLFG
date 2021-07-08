@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
@@ -12,9 +12,9 @@
     <div class="login">
     <form action="#" method="post" th:action="@{/login}" th:object="${user}">
         <label for="name">Username: </label>
-        <input type="text" id="name" input required="" th:field=*{username} placeholder="username"> <br>
+        <input type="text" maxlength = "20" id="name" input required="" th:field=*{username} placeholder="username"> <br>
         <label for="name">Password: </label>
-        <input type="password" id="password" input required="" th:field=*{password} placeholder="password"> <br>
+        <input type="password" maxlength = "20" id="password" input required="" th:field=*{password} placeholder="password"> <br>
         <input type="submit" id="submit" value="Submit">
     </form>
     </div>
