@@ -192,6 +192,8 @@ nav a:hover {
     display: block;
     margin-bottom: 1em;
     margin-left: 1em;
+    margin-top: 1em;
+    float: right;
 }
 
 .account:hover
@@ -219,4 +221,9 @@ nav a:hover {
 {
     display: block;
     padding: 50px 50px;
+}
+
+.dropbtn >svg
+{
+   pointer-events: none;
 }
