@@ -24,9 +24,10 @@
     <div class="drop">
         <a class="account" onclick="drop()"><i class="fas fa-user fa-2x"></i></a>
         <script>
+            var dropp=document.getElementById('drops');
 
-            function drop(){
-                document.getElementById('drops').classList.toggle("show");
+            dropp.onclick =function (){
+                dropp.className= 'show';
             }
         </script>
 
