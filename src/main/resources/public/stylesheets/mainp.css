@@ -220,7 +220,6 @@ nav a:hover {
 {
     position: relative;
     display: block;
-    margin-top: 1em;
     float: right;
     cursor: pointer;
     border: none;
