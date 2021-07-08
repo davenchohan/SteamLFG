@@ -26,6 +26,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.swing.JOptionPane;
+
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.MediaType;
 import static javax.swing.JOptionPane.showMessageDialog;
@@ -157,6 +159,8 @@ public class Main {
             }
         }
         System.out.println("username not exist :(");
+        String string = "Password Wrong";
+        JOptionPane.showMessageDialog(null, string);
       }
       return "login";
     } catch (Exception e) {
