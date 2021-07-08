@@ -1,0 +1,20 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/add.css">
+    <title>Sign up Form</title>
+</head>
+<body>
+    <h1>Registration</h1>
+    <form action="#" method="post" th:action="@{/signup}" th:object="${user}">
+        <label for="name">Username: </label>
+        <input type="text" id="name" input required="" th:field=*{username} placeholder="username"> <br>
+        <label for="name">Password: </label>
+        <input type="text" id="password" input required="" th:field=*{password} placeholder="password"> <br>
+        <input type="submit" id="submit" value="Submit">
+    </form>
+</body>
+</html>
