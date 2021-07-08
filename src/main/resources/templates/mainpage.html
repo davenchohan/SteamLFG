@@ -21,6 +21,15 @@
     <label for="nav-toggle" class="nav-toggle-label">
         <span></span>
     </label>
+
+    <div>
+        <form th:action="@{/signup}">
+            <button id=add type="submit">Sign Up</button>
+        </form>
+        <form th:action="@{/login}">
+            <button id=add type="submit">Login</button>
+        </form>
+    </div>
 </header>
 
 <div class="content">
