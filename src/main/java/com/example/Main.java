@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.MediaType;
-
+import static javax.swing.JOptionPane.showMessageDialog;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -64,9 +64,7 @@ public class Main {
     model.put("user", user);
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
-      System.out.println("1");
       stmt.executeUpdate("CREATE TABLE IF NOT EXISTS accounts (id serial, username varchar(20), password varchar(20))");
-      System.out.println("2");
       ResultSet rs = stmt.executeQuery("SELECT * FROM accounts");
       ArrayList<User> output = new ArrayList<User>();
       while (rs.next()) {
@@ -105,9 +103,17 @@ public class Main {
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
       stmt.executeUpdate("CREATE TABLE IF NOT EXISTS accounts (id serial, username varchar(20), password varchar(20))");
+      ResultSet rs = stmt.executeQuery("SELECT * FROM accounts");
+      while(rs.next()){
+        String tname = rs.getString("username");
+        if(user.getUsername().equals(tname)){
+        System.out.println("they the same");
+        //TODO: HOW TO MAKE THIS POP UP IN HTML? 
+        return "redirect:/signup";
+        }
+      }
       String sql = "INSERT INTO accounts (username,password) VALUES ('" + user.getUsername() + "','" + user.getPassword() + "')";
       stmt.executeUpdate(sql);
-      System.out.println(user.getUsername() + " " + user.getPassword()); 
       return "redirect:/home";
     } catch (Exception e) {
       model.put("message", e.getMessage());
@@ -132,10 +138,24 @@ public class Main {
   public String handleBrowserLoginSubmit(Map<String, Object> model, User user) throws Exception {
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
-      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS accounts (id serial, username varchar(20), password varchar(20))");
-      String sql = "INSERT INTO accounts (username,password) VALUES ('" + user.getUsername() + "','" + user.getPassword() + "')";
-      stmt.executeUpdate(sql);
-      System.out.println(user.getUsername() + " " + user.getPassword()); 
+      ResultSet rs = stmt.executeQuery("SELECT * FROM accounts");
+      ArrayList<User> output = new ArrayList<User>();
+      while (rs.next()) {
+        User tuser = new User();
+        String tname = rs.getString("username");
+        String tpassword = rs.getString("password");
+        int id = rs.getInt("id");
+        if(user.getUsername().equals(tname)){
+            if(user.getPassword().equals(tpassword)) {
+            //maybe put a user.IsLoggedIn() as a boolean?
+            //HOW TF WE GET THIS ON THE HTML?
+            System.out.println("LOGGED IN AS " + user.getUsername());
+            }else{
+                System.out.println("PASSWORD WRONG");
+            }
+        }
+        System.out.println("username not exist :(");
+      }
       return "redirect:/home";
     } catch (Exception e) {
       model.put("message", e.getMessage());
