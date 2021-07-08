@@ -21,26 +21,28 @@
     <label for="nav-toggle" class="nav-toggle-label">
         <span></span>
     </label>
-
     <div class="drop">
         <button class="dropbtn" onclick="drop()"><i class="fas fa-user fa-3x"></i></button>
         <script>
             function drop() {
                 document.getElementById("drops").classList.toggle("show");
+                document.getElementById("heads").classList.toggle("show");
             }
+
         </script>
-
-        <div id="drops" class="drop-content">
-            <form th:action="@{/signup}">
-                <button id="submit" type="submit"><i class="fas fa-user-plus fa-2x"></i>Sign Up</button>
-            </form>
-            <form th:action="@{/login}">
-                <button id="login" type="submit"><i class="fas fa-sign-in-alt fa-2x"></i>Login</button>
-            </form>
-        </div>
     </div>
-
 </header>
+<div id="heads" class="head2">
+
+    <div id="drops" class="drop-content">
+        <form th:action="@{/signup}">
+            <button id="submit" type="submit"><i class="fas fa-user-plus fa-2x"></i>  Sign Up</button>
+        </form>
+        <form th:action="@{/login}">
+            <button id="login" type="submit"><i class="fas fa-sign-in-alt fa-2x"></i>  Login</button>
+        </form>
+    </div>
+</div>
 
 <div class="content">
     <h2>Content</h2>
