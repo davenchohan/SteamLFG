@@ -114,7 +114,7 @@ public class Main {
       }
       String sql = "INSERT INTO accounts (username,password) VALUES ('" + user.getUsername() + "','" + user.getPassword() + "')";
       stmt.executeUpdate(sql);
-      return "redirect:/home";
+      return "redirect:/mainpage";
     } catch (Exception e) {
       model.put("message", e.getMessage());
       return "error";
