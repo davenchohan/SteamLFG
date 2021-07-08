@@ -26,6 +26,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.swing.JOptionPane;
+
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.MediaType;
 import static javax.swing.JOptionPane.showMessageDialog;
@@ -109,7 +111,42 @@ public class Main {
         if(user.getUsername().equals(tname)){
         System.out.println("they the same");
         //TODO: HOW TO MAKE THIS POP UP IN HTML? 
-        return "signup";
+        return "signuperror";
+        }
+      }
+      String sql = "INSERT INTO accounts (username,password) VALUES ('" + user.getUsername() + "','" + user.getPassword() + "')";
+      stmt.executeUpdate(sql);
+      return "mainpage";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+  }
+
+  @GetMapping(
+    path = "/signuperror"
+  )
+  public String getSignUpErrorForm(Map<String, Object> model){
+    User user = new User();  // creates new rectangle object with empty fname and lname
+    model.put("user", user);
+    return "signuperror";
+  }
+
+  @PostMapping(
+    path = "/signuperror",
+    consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
+  )
+  public String handleBrowserSignupErrorSubmit(Map<String, Object> model, User user) throws Exception {
+    try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS accounts (id serial, username varchar(20), password varchar(20))");
+      ResultSet rs = stmt.executeQuery("SELECT * FROM accounts");
+      while(rs.next()){
+        String tname = rs.getString("username");
+        if(user.getUsername().equals(tname)){
+        System.out.println("they the same");
+        //TODO: HOW TO MAKE THIS POP UP IN HTML? 
+        return "signuperror";
         }
       }
       String sql = "INSERT INTO accounts (username,password) VALUES ('" + user.getUsername() + "','" + user.getPassword() + "')";
@@ -134,7 +171,6 @@ public class Main {
     path = "/login",
     consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
   )
-  // stuff below this is temporary and wrong
   public String handleBrowserLoginSubmit(Map<String, Object> model, User user) throws Exception {
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
@@ -153,12 +189,56 @@ public class Main {
             return "mainpage";
             }else{
                 System.out.println("PASSWORD WRONG");
-                return "login";
+                return "loginerror";
             }
         }
         System.out.println("username not exist :(");
       }
-      return "login";
+      return "loginerror";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+  }
+
+  @GetMapping(
+    path = "/loginerror"
+  )
+  public String getLoginFormError(Map<String, Object> model) {
+    User user = new User();  // creates new rectangle object with empty fname and lname
+    model.put("user", user);
+    return "loginerror";
+  }
+
+  @PostMapping(
+    path = "/loginerror",
+    consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
+  )
+  // stuff below this is temporary and wrong
+  public String handleBrowserLoginErrorSubmit(Map<String, Object> model, User user) throws Exception {
+    try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      ResultSet rs = stmt.executeQuery("SELECT * FROM accounts");
+      ArrayList<User> output = new ArrayList<User>();
+      while (rs.next()) {
+        User tuser = new User();
+        String tname = rs.getString("username");
+        String tpassword = rs.getString("password");
+        int id = rs.getInt("id");
+        if(user.getUsername().equals(tname)){
+            if(user.getPassword().equals(tpassword)) {
+            //maybe put a user.IsLoggedIn() as a boolean?
+            //HOW TF WE GET THIS ON THE HTML?
+            System.out.println("LOGGED IN AS " + user.getUsername());
+            return "mainpage";
+            }else{
+                System.out.println("PASSWORD WRONG");
+                return "loginerror";
+            }
+        }
+        System.out.println("username not exist :(");
+      }
+      return "loginerror";
     } catch (Exception e) {
       model.put("message", e.getMessage());
       return "error";
