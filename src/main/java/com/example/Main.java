@@ -98,7 +98,7 @@ public class Main {
   @PostMapping(
     path = "/signup",
     consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
-  )
+  )//ADD CONFIRM PASSWORD AND MAYBE EMAIL? SEQURITY QUESTIONS? ENCRYPT PASSWORD? REGION? SEX? AGE? ETC>...>>>
   public String handleBrowserSignupSubmit(Map<String, Object> model, User user) throws Exception {
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
@@ -108,7 +108,6 @@ public class Main {
         String tname = rs.getString("username");
         if(user.getUsername().equals(tname)){
         System.out.println("they the same");
-        //TODO: HOW TO MAKE THIS POP UP IN HTML? 
         return "signuperror";
         }
       }
