@@ -197,7 +197,8 @@ nav a:hover {
     display: none;
     position: absolute;
     z-index: 1200;
-    min-width: 400px;
+    min-height: 1000px;
+    min-width: 1000px;
     background-image: linear-gradient(to right,blue,purple);
     overflow: auto;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
@@ -225,6 +226,8 @@ nav a:hover {
     border: none;
     outline: none;
     background-color: transparent;
+    padding-top: 1em;
+    padding-bottom: 1em;
 }
 
 .show
