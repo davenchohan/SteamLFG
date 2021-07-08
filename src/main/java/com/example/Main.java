@@ -150,13 +150,14 @@ public class Main {
             //maybe put a user.IsLoggedIn() as a boolean?
             //HOW TF WE GET THIS ON THE HTML?
             System.out.println("LOGGED IN AS " + user.getUsername());
+            return "mainpage";
             }else{
                 System.out.println("PASSWORD WRONG");
+                return "signup";
             }
         }
         System.out.println("username not exist :(");
       }
-      return "mainpage";
     } catch (Exception e) {
       model.put("message", e.getMessage());
       return "error";
