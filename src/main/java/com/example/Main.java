@@ -59,10 +59,33 @@ public class Main {
   @GetMapping(
     path = "/signup"
   )
-  public String getSignupForm(Map<String, Object> model){
-    User user = new User();  // creates new rectangle object with empty fname and lname
+public String getUserForm(Map<String, Object> model){
+    User user = new User();  
     model.put("user", user);
-    return "signup";
+    try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      System.out.println("1");
+      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS accounts (id serial, username varchar(20), password varchar(20))");
+      System.out.println("2");
+      ResultSet rs = stmt.executeQuery("SELECT * FROM accounts");
+      ArrayList<User> output = new ArrayList<User>();
+      while (rs.next()) {
+        User tuser = new User();
+        String tname = rs.getString("username");
+        String color = rs.getString("password");
+        int id = rs.getInt("id");
+        tuser.setUsername(tname);
+        tuser.setPassword(color);
+        tuser.setId(id);
+        output.add(tuser);
+      }
+      
+      model.put("records", output);
+     return "signup";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
   }
 
   @PostMapping(
@@ -70,19 +93,19 @@ public class Main {
     consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
   )
   public String handleBrowserSignupSubmit(Map<String, Object> model, User user) throws Exception {
-    // Save the rectangle data into the database
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
-      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS user (id serial, name varchar(20), password varchar(20))");
-      String sql = "INSERT INTO user (name,password) VALUES ('" + user.getUsername() + "','" + user.getPassword() + "')";
+      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS accounts (id serial, username varchar(20), password varchar(20))");
+      String sql = "INSERT INTO accounts (username,password) VALUES ('" + user.getUsername() + "','" + user.getPassword() + "')";
       stmt.executeUpdate(sql);
-      System.out.println(user.getUsername() + " " + user.getPassword());
-      return "home";
+      System.out.println(user.getUsername() + " " + user.getPassword()); 
+      return "redirect:/signup";
     } catch (Exception e) {
       model.put("message", e.getMessage());
       return "error";
     }
   }
+    
 
   @RequestMapping("/db")
   String db(Map<String, Object> model) {
