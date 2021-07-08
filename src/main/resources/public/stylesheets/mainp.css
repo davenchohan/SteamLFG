@@ -194,6 +194,7 @@ nav a:hover {
     margin-left: 1em;
     margin-top: 1em;
     float: right;
+    cursor: pointer;
 }
 
 .account:hover
@@ -211,19 +212,23 @@ nav a:hover {
 {
     display: none;
     position: absolute;
-    z-index: 1;
+    z-index: 1200;
     min-width: 200px;
     background-image: linear-gradient(to right,blue,purple);
     overflow: auto;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
 
 .drop-content a
 {
     display: block;
-    padding: 50px 50px;
+    padding: 12px 16px;
+    color: black;
 }
 
-.dropbtn >svg
+.dropbtn
 {
-   pointer-events: none;
+    font-size: 10px;
+    border: none;
+    cursor: pointer;
 }
