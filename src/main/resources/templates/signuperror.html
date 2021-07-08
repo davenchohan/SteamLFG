@@ -5,15 +5,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/stylesheets/main.css">
-    <title>Login</title>
+    <title>Sign up Form</title>
 </head>
 <body>
-    <form action="#" method="post" th:action="@{/login}" th:object="${user}">
+    <h1>Registration Page</h1>
+    <div class="login">
+    <form id="login" action="#" method="post" th:action="@{/signuperror}" th:object="${user}">
         <label for="name">Username: </label>
         <input type="text" id="name" input required="" th:field=*{username} placeholder="username"> <br>
         <label for="name">Password: </label>
         <input type="password" id="password" input required="" th:field=*{password} placeholder="password"> <br>
         <input type="submit" id="submit" value="Submit">
     </form>
+</div>
+<p id="error">Username is already taken. Try again.</p>
 </body>
 </html>

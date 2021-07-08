@@ -124,6 +124,41 @@ public class Main {
   }
 
   @GetMapping(
+    path = "/signuperror"
+  )
+  public String getSignUpErrorForm(Map<String, Object> model){
+    User user = new User();  // creates new rectangle object with empty fname and lname
+    model.put("user", user);
+    return "signuperror";
+  }
+
+  @PostMapping(
+    path = "/signuperror",
+    consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
+  )
+  public String handleBrowserSignupErrorSubmit(Map<String, Object> model, User user) throws Exception {
+    try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS accounts (id serial, username varchar(20), password varchar(20))");
+      ResultSet rs = stmt.executeQuery("SELECT * FROM accounts");
+      while(rs.next()){
+        String tname = rs.getString("username");
+        if(user.getUsername().equals(tname)){
+        System.out.println("they the same");
+        //TODO: HOW TO MAKE THIS POP UP IN HTML? 
+        return "signuperror";
+        }
+      }
+      String sql = "INSERT INTO accounts (username,password) VALUES ('" + user.getUsername() + "','" + user.getPassword() + "')";
+      stmt.executeUpdate(sql);
+      return "mainpage";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+  }
+
+  @GetMapping(
     path = "/login"
   )
   public String getLoginForm(Map<String, Object> model) {
