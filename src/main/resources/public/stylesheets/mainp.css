@@ -195,7 +195,8 @@ nav a:hover {
     line-height: 60px;
     text-align: center;
     float: right;
-
+    margin-bottom: 1em;
+    margin-left: 1em;
 }
 
 .account:hover
@@ -214,7 +215,7 @@ nav a:hover {
     display: none;
     position: absolute;
     z-index: 1;
-    min-width: 100%;
+    min-width: 200px;
     background-image: linear-gradient(to right,blue,purple);
     overflow: auto;
 }
