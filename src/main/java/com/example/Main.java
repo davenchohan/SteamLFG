@@ -99,7 +99,7 @@ public String getUserForm(Map<String, Object> model){
       String sql = "INSERT INTO accounts (username,password) VALUES ('" + user.getUsername() + "','" + user.getPassword() + "')";
       stmt.executeUpdate(sql);
       System.out.println(user.getUsername() + " " + user.getPassword()); 
-      return "redirect:/signup";
+      return "redirect:/home";
     } catch (Exception e) {
       model.put("message", e.getMessage());
       return "error";
