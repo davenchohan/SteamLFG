@@ -66,8 +66,7 @@ public class Main {
     model.put("user", user);
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
-      stmt.executeUpdate("DROP TABLE accounts");
-      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS accounts (id serial, username varchar(20), password varchar(20), age varchar(20), sex varchar(20), region varchar(20), bio varchar(150), pfp varchar(30), group varchar(20)");
+      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS accounts (id serial, username varchar(20), password varchar(20), age varchar(20), sex varchar(20), region varchar(20), bio varchar(150), pfp varchar(30), groups varchar(20))");
       ResultSet rs = stmt.executeQuery("SELECT * FROM accounts");
       ArrayList<User> output = new ArrayList<User>();
       while (rs.next()) {
@@ -105,7 +104,7 @@ public class Main {
   public String handleBrowserSignupSubmit(Map<String, Object> model, User user) throws Exception {
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
-      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS accounts (id serial, username varchar(20), password varchar(20), age varchar(20), sex varchar(20), region varchar(20), bio varchar(150), pfp varchar(30), group varchar(20)");
+      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS accounts (id serial, username varchar(20), password varchar(20), age varchar(20), sex varchar(20), region varchar(20), bio varchar(150), pfp varchar(30), groups varchar(20))");
       ResultSet rs = stmt.executeQuery("SELECT * FROM accounts");
       while(rs.next()){
         String tname = rs.getString("username");
@@ -140,7 +139,7 @@ public class Main {
   public String handleBrowserSignupErrorSubmit(Map<String, Object> model, User user) throws Exception {
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
-      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS accounts (id serial, username varchar(20), password varchar(20), age varchar(20), sex varchar(20), region varchar(20), bio varchar(150), pfp varchar(30), group varchar(20)");
+      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS accounts (id serial, username varchar(20), password varchar(20), age varchar(20), sex varchar(20), region varchar(20), bio varchar(150), pfp varchar(30), groups varchar(20))");
       ResultSet rs = stmt.executeQuery("SELECT * FROM accounts");
       while(rs.next()){
         String tname = rs.getString("username");
