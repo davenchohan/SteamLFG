@@ -41,6 +41,7 @@ import java.util.Map;
 
 @Controller
 @SpringBootApplication
+@SessionAttributes("loggeduser") //CREATING THE VARIABLE FOR THE SESSION
 public class Main {
 
   @Value("${spring.datasource.url}")
@@ -49,9 +50,63 @@ public class Main {
   @Autowired
   private DataSource dataSource;
 
+
+   @ModelAttribute("loggeduser") //loggeduser IS THE User OBJECT THAT IS PER SESSION SO THIS CAN CARRY THE LGGED IN USERDATA MAYBE ????
+   public User setUpUserForm() {
+      return new User();
+   }
+
+   @PostMapping("/login")
+   public String doLogin(@ModelAttribute("loggeduser") User loggeduser, Map<String, Object> model, User user) { //THE (@ModelAttribute("loggeduser") ... PARAM CARRIES SESSION DATA INTO THE PAGE SO WE CAN FIND THE USER STUFF IT WORKS!!!
+    try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      ResultSet rs = stmt.executeQuery("SELECT * FROM accounts");
+      ArrayList<User> output = new ArrayList<User>();
+      while (rs.next()) {
+        User tuser = new User();
+        String tname = rs.getString("username");
+        String tpassword = rs.getString("password");
+        int id = rs.getInt("id");
+        int age = rs.getInt("age");
+        String sex = rs.getString("sex");
+        String region = rs.getString("region");
+        String bio = rs.getString("bio");
+        String pfp = rs.getString("pfp");
+        String groups = rs.getString("groups");
+        if(user.getUsername().equals(tname)){
+            if(user.getPassword().equals(tpassword)) {
+            System.out.println("LOGGED IN AS1 " + user.getUsername());
+            loggeduser.setId(id);
+            loggeduser.setUsername(tname);
+            loggeduser.setPassword(tpassword);
+            loggeduser.setId(id);
+            loggeduser.setAge(age);
+            loggeduser.setSex(sex);
+            loggeduser.setRegion(region);
+            loggeduser.setBio(bio);
+            loggeduser.setPfp(pfp);
+            loggeduser.setGroups(groups);
+            return "mainpage";
+            }else{
+                System.out.println("PASSWORD WRONG");
+                return "loginerror";
+            }
+        }
+        System.out.println("username not exist :(");
+      }
+      return "loginerror";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+}
+
+
+
   public static void main(String[] args) throws Exception {
     SpringApplication.run(Main.class, args);
   }
+
 
   @RequestMapping("/")
   String index() {
@@ -61,12 +116,13 @@ public class Main {
   @GetMapping(
     path = "/mainpage"
   )
-  public String getUserForm(Map<String, Object> model){
+  public String getUserForm(@ModelAttribute("loggeduser") User loggeduser, Map<String, Object> model){
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
       stmt.executeUpdate("CREATE TABLE IF NOT EXISTS accounts (id serial, username varchar(20), password varchar(20), age integer, sex varchar(20), region varchar(20), bio varchar(150), pfp varchar(30), groups varchar(20))");
       ResultSet rs = stmt.executeQuery("SELECT * FROM accounts");
       ArrayList<User> output = new ArrayList<User>();
+      System.out.println(loggeduser.getId());
       while (rs.next()) {
         User tuser = new User();
         String tname = rs.getString("username");
@@ -164,6 +220,7 @@ public class Main {
     return "login";
   }
 
+  /*
   @PostMapping(
     path = "/login",
     consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
@@ -197,7 +254,7 @@ public class Main {
       return "error";
     }
   }
-
+  */
   @GetMapping(
     path = "/loginerror"
   )
@@ -273,6 +330,22 @@ public class Main {
       }
       model.put("records", output);
       return "accdb";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+  }
+
+@GetMapping(
+    path = "/logincheck"
+  )
+  public String getAccountDatabase(@ModelAttribute("loggeduser") User loggeduser, Map<String, Object> model, User user) {
+      try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      ArrayList<User> output = new ArrayList<User>();
+      output.add(loggeduser);
+      model.put("records", output);
+      return "logincheck";
     } catch (Exception e) {
       model.put("message", e.getMessage());
       return "error";
