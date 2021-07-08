@@ -111,7 +111,7 @@ public class Main {
         if(user.getUsername().equals(tname)){
         System.out.println("they the same");
         //TODO: HOW TO MAKE THIS POP UP IN HTML? 
-        return "signup";
+        return "signuperror";
         }
       }
       String sql = "INSERT INTO accounts (username,password) VALUES ('" + user.getUsername() + "','" + user.getPassword() + "')";
