@@ -190,11 +190,6 @@ nav a:hover {
 {
     position: relative;
     display: block;
-    min-width: 60px;
-    height: 60px;
-    line-height: 60px;
-    text-align: center;
-    float: right;
     margin-bottom: 1em;
     margin-left: 1em;
 }
