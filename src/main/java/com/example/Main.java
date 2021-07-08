@@ -57,9 +57,9 @@ public class Main {
   }
 
   @GetMapping(
-    path = "/signup"
+    path = "/home"
   )
-public String getUserForm(Map<String, Object> model){
+  public String getUserForm(Map<String, Object> model){
     User user = new User();  
     model.put("user", user);
     try (Connection connection = dataSource.getConnection()) {
@@ -72,20 +72,29 @@ public String getUserForm(Map<String, Object> model){
       while (rs.next()) {
         User tuser = new User();
         String tname = rs.getString("username");
-        String color = rs.getString("password");
+        String tpassword = rs.getString("password");
         int id = rs.getInt("id");
         tuser.setUsername(tname);
-        tuser.setPassword(color);
+        tuser.setPassword(tpassword);
         tuser.setId(id);
         output.add(tuser);
       }
       
       model.put("records", output);
-     return "signup";
+      return "redirect:/";
     } catch (Exception e) {
       model.put("message", e.getMessage());
       return "error";
     }
+  }
+
+  @GetMapping(
+    path = "/signup"
+  )
+  public String getSignUpForm(Map<String, Object> model){
+    User user = new User();  // creates new rectangle object with empty fname and lname
+    model.put("user", user);
+    return "signup";
   }
 
   @PostMapping(
@@ -93,6 +102,34 @@ public String getUserForm(Map<String, Object> model){
     consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
   )
   public String handleBrowserSignupSubmit(Map<String, Object> model, User user) throws Exception {
+    try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS accounts (id serial, username varchar(20), password varchar(20))");
+      String sql = "INSERT INTO accounts (username,password) VALUES ('" + user.getUsername() + "','" + user.getPassword() + "')";
+      stmt.executeUpdate(sql);
+      System.out.println(user.getUsername() + " " + user.getPassword()); 
+      return "redirect:/home";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+  }
+
+  @GetMapping(
+    path = "/login"
+  )
+  public String getLoginForm(Map<String, Object> model) {
+    User user = new User();  // creates new rectangle object with empty fname and lname
+    model.put("user", user);
+    return "login";
+  }
+
+  @PostMapping(
+    path = "/login",
+    consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
+  )
+  // stuff below this is temporary and wrong
+  public String handleBrowserLoginSubmit(Map<String, Object> model, User user) throws Exception {
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
       stmt.executeUpdate("CREATE TABLE IF NOT EXISTS accounts (id serial, username varchar(20), password varchar(20))");
