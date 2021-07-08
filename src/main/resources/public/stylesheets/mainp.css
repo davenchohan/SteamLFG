@@ -24,7 +24,7 @@ body {
 /* navigation styles start here */
 
 header {
-    background-image: linear-gradient(to right,purple,blue);
+    background-image: linear-gradient(to right,blue,purple);
     text-align: center;
     position: fixed;
     z-index: 999;
@@ -81,7 +81,7 @@ nav {
     text-align: left;
     top: 100%;
     left: 0;
-    background-image: linear-gradient(to right,purple,blue);
+    background-image: linear-gradient(to right,blue,purple);
     width: 100%;
     transform: scale(1, 0);
     transform-origin: top;
@@ -131,7 +131,7 @@ nav a:hover {
         grid-template-columns: 1fr auto minmax(600px, 3fr) 1fr;
     }
 
-    .logo {
+    .title {
         grid-column: 2 / 3;
     }
 
@@ -184,3 +184,43 @@ nav a:hover {
     }
 }
 
+/*//////////////////////dropdown for account below*/
+
+.account
+{
+    position: relative;
+    display: block;
+    min-width: 60px;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    float: right;
+
+}
+
+.account:hover
+{
+    color: red;
+}
+
+.drop
+{
+   position: relative;
+    display: inline-block;
+}
+
+.drop-content
+{
+    display: none;
+    position: absolute;
+    z-index: 1;
+    min-width: 100%;
+    background-image: linear-gradient(to right,blue,purple);
+    overflow: auto;
+}
+
+.drop-content a
+{
+    display: block;
+    padding: 50px 50px;
+}

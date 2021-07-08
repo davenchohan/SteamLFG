@@ -4,31 +4,40 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rectangle</title>
+    <title>SteamLFG</title>
     <script src="https://kit.fontawesome.com/9c0e4b65c1.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="/stylesheets/mainp.css">
 </head>
-<header>
-    <h1 class="logo">Logo</h1>
+<header class="onav">
+    <h1 class="title">SteamLFG</h1>
     <input type="checkbox" id="nav-toggle" class="nav-toggle">
     <nav>
         <ul>
             <li><a href="#"><i class="fas fa-home"></i>Home</a></li>
             <li><a href="#"><i class="fas fa-info"></i>About</a></li>
-            <li id="user"><a href="#" ><i class="fas fa-user"></i>User Profile</a></li>
         </ul>
     </nav>
     <label for="nav-toggle" class="nav-toggle-label">
         <span></span>
     </label>
 
-    <div>
-        <form th:action="@{/signup}">
+    <div class="drop">
+        <a class="account" onclick="drop()"><i class="fas fa-user"></i></a>
+        <script>
+            function drop(){
+                document.getElementById("drops").classList.toggle("show");
+            }
+        </script>
+
+        <div id="drops" class="drop-content">
+            <form th:action="@{/signup}">
             <button id=add type="submit">Sign Up</button>
         </form>
-        <form th:action="@{/login}">
-            <button id=add type="submit">Login</button>
-        </form>
+            <form th:action="@{/login}">
+                <button id=add type="submit">Login</button>
+            </form>
+        </div>
+
     </div>
 </header>
 
@@ -36,6 +45,5 @@
     <h2>Content</h2>
 </div>
 
-</header>
 
 </html>
