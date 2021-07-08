@@ -197,17 +197,18 @@ nav a:hover {
     display: none;
     position: absolute;
     z-index: 1200;
-    min-height: 100%;
-    min-width: 100%;
+    min-height: 400px;
+    min-width: 400px;
     background-image: linear-gradient(to right,blue,purple);
     overflow: auto;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    margin-top: 100%;
 }
 
 .drop-content a
 {
     display: block;
-    padding: 12px 16px;
+    padding: 20px 20px;
     color: black;
 }
 
@@ -241,8 +242,6 @@ nav a:hover {
     padding: 20px 20px;
     background-color: red;
     font-size: 20px;
-    width: 50px;
-    height: 50px;
 }
 
 #login
@@ -250,6 +249,5 @@ nav a:hover {
     padding: 20px 20px;
     background-color: red;
     font-size: 20px;
-    width: 50px;
-    height: 50px;
+
 }
