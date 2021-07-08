@@ -1,32 +1,47 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rectangle</title>
+    <title>SteamLFG</title>
     <script src="https://kit.fontawesome.com/9c0e4b65c1.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="/stylesheets/mainp.css">
 </head>
 <header>
-    <h1 class="logo">Logo</h1>
+    <h1 class="title">SteamLFG</h1>
     <input type="checkbox" id="nav-toggle" class="nav-toggle">
     <nav>
         <ul>
             <li><a href="#"><i class="fas fa-home"></i>Home</a></li>
             <li><a href="#"><i class="fas fa-info"></i>About</a></li>
-            <li id="user"><a href="#" ><i class="fas fa-user"></i>User Profile</a></li>
         </ul>
+
     </nav>
     <label for="nav-toggle" class="nav-toggle-label">
         <span></span>
     </label>
+
+
+    <input type="checkbox" id="dropbtn" class="dropbtn">
+    <div id="heads" class="head2">
+            <form th:action="@{/signup}">
+                <button id="submit" type="submit"><i class="fas fa-user-plus fa-2x"></i>  Sign Up</button>
+            </form>
+            <form th:action="@{/login}">
+                <button id="login" type="submit"><i class="fas fa-sign-in-alt fa-2x"></i>  Login</button>
+            </form>
+    </div>
+
+    <label for="dropbtn" class="droplabel">
+        <span><i id="icon" class="fas fa-user fa-2x"> </i> </span>
+    </label>
 </header>
+
 
 <div class="content">
     <h2>Content</h2>
 </div>
 
-</header>
 
 </html>

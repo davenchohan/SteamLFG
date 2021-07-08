@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,13 +10,14 @@
 <body>
     <h1>Registration Page</h1>
     <div class="login">
-    <form id="login" action="#" method="post" th:action="@{/signup}" th:object="${user}">
+    <form id="login" action="#" method="post" th:action="@{/signuperror}" th:object="${user}">
         <label for="name">Username: </label>
-        <input type="text" maxlength = "20" id="name" input required="" th:field=*{username} placeholder="username"> <br>
+        <input type="text" id="name" input required="" th:field=*{username} placeholder="username"> <br>
         <label for="name">Password: </label>
-        <input type="password" maxlength = "20" id="password" input required="" th:field=*{password} placeholder="password"> <br>
+        <input type="password" id="password" input required="" th:field=*{password} placeholder="password"> <br>
         <input type="submit" id="submit" value="Submit">
     </form>
 </div>
+<p id="error">Username is already taken. Try again.</p>
 </body>
 </html>
