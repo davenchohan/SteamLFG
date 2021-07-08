@@ -17,7 +17,7 @@ body {
 
 .content {
     height: 200vh;
-    background-image: url(//unsplash.it/250/300);
+    background-image: url(https://source.unsplash.com/collection/87542052/1000x1000);
     background-color: #333;
     background-blend-mode: multiply;
     background-size: cover;
