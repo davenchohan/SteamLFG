@@ -169,7 +169,7 @@ public class Main {
   @GetMapping(
     path = "/loginerror"
   )
-  public String getLoginForm(Map<String, Object> model) {
+  public String getLoginFormError(Map<String, Object> model) {
     User user = new User();  // creates new rectangle object with empty fname and lname
     model.put("user", user);
     return "loginerror";
@@ -180,7 +180,7 @@ public class Main {
     consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
   )
   // stuff below this is temporary and wrong
-  public String handleBrowserLoginSubmit(Map<String, Object> model, User user) throws Exception {
+  public String handleBrowserLoginErrorSubmit(Map<String, Object> model, User user) throws Exception {
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
       ResultSet rs = stmt.executeQuery("SELECT * FROM accounts");
