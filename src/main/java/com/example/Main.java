@@ -109,12 +109,12 @@ public class Main {
         if(user.getUsername().equals(tname)){
         System.out.println("they the same");
         //TODO: HOW TO MAKE THIS POP UP IN HTML? 
-        return "mainpage";
+        return "signup";
         }
       }
       String sql = "INSERT INTO accounts (username,password) VALUES ('" + user.getUsername() + "','" + user.getPassword() + "')";
       stmt.executeUpdate(sql);
-      return "redirect:/mainpage";
+      return "mainpage";
     } catch (Exception e) {
       model.put("message", e.getMessage());
       return "error";
