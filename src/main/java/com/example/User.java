@@ -3,7 +3,7 @@ package com.example;
 public class User {
     private String username;
     private String password;
-    private String id;
+    private int id;
 
     public String getUsername() {
         return this.username;
@@ -13,7 +13,7 @@ public class User {
         return this.password;
     }
 
-    public String getId(){
+    public int getId(){
         return this.id;
     }
 
@@ -25,7 +25,7 @@ public class User {
         this.password = p;
     }
 
-    public void setId(String i){
+    public void setId(int i){
         this.id = i;
     }
 
