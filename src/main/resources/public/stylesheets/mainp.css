@@ -197,8 +197,8 @@ nav a:hover {
     display: none;
     position: absolute;
     z-index: 1200;
-    min-height: 1000px;
-    min-width: 1000px;
+    min-height: 200px;
+    min-width: 200px;
     background-image: linear-gradient(to right,blue,purple);
     overflow: auto;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
@@ -233,4 +233,22 @@ nav a:hover {
 .show
 {
     display: block;
+}
+
+#submit
+{
+    padding: 20px 20px;
+    background-color: red;
+    font-size: 20px;
+    width: 50px;
+    height: 50px;
+}
+
+#login
+{
+    padding: 20px 20px;
+    background-color: red;
+    font-size: 20px;
+    width: 50px;
+    height: 50px;
 }
