@@ -159,8 +159,6 @@ public class Main {
             }
         }
         System.out.println("username not exist :(");
-        String string = "Password Wrong";
-        JOptionPane.showMessageDialog(null, string);
       }
       return "login";
     } catch (Exception e) {
