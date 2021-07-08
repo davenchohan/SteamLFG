@@ -197,7 +197,7 @@ nav a:hover {
     display: none;
     position: absolute;
     z-index: 1200;
-    min-width: 200px;
+    min-width: 400px;
     background-image: linear-gradient(to right,blue,purple);
     overflow: auto;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
@@ -220,9 +220,15 @@ nav a:hover {
 {
     position: relative;
     display: block;
-    margin-bottom: 1em;
-    margin-left: 1em;
     margin-top: 1em;
     float: right;
     cursor: pointer;
+    border: none;
+    outline: none;
+    background-color: transparent;
+}
+
+.show
+{
+    display: block;
 }
