@@ -153,9 +153,10 @@ public class Main {
             return "mainpage";
             }else{
                 System.out.println("PASSWORD WRONG");
-                return "signup";
+                return "login";
             }
         }
+        return "login";
         System.out.println("username not exist :(");
       }
     } catch (Exception e) {
