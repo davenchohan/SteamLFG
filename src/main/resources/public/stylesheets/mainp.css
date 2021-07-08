@@ -1,244 +1,194 @@
-*{
-    margin: 0;
-    padding: 0;
+@import url('https://fonts.googleapis.com/css?family=Work+Sans:300,600');
+
+:root {
+    --background: rgba(0, 214, 170, .85);
+}
+
+*, *::before, *::after {
     box-sizing: border-box;
-    font-family: "Arial", sans-serif;
 }
 
-body
-{
-    min-height: 100vh;
+body {
+    margin: 0;
+    background: #222;
+    font-family: 'Work Sans', sans-serif;
+    font-weight: 400;
 }
 
+.content {
+    height: 200vh;
+    background-image: url(//unsplash.it/1000/1000);
+    background-color: #333;
+    background-blend-mode: multiply;
+    background-size: cover;
+    display: grid;
+    place-items: center;
+}
 
-.sidebar
-{
+/* navigation styles start here */
+
+header {
+    background: var(--background);
+    text-align: center;
     position: fixed;
-    width: 60px;
-    height: 100%;
-    background-image: linear-gradient(to top, blue,purple);
-    transition: 0.5s;
-    overflow: hidden;
-    z-index: 9999;
+    z-index: 999;
+    width: 100%;
 }
 
-.sidebar:hover
-{
-    width: 300px;
-
+/* changed this from the tutorial video to
+   allow it to gain focus, making it tabbable */
+.nav-toggle {
+    position: absolute !important;
+    top: -9999px !important;
+    left: -9999px !important;
 }
-.sidebar ul{
+
+.nav-toggle:focus ~ .nav-toggle-label {
+    outline: 3px solid rgba(0,0,100, .75);
+}
+
+.nav-toggle-label {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
+    margin-left: 1em;
+    height: 100%;
+    display: flex;
+    align-items: center;
 }
 
-.sidebar ul li
-{
+.nav-toggle-label span,
+.nav-toggle-label span::before,
+.nav-toggle-label span::after {
+    display: block;
+    background: white;
+    height: 2px;
+    width: 2em;
+    border-radius: 2px;
     position: relative;
+}
+
+.nav-toggle-label span::before,
+.nav-toggle-label span::after {
+    content: '';
+    position: absolute;
+}
+
+.nav-toggle-label span::before {
+    bottom: 7px;
+}
+
+.nav-toggle-label span::after {
+    top: 7px;
+}
+
+nav {
+    position: absolute;
+    text-align: left;
+    top: 100%;
+    left: 0;
+    background: var(--background);
     width: 100%;
+    transform: scale(1, 0);
+    transform-origin: top;
+    transition: transform 400ms ease-in-out;
+}
+
+nav ul {
+    margin: 0;
+    padding: 0;
     list-style: none;
 }
 
-.sidebar ul li:hover
-{
-    background: #ea1d63;
+nav li {
+    margin-bottom: 1em;
+    margin-left: 1em;
 }
 
-.sidebar ul li a
-{
-    position: relative;
-    width: 100%;
-    display: flex;
-    text-decoration: none;
-    color: #fff;
-}
-
-.sidebar ul li a .icon
-{
-    position: relative;
-    display: block;
-    min-width: 60px;
-    height: 60px;
-    line-height: 60px;
-    text-align: center;
-
-}
-
-.sidebar ul li a .icon .fa
-{
-    font-size: 24px;
-}
-.sidebar ul li a .title
-{
-    position: relative;
-    display: block;
-    padding: 0 10px;
-    min-width: 60px;
-    height: 60px;
-    line-height: 60px;
-    text-align: start;
-    white-space:nowrap;
-
-}
-
-/* SIDE BAR STUFF ABOVE*/
-
-.header1
-{
-    background-color: lightgray;
-    height: 100px;
-    border-color: darkgray;
-    border-style: solid;
-    border-width: thin;
-}
-
-.main
-{
-    font-size: xxx-large;
-    margin-left: 60px;
-    padding: 40px;
-}
-
-/* Main page above*/
-
-
-
-input[type=text], input[type=number]
-{
-    width: 100%;
-    padding: 15px;
-    margin: 5px 0 22px 0;
-    display: inline-block;
-    border: none;
-    background: #f1f1f1;
-}
-
-input[type=text]:focus, input[type=number]:focus
-{
-    background-color: #ddd;
-    outline: none;
-}
-
-button
-{
-    background-color: blue;
+nav a {
     color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    cursor: pointer;
-    width: 20%;
-    opacity: 0.9;
-    transition: transform 0.25s;
-}
-
-button:hover
-{
-    opacity:1;
-    transform: translateY(-0.25rem);
-}
-
-.Crect
-{
-    float: left;
-    width: 100%;
-}
-
-
-.Rsheet
-{
-    padding: 16px;
-}
-/*animation stuff*/
-#Popup
-{
-    visibility: hidden;
+    text-decoration: none;
+    font-size: 1.2rem;
+    text-transform: uppercase;
     opacity: 0;
-    z-index: -1;
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    padding-top: 80px;
-    background-color: rgba(255,255,255,0.4);
-}
-#Popup
-{
-    transform: scale(0);
-    transition: all .5s ease-in-out;
+    transition: opacity 150ms ease-in-out;
 }
 
-#Popup.show
-{
-    visibility: visible;
+nav a:hover {
+    color: #000;
+}
+
+.nav-toggle:checked ~ nav {
+    transform: scale(1,1);
+}
+
+.nav-toggle:checked ~ nav a {
     opacity: 1;
-    z-index: 200;
-    transform: scale(1);
+    transition: opacity 250ms ease-in-out 250ms;
 }
 
-.modal-content
-{
-    background-color: #fefefe;
-    margin: 5% auto 15% auto;
-    border: 1px solid #888;
-    width: 50%;
-    box-shadow: 0 2rem 5rem 0 #00000040;
-}
+@media screen and (min-width: 800px) {
+    .nav-toggle-label {
+        display: none;
+    }
 
-hr
-{
-    border: 1px solid #f1f1f1;
-    margin-bottom: 25px;
-}
+    header {
+        display: grid;
+        grid-template-columns: 1fr auto minmax(600px, 3fr) 1fr;
+    }
 
-#close
-{
-    position: absolute;
-    right: 35px;
-    top: 15px;
-    font-size: 40px;
-    font-weight: bold;
-    color: #f1f1f1;
-}
+    .logo {
+        grid-column: 2 / 3;
+    }
 
-#close:hover,
-#close:focus
-{
-    color: #f44336;
-    cursor: pointer;
-}
+    nav {
+    // all: unset; /* this causes issues with Edge, since it's unsupported */
 
-.clearfix::after
-{
-    content: "";
-    clear: both;
-    display: table;
-}
+        /* the following lines are not from my video, but add Edge support */
+        position: relative;
+        text-align: left;
+        transition: none;
+        transform: scale(1,1);
+        background: none;
+        top: initial;
+        left: initial;
+        /* end Edge support stuff */
 
-/* ////////////////////////////////// */
+        grid-column: 3 / 4;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
 
-.table
-{
-    padding: 0 20px;
-    margin-left: 100px;
-    width: 50%;
-    border-top: 3px solid #f1f1f1;
-    border-bottom: 3px solid #f1f1f1;
-}
+    nav ul {
+        display: flex;
+    }
 
+    nav li {
+        margin-left: 3em;
+        margin-bottom: 0;
+    }
 
-#delete
-{
-    border-radius: 2rem;
-    width: 50%;
-}
+    nav a {
+        opacity: 1;
+        position: relative;
+    }
 
-#Cting
-{
-    width: 100%;
+    nav a::before {
+        content: '';
+        display: block;
+        height: 5px;
+        background: black;
+        position: absolute;
+        top: -.75em;
+        left: 0;
+        right: 0;
+        transform: scale(0, 1);
+        transition: transform ease-in-out 250ms;
+    }
+
+    nav a:hover::before {
+        transform: scale(1,1);
+    }
 }
 
