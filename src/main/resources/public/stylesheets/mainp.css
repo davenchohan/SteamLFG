@@ -1,9 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Work+Sans:300,600');
 
-:root {
-    --background: rgba(0, 120, 50, .85);
-}
-
 *, *::before, *::after {
     box-sizing: border-box;
 }
@@ -28,7 +24,7 @@ body {
 /* navigation styles start here */
 
 header {
-    background: var(--background);
+    background-image: linear-gradient(to right,purple,blue);
     text-align: center;
     position: fixed;
     z-index: 999;
