@@ -55,11 +55,11 @@ public class Main {
 
   @RequestMapping("/")
   String index() {
-    return "home";
+    return "mainpage";
   }
 
   @GetMapping(
-    path = "/home"
+    path = "/mainpage"
   )
   public String getUserForm(Map<String, Object> model){
     User user = new User();  
