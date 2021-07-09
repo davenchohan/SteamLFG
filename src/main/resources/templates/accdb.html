@@ -19,7 +19,7 @@
                     <th>USERNAME</th>
                     <th>PASSWORD</th>
                     <th>AGE</th>
-                    <th>SEX</th>
+                    <th>GENDER</th>
                     <th>REGION</th>
                     <th>BIO</th>
                     <th>PFP</th>
@@ -27,10 +27,10 @@
                 </tr>
                 <tr th:each="record : ${records}">
                     <td th:text="${record.getId()}"> </td>
-                    <td><a th:href="@{/user/read/{id}(id=${record.getId()})}" th:text="${record.getUsername()}"></a> </td>
+                    <td><a th:href="@{/user/{id}(id=${record.getId()})}" th:text="${record.getUsername()}"></a> </td>
                     <td th:text="${record.getPassword()}"> </td>
                     <td th:text="${record.getAge()}"> </td>
-                    <td th:text="${record.getSex()}"> </td>
+                    <td th:text="${record.getGender()}"> </td>
                     <td th:text="${record.getRegion()}"> </td>
                     <td th:text="${record.getBio()}"> </td>
                     <td th:text="${record.getPfp()}"> </td>

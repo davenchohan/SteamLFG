@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -23,31 +23,41 @@
                 </tr>
                 <tr>
                     <th>Password: </th>
-                    <td id="recColor" th:text="${record.getPassword()}"> </td>
+                    <td th:text="${record.getPassword()}"> </td>
                     <td><input type="text" th:field=*{password}></td>
                 </tr>
                 <tr>
                     <th>Age: </th>
-                    <td id="recWidth" th:text="${record.getAge()}"> </td>
+                    <td th:text="${record.getAge()}"> </td>
                     <td><input type="number" th:field=*{age}></td>
                 </tr>
                 <tr>
+                    <th>Gender: </th>
+                    <td th:text="${record.getGender()}"> </td>
+                    <td><input type="number" th:field=*{gender}></td>
+                </tr>
+                <tr>
                     <th>Region: </th>
-                    <td id="recHeight" th:text="${record.getRegion()}"> </td>
+                    <td th:text="${record.getRegion()}"> </td>
                     <td><input type="text" th:field=*{region}></td>
                 </tr>
                 <tr>
                     <th>Bio: </th>
-                    <td id="recHeight" th:text="${record.getBio()}"> </td>
+                    <td th:text="${record.getBio()}"> </td>
                     <td><input type="text" th:field=*{bio}></td>
                 </tr>
                 <tr>
                     <th>PFP: </th>
-                    <td id="recHeight" th:text="${record.getPfp()}"> </td>
+                    <td th:text="${record.getPfp()}"> </td>
                 </tr>
                 <tr>
                     <th>Groups: </th>
-                    <td id="recHeight" th:text="${record.getGroups()}"> </td>
+                    <td th:text="${record.getGroups()}"> </td>
+                </tr>
+                <tr>
+                    <th>Profile Type: </th>
+                    <td th:text="${record.getType()}"> </td>
+                    <td><input type="text" th:field=*{adminkey}></td>
                 </tr>
             </table>
             <button type="submit">Accept</button>
