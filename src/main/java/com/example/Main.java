@@ -431,8 +431,16 @@ public class Main {
       if(loggeduser.getId() == 0){
       return "profile";
       }
+      
+      ResultSet rs = stmt.executeQuery("SELECT * FROM accounts");
+      while(rs.next()){
+      if(rs.getString("username").equals(user.getUsername())){
+        model.put("records", loggeduser);
+        model.put("message", "Username taken");
+        return "profile";
+      }
+      }
       if(!(user.getUsername().length() == 0)){
-        System.out.println("hello");
         stmt.executeUpdate("UPDATE accounts SET username='"+user.getUsername()+"' WHERE id="+loggeduser.getId());
       }
       if(!(user.getPassword().length() == 0)){
