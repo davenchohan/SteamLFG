@@ -7,8 +7,10 @@
     <title>SteamLFG</title>
     <script src="https://kit.fontawesome.com/9c0e4b65c1.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="/stylesheets/mainp.css">
+    <link rel="shortcut icon" type="image/png" href=".\favicon.ico" />
 </head>
 <header>
+    <img src="/steamlogo.png" alt="steamlogo">
     <h1 class="title">SteamLFG</h1>
     <input type="checkbox" id="nav-toggle" class="nav-toggle">
     <nav>
@@ -21,23 +23,28 @@
     <label for="nav-toggle" class="nav-toggle-label">
         <span></span>
     </label>
+    <div class="drop">
+        <button class="dropbtn" onclick="drop()"><i class="fas fa-user fa-3x"></i></button>
+        <script>
+            function drop() {
+                document.getElementById("drops").classList.toggle("show");
+                document.getElementById("heads").classList.toggle("show");
+            }
 
-
-    <input type="checkbox" id="dropbtn" class="dropbtn">
-    <div id="heads" class="head2">
-            <form th:action="@{/signup}">
-                <button id="submit" type="submit"><i class="fas fa-user-plus fa-2x"></i>  Sign Up</button>
-            </form>
-            <form th:action="@{/login}">
-                <button id="login" type="submit"><i class="fas fa-sign-in-alt fa-2x"></i>  Login</button>
-            </form>
+        </script>
     </div>
-
-    <label for="dropbtn" class="droplabel">
-        <span><i id="icon" class="fas fa-user fa-2x"> </i> </span>
-    </label>
 </header>
+<div id="heads" class="head2">
 
+    <div id="drops" class="drop-content">
+        <form th:action="@{/signup}">
+            <button id="submit" type="submit"><i class="fas fa-user-plus fa-2x"></i>  Sign Up</button>
+        </form>
+        <form th:action="@{/login}">
+            <button id="login" type="submit"><i class="fas fa-sign-in-alt fa-2x"></i>  Login</button>
+        </form>
+    </div>
+</div>
 
 <div class="content">
     <h2>Content</h2>
