@@ -125,7 +125,7 @@ public class Main {
       }
       String sql = "INSERT INTO accounts (username,password) VALUES ('" + user.getUsername() + "','" + user.getPassword() + "')";
       stmt.executeUpdate(sql);
-      return "mainpage";
+      return "login";
     } catch (Exception e) {
       model.put("message", e.getMessage());
       return "error";
@@ -206,7 +206,7 @@ public class Main {
             loggeduser.setBio(bio);
             loggeduser.setPfp(pfp);
             loggeduser.setGroups(groups);
-            return "mainpage";
+            return "redirect:/profile";
             }else{
                 System.out.println("PASSWORD WRONG");
                 return "loginerror";
@@ -384,20 +384,104 @@ public class Main {
   }
 
 @GetMapping(
-    path = "/logincheck"
+    path = "/profile"
   )
   public String getLoginCheck(@ModelAttribute("loggeduser") User loggeduser, Map<String, Object> model, User user) {
       try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
       ArrayList<User> output = new ArrayList<User>();
+      if(loggeduser.getId() == 0){
+      model.put("message", "You must be logged in");
+      }else{
+        ResultSet rs = stmt.executeQuery("SELECT * FROM accounts WHERE id="+loggeduser.getId());
+        while(rs.next()){
+        String tname = rs.getString("username");
+        String tpassword = rs.getString("password");
+        int id = rs.getInt("id");
+        int age = rs.getInt("age");
+        String sex = rs.getString("sex");
+        String region = rs.getString("region");
+        String bio = rs.getString("bio");
+        String pfp = rs.getString("pfp");
+        String groups = rs.getString("groups");
+        loggeduser.setId(id);
+        loggeduser.setUsername(tname);
+        loggeduser.setPassword(tpassword);
+        loggeduser.setId(id);
+        loggeduser.setAge(age);
+        loggeduser.setSex(sex);
+        loggeduser.setRegion(region);
+        loggeduser.setBio(bio);
+        loggeduser.setPfp(pfp);
+        loggeduser.setGroups(groups);
+        }
       output.add(loggeduser);
       model.put("records", output);
-      return "logincheck";
+      }
+      return "profile";
     } catch (Exception e) {
       model.put("message", e.getMessage());
       return "error";
     }
   }
+
+@GetMapping(
+    path = "/profile/edit"
+  )
+  public String getProfileEdit(@ModelAttribute("loggeduser") User loggeduser, Map<String, Object> model, User user) {
+      try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      ArrayList<User> output = new ArrayList<User>();
+      if(loggeduser.getId() == 0){
+      return "profile";
+      }
+      output.add(loggeduser);
+      model.put("records", output);
+      return "editprofile";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+  }
+  @PostMapping(
+    path = "/profile/edit",
+    consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
+  )
+  public String handleProfileEdit(@ModelAttribute("loggeduser") User loggeduser, Map<String, Object> model, User user) {
+        try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      ArrayList<User> output = new ArrayList<User>();
+      if(loggeduser.getId() == 0){
+      return "profile";
+      }
+      if(!(user.getUsername().length() == 0)){
+        System.out.println("hello");
+        stmt.executeUpdate("UPDATE accounts SET username='"+user.getUsername()+"' WHERE id="+loggeduser.getId());
+      }
+      if(!(user.getPassword().length() == 0)){
+        stmt.executeUpdate("UPDATE accounts SET password='"+user.getPassword()+"' WHERE id="+loggeduser.getId());
+      }
+      if(user.getAge() != 0){
+        stmt.executeUpdate("UPDATE accounts SET age='"+user.getAge()+"' WHERE id="+loggeduser.getId());
+      }
+      if(!(user.getRegion().length() == 0)){
+        stmt.executeUpdate("UPDATE accounts SET region='"+user.getRegion()+"' WHERE id="+loggeduser.getId());
+      }
+      if(!(user.getBio().length() == 0)){
+        stmt.executeUpdate("UPDATE accounts SET bio='"+user.getBio()+"' WHERE id="+loggeduser.getId());
+      }
+
+      output.add(loggeduser);
+      model.put("records", output);
+      return "redirect:/profile";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+
+  }
+
+
 
 @GetMapping("/accdb/delaccdb")
   public String deleteAllRectangles(Map<String, Object> model){

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href=".\stylesheets\rectanglestyle.css">
+    <link rel="shortcut icon" type="image/png" href="/steamlogo.png" />
+    <title>Login Check</title>
+    <script src="../scripts/rec.js" defer></script>
+</head>
+<body>
+        <form action="#" method="post" th:action="@{/profile/edit}" th:object="${user}">
+            <table th:each="record : ${records}">
+                <tr>
+                    <th>ID: </th>
+                    <td th:text="${record.getId()}"> </td>
+                </tr>
+                <tr>
+                    <th>Username: </th>
+                    <td th:text="${record.getUsername()}"> </td>
+                    <td><input type="text" th:field=*{username}></td>
+                </tr>
+                <tr>
+                    <th>Password: </th>
+                    <td id="recColor" th:text="${record.getPassword()}"> </td>
+                    <td><input type="text" th:field=*{password}></td>
+                </tr>
+                <tr>
+                    <th>Age: </th>
+                    <td id="recWidth" th:text="${record.getAge()}"> </td>
+                    <td><input type="number" th:field=*{age}></td>
+                </tr>
+                <tr>
+                    <th>Region: </th>
+                    <td id="recHeight" th:text="${record.getRegion()}"> </td>
+                    <td><input type="text" th:field=*{region}></td>
+                </tr>
+                <tr>
+                    <th>Bio: </th>
+                    <td id="recHeight" th:text="${record.getBio()}"> </td>
+                    <td><input type="text" th:field=*{bio}></td>
+                </tr>
+                <tr>
+                    <th>PFP: </th>
+                    <td id="recHeight" th:text="${record.getPfp()}"> </td>
+                </tr>
+                <tr>
+                    <th>Groups: </th>
+                    <td id="recHeight" th:text="${record.getGroups()}"> </td>
+                </tr>
+            </table>
+            <button type="submit">Accept</button>
+        </form>
+</body>
+</html>
