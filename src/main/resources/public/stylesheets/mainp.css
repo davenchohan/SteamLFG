@@ -9,6 +9,7 @@
 
 @font-face {
     font-family: 'Streetvertising';
+    src: url("/Streetvertising.ttf");
 }
 
 body {
@@ -50,6 +51,12 @@ header {
     display: none;
 }
 
+img {
+    width: 70px;
+    overflow: auto;
+    max-height: 100%;
+    height:auto;
+}
 
 .nav-toggle {
     position: absolute !important;
@@ -166,11 +173,12 @@ nav a:hover {
     }
 
     img {
-        width: 17vw;
-        padding-left: 230px;
-        padding-top: 10px;
-        position: relative;
+        width: 350px;
         overflow: auto;
+        max-height: 100%;
+        height:auto;
+        padding-left: 250px;
+        padding-top: 9px;
     }
 
     nav {
