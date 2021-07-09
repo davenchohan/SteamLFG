@@ -4,12 +4,18 @@
     box-sizing: border-box;
 }
 
+@font-face {
+    font-family: 'Streetvertising';
+    src: url("/Streetvertising.ttf");
+}
+
 body {
     margin: 0;
     background: #222;
     font-family: 'Work Sans', sans-serif;
     font-weight: 400;
 }
+
 
 .content {
     height: 200vh;
@@ -38,14 +44,8 @@ header {
     position: fixed;
     width: 100%;
     height: 35%;
-    transform: scale(1,0);
-    transition: transform 400ms ease-in-out;
-    transform-origin: top;
     z-index: 0;
-    align-items: center;
-    justify-content: center;
-    margin-top: 5%;
-    display: flex;
+    display: none;
 }
 
 
@@ -151,6 +151,16 @@ nav a:hover {
 
     .title {
         grid-column: 2 / 3;
+        padding-top: 9px;
+        font-family: 'Streetvertising';
+    }
+
+    img {
+        width: 17vw;
+        padding-left: 230px;
+        padding-top: 10px;
+        position: relative;
+        overflow: auto;
     }
 
     nav {
@@ -216,8 +226,6 @@ nav a:hover {
 {
     display: none;
     position: absolute;
-    justify-content: center;
-    align-items: center;
     z-index: 1;
     width: 100%;
     background-image: linear-gradient(to right,blue,purple);
@@ -234,11 +242,16 @@ nav a:hover {
     color: black;
 }
 
+.dropbtn:hover
+{
+    cursor: pointer;
+    color: red;
+}
 
 .dropbtn
 {
     position: relative;
-    display: none;
+    display: block;
     float: right;
     cursor: pointer;
     border: none;
@@ -251,10 +264,7 @@ nav a:hover {
 
 .show
 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transform: scale(1,1);
+    display: block;
 }
 
 
@@ -286,35 +296,4 @@ color: red;
     outline: none;
     border: none;
     cursor: pointer;
-}
-
-.dropbtn:checked ~ div#heads
-{
-    transform: scale(1,1);
-    z-index: -3;
-}
-
-.dropbtn:checked ~ div#drops
-{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-
-.droplabel:checked
-{
-    color: red;
-}
-
-#icon
-{
-    margin-top: 1em;
-    margin-bottom: 1em;
-}
-
-#icon:hover
-{
-    cursor: pointer;
-    color: red;
 }
