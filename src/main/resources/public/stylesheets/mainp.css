@@ -85,6 +85,11 @@ img {
     align-items: center;
 }
 
+#fourth {
+    color: white;
+    text-shadow: 1.5px 1.5px black;
+} 
+
 .nav-toggle-label span,
 .nav-toggle-label span::before,
 .nav-toggle-label span::after {

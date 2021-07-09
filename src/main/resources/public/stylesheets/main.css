@@ -122,6 +122,7 @@ body {
 
 #submitbutton:hover{
     opacity: 50%;
+    cursor: pointer;
   }
 
 

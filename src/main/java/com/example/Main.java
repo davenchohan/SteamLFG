@@ -64,8 +64,8 @@ public class Main {
 
 
   @RequestMapping("/")
-  String index() {
-    return "mainpage";
+  String index(@ModelAttribute("loggeduser") User loggeduser) {
+    return "redirect:/mainpage";
   }
 
   @GetMapping(
@@ -79,19 +79,12 @@ public class Main {
       ResultSet rs = stmt.executeQuery("SELECT * FROM accounts");
       ArrayList<User> output = new ArrayList<User>();
       System.out.println(loggeduser.getId());
-      while (rs.next()) {
-        User tuser = new User();
-        String tname = rs.getString("username");
-        String tpassword = rs.getString("password");
-        int id = rs.getInt("id");
-        tuser.setUsername(tname);
-        tuser.setPassword(tpassword);
-        tuser.setId(id);
-        output.add(tuser);
+      output.add(loggeduser);
+      if (loggeduser.getId() != 0){
+        model.put("welcome", "Welcome " + loggeduser.getUsername());
       }
-      
-      model.put("records", output);
-      return "redirect:/";
+      model.put("records", loggeduser);
+      return "mainpage";
     } catch (Exception e) {
       model.put("message", e.getMessage());
       return "error";
@@ -350,7 +343,7 @@ public class Main {
         output.add(tempuser);
       }
       model.put("records", output);
-      return "accdb";
+      return "User";
     } catch (Exception e) {
       model.put("message", e.getMessage());
       return "error";
