@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href=".\stylesheets\rectanglestyle.css">
+    <link rel="shortcut icon" type="image/png" href="/steamlogo.png" />
+    <title>Rectangles</title>
+    <script src="../scripts/rec.js" defer></script>
+</head>
+<body>
+    <header>
+        <a href="/accdb/delaccdb"> THIS WILL DELETE ALL DATA IN THE DATABASE !!!</a>
+    </header>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>GROUPNAME</th>
+            <th>MAXMEMBERS</th>
+            <th>GAME</th>
+            <th>MEMBERS</th>
+        </tr>
+        <tr th:each="record : ${records}">
+            <td th:text="${record.getGid()}"> </td>
+            <td><a th:href="@{/user/read/{id}(id=${record.getGid()})}" th:text="${record.getGroupname()}"></a> </td>
+            <td th:text="${record.getMaxmembers()}"> </td>
+            <td th:text="${record.getGame()}"> </td>
+        </tr>
+    </table>
+</body>
+</html>
