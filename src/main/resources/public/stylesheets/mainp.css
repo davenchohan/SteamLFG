@@ -224,12 +224,12 @@ nav a:hover {
         margin-bottom: 0;
     }
 
-    nav a#firstt {
+    nav a {
         opacity: 1;
         position: relative;
     }
 
-    nav a#firstt::before {
+    nav a::before {
         content: '';
         display: block;
         height: 5px;
@@ -242,53 +242,12 @@ nav a:hover {
         transition: transform ease-in-out 250ms;
     }
 
-    nav a#firstt:hover::before {
+    nav a:hover::before
+    {
         transform: scale(1,1);
     }
 
-    nav a#secondd {
-        opacity: 1;
-        position: relative;
-    }
 
-    nav a#secondd::before {
-        content: '';
-        display: block;
-        height: 5px;
-        background: black;
-        position: absolute;
-        top: -.75em;
-        left: 0;
-        right: 0;
-        transform: scale(0, 1);
-        transition: transform ease-in-out 250ms;
-    }
-
-    nav a#secondd:hover::before {
-        transform: scale(1,1);
-    }
-
-    nav a#thirdd {
-        opacity: 1;
-        position: relative;
-    }
-
-    nav a#thirdd::before {
-        content: '';
-        display: block;
-        height: 5px;
-        background: black;
-        position: absolute;
-        top: -.75em;
-        left: 0;
-        right: 0;
-        transform: scale(0, 1);
-        transition: transform ease-in-out 250ms;
-    }
-
-    nav a#thirdd:hover::before {
-        transform: scale(1,1);
-    }
 }
 
 /*//////////////////////dropdown for account below*/
@@ -411,7 +370,7 @@ SOCIAL DROPDOWN BELOW
 
 .SdropContent a
 {
-    color: black;
+    color: white;
     padding: 20px 20px;
     display: block;
 }
@@ -433,5 +392,41 @@ ul li:hover ul.SdropContent
 ul li ul.SdropContent li
 {
     display: block;
+}
+
+ul li a#firstt {
+    opacity: 1;
+    position: relative;
+}
+
+ul li a#firstt::before {
+    position: absolute;
+    transform: scale(0, 1);
+    transition: transform ease-in-out 250ms;
+}
+
+
+ul li a#secondd {
+    opacity: 1;
+    position: relative;
+}
+
+ul li a#secondd::before {
+    position: absolute;
+    transform: scale(0, 1);
+    transition: transform ease-in-out 250ms;
+}
+
+
+
+ul li a#thirdd {
+    opacity: 1;
+    position: relative;
+}
+
+ul li a#thirdd::before {
+    position: absolute;
+    transform: scale(0, 1);
+    transition: transform ease-in-out 250ms;
 }
 
