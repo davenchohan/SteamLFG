@@ -1,5 +1,8 @@
 @import url('https://fonts.googleapis.com/css?family=Work+Sans:300,600');
 
+
+/* NAV BAR BELOW*/
+
 *, *::before, *::after {
     box-sizing: border-box;
 }
@@ -112,9 +115,17 @@ nav ul {
     list-style: none;
 }
 
-nav li {
-    margin-bottom: 1em;
-    margin-left: 1em;
+nav li#first {
+    margin-left: 3em;
+    margin-bottom: 0;
+}
+nav li#second {
+    margin-left: 5em;
+    margin-bottom: 0;
+}
+nav li#third {
+    margin-left: 5em;
+    margin-bottom: 0;
 }
 
 nav a {
@@ -176,8 +187,16 @@ nav a:hover {
         display: flex;
     }
 
-    nav li {
-        margin-left: 3em;
+    nav li#first {
+        margin-left: 5em;
+        margin-bottom: 0;
+    }
+    nav li#second {
+        margin-left: 5em;
+        margin-bottom: 0;
+    }
+    nav li#third {
+        margin-left: 5em;
         margin-bottom: 0;
     }
 
@@ -205,12 +224,6 @@ nav a:hover {
 }
 
 /*//////////////////////dropdown for account below*/
-
-.drop
-{
-   position: relative;
-    display: inline-block;
-}
 
 .drop-content
 {
@@ -247,14 +260,6 @@ nav a:hover {
     margin-right: 2em;
     margin-top: 2em;
     margin-bottom: 2em;
-}
-
-.show
-{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transform: scale(1,1);
 }
 
 
@@ -318,3 +323,44 @@ color: red;
     cursor: pointer;
     color: red;
 }
+/*//////////////////////////////////////////
+SOCIAL DROPDOWN BELOW
+ */
+
+.SdropContent
+{
+    display: none;
+    position: absolute;
+    background: rgba(128,0,128,0.5);
+    min-width: 100%;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 2em;
+}
+
+.SdropContent a
+{
+    color: black;
+    padding: 20px 20px;
+    display: block;
+}
+
+ul li
+{
+    display: inline-block;
+    position: relative;
+    line-height: 21px;
+    text-align: left;
+}
+
+
+ul li:hover ul.SdropContent
+{
+    display: block;
+}
+
+ul li ul.SdropContent li
+{
+    display: block;
+}
+

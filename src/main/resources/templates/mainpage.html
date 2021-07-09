@@ -7,16 +7,25 @@
     <title>SteamLFG</title>
     <script src="https://kit.fontawesome.com/9c0e4b65c1.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="/stylesheets/mainp.css">
+    <link rel="shortcut icon" type="image/png" href=".\favicon.ico" />
 </head>
 <header>
     <h1 class="title">SteamLFG</h1>
     <input type="checkbox" id="nav-toggle" class="nav-toggle">
     <nav>
         <ul>
-            <li><a href="#"><i class="fas fa-home"></i>Home</a></li>
-            <li><a href="#"><i class="fas fa-info"></i>About</a></li>
-        </ul>
+            <li id="first"><a href="#"><i class="fas fa-home"></i>  Home</a></li>
+            <li id="second"><a href="#"><i class="fas fa-info"></i>  About</a></li>
+            <li id="third" >
+                <a id="social" href="#"><i class="fas fa-users"></i>  Social</a>
+                    <ul class="SdropContent">
+                        <li><a href="#"> Add Friend</a></li>
+                        <li><a href="#"> Create Group</a></li>
+                        <li><a href="#"> Find Group</a></li>
+                    </ul>
+            </li>
 
+        </ul>
     </nav>
     <label for="nav-toggle" class="nav-toggle-label">
         <span></span>
@@ -37,6 +46,8 @@
         <span><i id="icon" class="fas fa-user fa-2x"> </i> </span>
     </label>
 </header>
+
+
 
 
 <div class="content">
