@@ -9,8 +9,9 @@
     "\\src\\main\\resources",
     "\\src\\main\\resources\\public",
     "\\src\\main\\resources\\public\\stylesheets",
-    "\\src\\main\\resources\\templates"
+    "\\src\\main\\resources\\templates",
+    "\\src\\main\\resources\\templates\\fragments"
   ],
-  "SelectedNode": "\\src\\main\\java\\com\\example\\Main.java",
+  "SelectedNode": "\\src\\main\\resources\\templates\\loginerror.html",
   "PreviewInSolutionExplorer": true
 }
