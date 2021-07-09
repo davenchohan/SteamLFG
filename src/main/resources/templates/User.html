@@ -1,10 +1,59 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href=".\stylesheets\rectanglestyle.css">
+    <link rel="shortcut icon" type="image/png" href="/steamlogo.png" />
+    <title>Login Check</title>
+    <script src="../scripts/rec.js" defer></script>
 </head>
 <body>
-
+    <table th:each="record : ${records}">
+        <tr>
+            <th>ID: </th>
+            <td th:text="${record.getId()}"> </td>
+        </tr>
+        <tr>
+            <th>Username: </th>
+            <td th:text="${record.getUsername()}"> </td>
+        </tr>
+        <tr>
+            <th>Password: </th>
+            <td th:text="${record.getPassword()}"> </td>
+        </tr>
+        <tr>
+            <th>Age: </th>
+            <td th:text="${record.getAge()}"> </td>
+        </tr>
+        <tr>
+            <th>Gender: </th>
+            <td th:text="${record.getGender()}"> </td>
+        </tr>
+        <tr>
+            <th>Region: </th>
+            <td th:text="${record.getRegion()}"> </td>
+        </tr>
+        <tr>
+            <th>Bio: </th>
+            <td th:text="${record.getBio()}"> </td>
+        </tr>
+        <tr>
+            <th>PFP: </th>
+            <td th:text="${record.getPfp()}"> </td>
+        </tr>
+        <tr>
+            <th>Groups: </th>
+            <td th:text="${record.getGroups()}"> </td>
+        </tr>
+        <tr>
+            <th>Profile Type: </th>
+            <td th:text="${record.getType()}"> </td>
+        </tr>
+    </table>
+    <form th:action="@{/mainpage}">
+        <button type="submit">Home</button>
+    </form>
 </body>
 </html>

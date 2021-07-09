@@ -276,6 +276,7 @@ public class Main {
   public String getAccountDatabase(@ModelAttribute("loggeduser") User loggeduser, Map<String, Object> model, User user) {
   if(!(loggeduser.getType().equals("admin"))){
   model.put("message", "You need to be an admin to do that");
+  model.put("records", loggeduser);
   return "profile";
   }else{
       try (Connection connection = dataSource.getConnection()) {
@@ -314,6 +315,48 @@ public class Main {
     }
     }
   }
+
+
+@GetMapping(
+    path = "/user/{pid}"
+  )
+  public String getAccountDatabase(@ModelAttribute("loggeduser") User loggeduser, Map<String, Object> model, User user, @PathVariable String pid) {
+      try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      ResultSet rs = stmt.executeQuery("SELECT * FROM accounts WHERE id="+pid);
+      ArrayList<User> output = new ArrayList<User>();
+      while (rs.next()) {
+        User tempuser = new User();
+        int id = rs.getInt("id");
+        String tname = rs.getString("username");
+        String password = rs.getString("password");
+        int age = rs.getInt("age");
+        String gender = rs.getString("gender");
+        String region = rs.getString("region");
+        String bio = rs.getString("bio");
+        String pfp = rs.getString("pfp");
+        String groups = rs.getString("groups");
+        String type = rs.getString("type");
+        tempuser.setUsername(tname);
+        tempuser.setPassword(password);
+        tempuser.setId(id);
+        tempuser.setAge(age);
+        tempuser.setGender(gender);
+        tempuser.setRegion(region);
+        tempuser.setBio(bio);
+        tempuser.setPfp(pfp);
+        tempuser.setGroups(groups);
+        tempuser.setType(type);
+        output.add(tempuser);
+      }
+      model.put("records", output);
+      return "accdb";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+  }
+
 
 @GetMapping(
     path = "/profile"
