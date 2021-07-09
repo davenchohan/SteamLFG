@@ -1,5 +1,8 @@
 @import url('https://fonts.googleapis.com/css?family=Work+Sans:300,600');
 
+
+/* NAV BAR BELOW*/
+
 *, *::before, *::after {
     box-sizing: border-box;
 }
@@ -44,10 +47,23 @@ header {
     position: fixed;
     width: 100%;
     height: 35%;
+    transform: scale(1,0);
+    transition: transform 400ms ease-in-out;
+    transform-origin: top;
     z-index: 0;
-    display: none;
+    align-items: center;
+    justify-content: center;
+    margin-top: 5%;
+    display: flex;
+
 }
 
+img {
+    width: 70px;
+    overflow: auto;
+    max-height: 100%;
+    height:auto;
+}
 
 .nav-toggle {
     position: absolute !important;
@@ -112,9 +128,17 @@ nav ul {
     list-style: none;
 }
 
-nav li {
-    margin-bottom: 1em;
-    margin-left: 1em;
+nav li#first {
+    margin-left: 3em;
+    margin-bottom: 0;
+}
+nav li#second {
+    margin-left: 5em;
+    margin-bottom: 0;
+}
+nav li#third {
+    margin-left: 5em;
+    margin-bottom: 0;
 }
 
 nav a {
@@ -152,15 +176,16 @@ nav a:hover {
     .title {
         grid-column: 2 / 3;
         padding-top: 9px;
-        font-family: 'Streetvertising';
+        font-family: 'Streetvertising', serif;
     }
 
     img {
-        width: 17vw;
-        padding-left: 230px;
-        padding-top: 10px;
-        position: relative;
+        width: 350px;
         overflow: auto;
+        max-height: 100%;
+        height:auto;
+        padding-left: 250px;
+        padding-top: 9px;
     }
 
     nav {
@@ -186,17 +211,25 @@ nav a:hover {
         display: flex;
     }
 
-    nav li {
-        margin-left: 3em;
+    nav li#first {
+        margin-left: 5em;
+        margin-bottom: 0;
+    }
+    nav li#second {
+        margin-left: 5em;
+        margin-bottom: 0;
+    }
+    nav li#third {
+        margin-left: 5em;
         margin-bottom: 0;
     }
 
-    nav a {
+    nav a#firstt {
         opacity: 1;
         position: relative;
     }
 
-    nav a::before {
+    nav a#firstt::before {
         content: '';
         display: block;
         height: 5px;
@@ -209,18 +242,56 @@ nav a:hover {
         transition: transform ease-in-out 250ms;
     }
 
-    nav a:hover::before {
+    nav a#firstt:hover::before {
+        transform: scale(1,1);
+    }
+
+    nav a#secondd {
+        opacity: 1;
+        position: relative;
+    }
+
+    nav a#secondd::before {
+        content: '';
+        display: block;
+        height: 5px;
+        background: black;
+        position: absolute;
+        top: -.75em;
+        left: 0;
+        right: 0;
+        transform: scale(0, 1);
+        transition: transform ease-in-out 250ms;
+    }
+
+    nav a#secondd:hover::before {
+        transform: scale(1,1);
+    }
+
+    nav a#thirdd {
+        opacity: 1;
+        position: relative;
+    }
+
+    nav a#thirdd::before {
+        content: '';
+        display: block;
+        height: 5px;
+        background: black;
+        position: absolute;
+        top: -.75em;
+        left: 0;
+        right: 0;
+        transform: scale(0, 1);
+        transition: transform ease-in-out 250ms;
+    }
+
+    nav a#thirdd:hover::before {
         transform: scale(1,1);
     }
 }
 
 /*//////////////////////dropdown for account below*/
-
-.drop
-{
-   position: relative;
-    display: inline-block;
-}
 
 .drop-content
 {
@@ -251,20 +322,15 @@ nav a:hover {
 .dropbtn
 {
     position: relative;
-    display: block;
+    display: none;
     float: right;
     cursor: pointer;
     border: none;
     outline: none;
     background-color: transparent;
-    margin-right: 2em;
-    margin-top: 2em;
-    margin-bottom: 2em;
-}
-
-.show
-{
-    display: block;
+    margin-right: 1em;
+    margin-top: 1em;
+    margin-bottom: 1em;
 }
 
 
@@ -297,3 +363,75 @@ color: red;
     border: none;
     cursor: pointer;
 }
+
+.dropbtn:checked ~ div#heads
+{
+    transform: scale(1,1);
+    z-index: -3;
+}
+
+.dropbtn:checked ~ div#drops
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.droplabel:checked
+{
+    color: red;
+}
+
+#icon
+{
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+#icon:hover
+{
+    cursor: pointer;
+    color: red;
+}
+/*//////////////////////////////////////////
+SOCIAL DROPDOWN BELOW
+ */
+
+.SdropContent
+{
+    display: none;
+    position: absolute;
+    background: rgba(128,0,128,0.5);
+    min-width: 100%;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 2em;
+}
+
+.SdropContent a
+{
+    color: black;
+    padding: 20px 20px;
+    display: block;
+}
+
+ul li
+{
+    display: inline-block;
+    position: relative;
+    line-height: 21px;
+    text-align: left;
+}
+
+
+ul li:hover ul.SdropContent
+{
+    display: block;
+}
+
+ul li ul.SdropContent li
+{
+    display: block;
+}
+

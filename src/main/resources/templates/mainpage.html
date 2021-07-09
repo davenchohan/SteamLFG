@@ -7,6 +7,7 @@
     <title>SteamLFG</title>
     <script src="https://kit.fontawesome.com/9c0e4b65c1.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="/stylesheets/mainp.css">
+    <link rel="shortcut icon" type="image/png" href=".\favicon.ico" />
     <link rel="shortcut icon" type="image/png" href="/steamlogo.png" />
 </head>
 <header>
@@ -15,28 +16,25 @@
     <input type="checkbox" id="nav-toggle" class="nav-toggle">
     <nav>
         <ul>
-            <li><a href="#"><i class="fas fa-home"></i>Home</a></li>
-            <li><a href="#"><i class="fas fa-info"></i>About</a></li>
-        </ul>
+            <li id="first"><a id="firstt" href="#"><i class="fas fa-home"></i>  Home</a></li>
+            <li id="second"><a id="secondd" href="#"><i class="fas fa-info"></i>  About</a></li>
+            <li id="third" >
+                <a id="thirdd" href="#"><i class="fas fa-users"></i>  Social</a>
+                    <ul class="SdropContent">
+                        <li><a href="#"> Add Friend</a></li>
+                        <li><a href="#"> Create Group</a></li>
+                        <li><a href="#"> Find Group</a></li>
+                    </ul>
+            </li>
 
+        </ul>
     </nav>
     <label for="nav-toggle" class="nav-toggle-label">
         <span></span>
     </label>
-    <div class="drop">
-        <button class="dropbtn" onclick="drop()"><i class="fas fa-user fa-3x"></i></button>
-        <script>
-            function drop() {
-                document.getElementById("drops").classList.toggle("show");
-                document.getElementById("heads").classList.toggle("show");
-            }
 
-        </script>
-    </div>
-</header>
-<div id="heads" class="head2">
-
-    <div id="drops" class="drop-content">
+    <input type="checkbox" id="dropbtn" class="dropbtn">
+    <div id="heads" class="head2">
         <form th:action="@{/signup}">
             <button id="submit" type="submit"><i class="fas fa-user-plus fa-2x"></i>  Sign Up</button>
         </form>
@@ -44,7 +42,16 @@
             <button id="login" type="submit"><i class="fas fa-sign-in-alt fa-2x"></i>  Login</button>
         </form>
     </div>
-</div>
+
+    <label for="dropbtn" class="droplabel">
+        <span><i id="icon" class="fas fa-user fa-2x"> </i> </span>
+    </label>
+
+</header>
+
+
+
+
 
 <div class="content">
     <h2>Content</h2>
