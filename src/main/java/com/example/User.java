@@ -4,12 +4,14 @@ public class User {
     private String username;
     private String password;
     private int age;
-    private String sex;
+    private String gender;
     private String region;
     private String bio;
     private String pfp;
     private String groups;
     private int id;
+    private String type;
+    private String adminkey;
 
     public String getUsername() {
         return this.username;
@@ -27,8 +29,8 @@ public class User {
         return this.age;
     }
 
-    public String getSex() {
-        return this.sex;
+    public String getGender() {
+        return this.gender;
     }
 
     public String getRegion() {
@@ -46,6 +48,15 @@ public class User {
     public String getGroups(){
         return this.groups;
     }
+
+    public String getType(){
+        return this.type;
+    }
+
+    public String getAdminkey(){
+        return this.adminkey;
+    }
+
     public void setUsername(String n) {
         this.username = n;
     }
@@ -62,8 +73,8 @@ public class User {
         this.age = n;
     }
 
-    public void setSex(String p) {
-        this.sex = p;
+    public void setGender(String p) {
+        this.gender = p;
     }
 
     public void setRegion(String i){
@@ -80,5 +91,13 @@ public class User {
 
     public void setGroups(String i){
         this.groups = i;
+    }
+
+    public void setType(String i){
+        this.type = i;
+    }
+
+    public void setAdminkey(String i){
+        this.adminkey = i;
     }
 }

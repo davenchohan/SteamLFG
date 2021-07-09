@@ -10,6 +10,7 @@
     <script src="../scripts/rec.js" defer></script>
 </head>
 <body>
+    <header><a href="/login" th:text="${message}"></a></header>
     <table th:each="record : ${records}">
         <tr>
             <th>ID: </th>
@@ -33,27 +34,34 @@
         </tr>
         <tr>
             <th>Region: </th>
-            <td th:text="${record.getRegion()}"> </td>
+            <td  th:text="${record.getRegion()}"> </td>
         </tr>
         <tr>
             <th>Bio: </th>
-            <td th:text="${record.getBio()}"> </td>
+            <td  th:text="${record.getBio()}"> </td>
         </tr>
         <tr>
             <th>PFP: </th>
-            <td th:text="${record.getPfp()}"> </td>
+            <td  th:text="${record.getPfp()}"> </td>
         </tr>
         <tr>
             <th>Groups: </th>
-            <td th:text="${record.getGroups()}"> </td>
+            <td  th:text="${record.getGroups()}"> </td>
         </tr>
         <tr>
             <th>Profile Type: </th>
-            <td th:text="${record.getType()}"> </td>
+            <td  th:text="${record.getType()}"> </td>
         </tr>
     </table>
+    <form th:action="@{/profile/edit}">
+        <button type="submit">Edit Profile</button>
+    </form>
     <form th:action="@{/mainpage}">
         <button type="submit">Home</button>
     </form>
+    <form th:action="@{/accdb}">
+        <button type="submit">View User Database (Admins Only)</button>
+    </form>
+    <p>admin pass is bobby276</p>
 </body>
 </html>

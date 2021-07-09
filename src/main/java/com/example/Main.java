@@ -74,7 +74,8 @@ public class Main {
   public String getUserForm(@ModelAttribute("loggeduser") User loggeduser, Map<String, Object> model){
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
-      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS accounts (id serial, username varchar(20), password varchar(20), age integer, sex varchar(20), region varchar(20), bio varchar(150), pfp varchar(30), groups varchar(20))");
+      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS grouptable (id serial, groupname varchar(20), membercount integer, game varchar(20), members varchar(300))");
+      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS accounts (id serial, username varchar(20), password varchar(20), type varchar(20), age integer, gender varchar(20), region varchar(20), bio varchar(150), pfp varchar(30), groups varchar(20))");
       ResultSet rs = stmt.executeQuery("SELECT * FROM accounts");
       ArrayList<User> output = new ArrayList<User>();
       System.out.println(loggeduser.getId());
@@ -113,53 +114,18 @@ public class Main {
   public String handleBrowserSignupSubmit(Map<String, Object> model, User user) throws Exception {
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
-      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS accounts (id serial, username varchar(20), password varchar(20), age integer, sex varchar(20), region varchar(20), bio varchar(150), pfp varchar(30), groups varchar(20))");
+      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS accounts (id serial, username varchar(20), password varchar(20), type varchar(20), age integer, gender varchar(20), region varchar(20), bio varchar(150), pfp varchar(30), groups varchar(20))");
       ResultSet rs = stmt.executeQuery("SELECT * FROM accounts");
       while(rs.next()){
         String tname = rs.getString("username");
         if(user.getUsername().equals(tname)){
-        System.out.println("they the same");
-        return "signuperror";
+        model.put("message", "Username is already taken. Try again.");
+        return "signup";
         }
       }
-      String sql = "INSERT INTO accounts (username,password) VALUES ('" + user.getUsername() + "','" + user.getPassword() + "')";
+      String sql = "INSERT INTO accounts (username,password,type) VALUES ('" + user.getUsername() + "','" + user.getPassword() + "','user')";
       stmt.executeUpdate(sql);
-      return "mainpage";
-    } catch (Exception e) {
-      model.put("message", e.getMessage());
-      return "error";
-    }
-  }
-  
-  @GetMapping(
-    path = "/signuperror"
-  )
-  public String getSignUpErrorForm(Map<String, Object> model){
-    User user = new User();
-    model.put("user", user);
-    return "signuperror";
-  }
-
-  @PostMapping(
-    path = "/signuperror",
-    consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
-  )
-  public String handleBrowserSignupErrorSubmit(Map<String, Object> model, User user) throws Exception {
-    try (Connection connection = dataSource.getConnection()) {
-      Statement stmt = connection.createStatement();
-      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS accounts (id serial, username varchar(20), password varchar(20), age integer, sex varchar(20), region varchar(20), bio varchar(150), pfp varchar(30), groups varchar(20))");
-      ResultSet rs = stmt.executeQuery("SELECT * FROM accounts");
-      while(rs.next()){
-        String tname = rs.getString("username");
-        if(user.getUsername().equals(tname)){
-        System.out.println("they the same");
-        //TODO: HOW TO MAKE THIS POP UP IN HTML? 
-        return "signuperror";
-        }
-      }
-      String sql = "INSERT INTO accounts (username,password) VALUES ('" + user.getUsername() + "','" + user.getPassword() + "')";
-      stmt.executeUpdate(sql);
-      return "mainpage";
+      return "login";
     } catch (Exception e) {
       model.put("message", e.getMessage());
       return "error";
@@ -187,11 +153,12 @@ public class Main {
         String tpassword = rs.getString("password");
         int id = rs.getInt("id");
         int age = rs.getInt("age");
-        String sex = rs.getString("sex");
+        String gender = rs.getString("gender");
         String region = rs.getString("region");
         String bio = rs.getString("bio");
         String pfp = rs.getString("pfp");
         String groups = rs.getString("groups");
+        String type = rs.getString("type");
         if(user.getUsername().equals(tname)){
             if(user.getPassword().equals(tpassword)) {
             System.out.println("LOGGED IN AS1 " + user.getUsername());
@@ -200,20 +167,21 @@ public class Main {
             loggeduser.setPassword(tpassword);
             loggeduser.setId(id);
             loggeduser.setAge(age);
-            loggeduser.setSex(sex);
+            loggeduser.setGender(gender);
             loggeduser.setRegion(region);
             loggeduser.setBio(bio);
             loggeduser.setPfp(pfp);
             loggeduser.setGroups(groups);
-            return "mainpage";
+            loggeduser.setType(type);
+            return "redirect:/profile";
             }else{
-                System.out.println("PASSWORD WRONG");
-                return "loginerror";
+                model.put("message", "Username and password combination is incorrect. Try again.");
+                return "login";
             }
         }
-        System.out.println("username not exist :(");
       }
-      return "loginerror";
+      model.put("message", "Username and password combination is incorrect. Try again.");
+      return "login";
     } catch (Exception e) {
       model.put("message", e.getMessage());
       return "error";
@@ -228,52 +196,40 @@ public class Main {
         loggeduser.setUsername("");
         loggeduser.setPassword("");
         loggeduser.setAge(0);
-        loggeduser.setSex("");
+        loggeduser.setGender("");
         loggeduser.setRegion("");
         loggeduser.setBio("");
         loggeduser.setPfp("");
         loggeduser.setGroups("");
+        loggeduser.setType("");
         return "mainpage";
         }
 
 
-  @GetMapping(
-    path = "/loginerror"
+@GetMapping(
+    path = "/groupdb"
   )
-  public String getLoginFormError(Map<String, Object> model) {
-    User user = new User();
-    model.put("user", user);
-    return "loginerror";
-  }
-
-  @PostMapping(
-    path = "/loginerror",
-    consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
-  )
-  public String handleBrowserLoginErrorSubmit(Map<String, Object> model, User user) throws Exception {
-    try (Connection connection = dataSource.getConnection()) {
+  public String getGroupDatabase(@ModelAttribute("loggeduser") User loggeduser, Map<String, Object> model) {
+      try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
-      ResultSet rs = stmt.executeQuery("SELECT * FROM accounts");
-      ArrayList<User> output = new ArrayList<User>();
+      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS grouptable (id serial, groupname varchar(20), membercount integer, game varchar(20), members varchar(300))");
+      ResultSet rs = stmt.executeQuery("SELECT * FROM grouptable");
+      ArrayList<ObjGroup> output = new ArrayList<ObjGroup>();
       while (rs.next()) {
-        User tuser = new User();
-        String tname = rs.getString("username");
-        String tpassword = rs.getString("password");
+        ObjGroup tgroup = new ObjGroup();
+        String gname = rs.getString("groupname");
+        int mcount = rs.getInt("membercount");
+        String game = rs.getString("game");
+        String mems = rs.getString("members");
         int id = rs.getInt("id");
-        if(user.getUsername().equals(tname)){
-            if(user.getPassword().equals(tpassword)) {
-            //maybe put a user.IsLoggedIn() as a boolean?
-            //HOW TF WE GET THIS ON THE HTML?
-            System.out.println("LOGGED IN AS " + user.getUsername());
-            return "mainpage";
-            }else{
-                System.out.println("PASSWORD WRONG");
-                return "loginerror";
-            }
-        }
-        System.out.println("username not exist :(");
+        tgroup.setGroupname(gname);
+        tgroup.setMaxmembers(mcount);
+        tgroup.setGame(game);
+        tgroup.setGid(id);
+        output.add(tgroup);
       }
-      return "loginerror";
+      model.put("records", output);
+      return "groupdb";
     } catch (Exception e) {
       model.put("message", e.getMessage());
       return "error";
@@ -281,9 +237,48 @@ public class Main {
   }
 
 @GetMapping(
+    path = "/group/create"
+  )
+  public String getGroupCreate(@ModelAttribute("loggeduser") User loggeduser, Map<String, Object> model) {
+   User user = new User();
+   ObjGroup objgroup = new ObjGroup();
+   model.put("objgroup", objgroup);
+   model.put("user", user);
+  return "creategroup";
+  }
+  @PostMapping(
+    path = "/group/create",
+    consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
+  )
+  public String handleGroupCreate(@ModelAttribute("loggeduser") User loggeduser, Map<String, Object> model, ObjGroup objgroup) {
+  if(loggeduser.getId() == 0){
+    System.out.println("you must be logged in");
+    return "mainpage";
+  }else{
+    try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      System.out.println("0");
+      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS grouptable (id serial, groupname varchar(20), membercount integer, game varchar(20), members varchar(300))");
+      String sql = "INSERT INTO grouptable (groupname,membercount,game,members) VALUES ('" + objgroup.getGroupname() + "','" + objgroup.getMaxmembers() + "','" + objgroup.getGame() + "','" + loggeduser.getId() + "')";
+      stmt.executeUpdate(sql);
+      return "mainpage";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+    }
+  }
+
+
+@GetMapping(
     path = "/accdb"
   )
-  public String getAccountDatabase(Map<String, Object> model, User user) {
+  public String getAccountDatabase(@ModelAttribute("loggeduser") User loggeduser, Map<String, Object> model, User user) {
+  if(!(loggeduser.getType().equals("admin"))){
+  model.put("message", "You need to be an admin to do that");
+  model.put("records", loggeduser);
+  return "profile";
+  }else{
       try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
       ResultSet rs = stmt.executeQuery("SELECT * FROM accounts");
@@ -294,20 +289,64 @@ public class Main {
         String tname = rs.getString("username");
         String password = rs.getString("password");
         int age = rs.getInt("age");
-        String sex = rs.getString("sex");
+        String gender = rs.getString("gender");
         String region = rs.getString("region");
         String bio = rs.getString("bio");
         String pfp = rs.getString("pfp");
         String groups = rs.getString("groups");
+        String type = rs.getString("type");
         tempuser.setUsername(tname);
         tempuser.setPassword(password);
         tempuser.setId(id);
         tempuser.setAge(age);
-        tempuser.setSex(sex);
+        tempuser.setGender(gender);
         tempuser.setRegion(region);
         tempuser.setBio(bio);
         tempuser.setPfp(pfp);
         tempuser.setGroups(groups);
+        tempuser.setType(type);
+        output.add(tempuser);
+      }
+      model.put("records", output);
+      return "accdb";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+    }
+  }
+
+
+@GetMapping(
+    path = "/user/{pid}"
+  )
+  public String getAccountDatabase(@ModelAttribute("loggeduser") User loggeduser, Map<String, Object> model, User user, @PathVariable String pid) {
+      try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      ResultSet rs = stmt.executeQuery("SELECT * FROM accounts WHERE id="+pid);
+      ArrayList<User> output = new ArrayList<User>();
+      while (rs.next()) {
+        User tempuser = new User();
+        int id = rs.getInt("id");
+        String tname = rs.getString("username");
+        String password = rs.getString("password");
+        int age = rs.getInt("age");
+        String gender = rs.getString("gender");
+        String region = rs.getString("region");
+        String bio = rs.getString("bio");
+        String pfp = rs.getString("pfp");
+        String groups = rs.getString("groups");
+        String type = rs.getString("type");
+        tempuser.setUsername(tname);
+        tempuser.setPassword(password);
+        tempuser.setId(id);
+        tempuser.setAge(age);
+        tempuser.setGender(gender);
+        tempuser.setRegion(region);
+        tempuser.setBio(bio);
+        tempuser.setPfp(pfp);
+        tempuser.setGroups(groups);
+        tempuser.setType(type);
         output.add(tempuser);
       }
       model.put("records", output);
@@ -318,28 +357,120 @@ public class Main {
     }
   }
 
+
 @GetMapping(
-    path = "/logincheck"
+    path = "/profile"
   )
-  public String getAccountDatabase(@ModelAttribute("loggeduser") User loggeduser, Map<String, Object> model, User user) {
+  public String getLoginCheck(@ModelAttribute("loggeduser") User loggeduser, Map<String, Object> model, User user) {
       try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
       ArrayList<User> output = new ArrayList<User>();
+      if(loggeduser.getId() == 0){
+      model.put("message", "You must be logged in");
+      }else{
+        ResultSet rs = stmt.executeQuery("SELECT * FROM accounts WHERE id="+loggeduser.getId());
+        while(rs.next()){
+        String tname = rs.getString("username");
+        String tpassword = rs.getString("password");
+        int id = rs.getInt("id");
+        int age = rs.getInt("age");
+        String gender = rs.getString("gender");
+        String region = rs.getString("region");
+        String bio = rs.getString("bio");
+        String pfp = rs.getString("pfp");
+        String groups = rs.getString("groups");
+        String type = rs.getString("type");
+        loggeduser.setId(id);
+        loggeduser.setUsername(tname);
+        loggeduser.setPassword(tpassword);
+        loggeduser.setId(id);
+        loggeduser.setAge(age);
+        loggeduser.setGender(gender);
+        loggeduser.setRegion(region);
+        loggeduser.setBio(bio);
+        loggeduser.setPfp(pfp);
+        loggeduser.setGroups(groups);
+        loggeduser.setType(type);
+        }
       output.add(loggeduser);
       model.put("records", output);
-      return "logincheck";
+      }
+      return "profile";
     } catch (Exception e) {
       model.put("message", e.getMessage());
       return "error";
     }
   }
 
+@GetMapping(
+    path = "/profile/edit"
+  )
+  public String getProfileEdit(@ModelAttribute("loggeduser") User loggeduser, Map<String, Object> model, User user) {
+      try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      ArrayList<User> output = new ArrayList<User>();
+      if(loggeduser.getId() == 0){
+      return "profile";
+      }
+      output.add(loggeduser);
+      model.put("records", output);
+      return "editprofile";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+  }
+  @PostMapping(
+    path = "/profile/edit",
+    consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
+  )
+  public String handleProfileEdit(@ModelAttribute("loggeduser") User loggeduser, Map<String, Object> model, User user) {
+        try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      ArrayList<User> output = new ArrayList<User>();
+      if(loggeduser.getId() == 0){
+      return "profile";
+      }
+      if(!(user.getUsername().length() == 0)){
+        System.out.println("hello");
+        stmt.executeUpdate("UPDATE accounts SET username='"+user.getUsername()+"' WHERE id="+loggeduser.getId());
+      }
+      if(!(user.getPassword().length() == 0)){
+        stmt.executeUpdate("UPDATE accounts SET password='"+user.getPassword()+"' WHERE id="+loggeduser.getId());
+      }
+      if(user.getAge() != 0){
+        stmt.executeUpdate("UPDATE accounts SET age='"+user.getAge()+"' WHERE id="+loggeduser.getId());
+      }
+      if(!(user.getGender().length() == 0)){
+        stmt.executeUpdate("UPDATE accounts SET gender='"+user.getGender()+"' WHERE id="+loggeduser.getId());
+      }
+      if(!(user.getRegion().length() == 0)){
+        stmt.executeUpdate("UPDATE accounts SET region='"+user.getRegion()+"' WHERE id="+loggeduser.getId());
+      }
+      if(!(user.getBio().length() == 0)){
+        stmt.executeUpdate("UPDATE accounts SET bio='"+user.getBio()+"' WHERE id="+loggeduser.getId());
+      }
+      if(user.getAdminkey().equals("bobby276")){
+        stmt.executeUpdate("UPDATE accounts SET type='admin' WHERE id="+loggeduser.getId());
+      }
+      output.add(loggeduser);
+      model.put("records", output);
+      return "redirect:/profile";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+
+  }
+
+
+
 @GetMapping("/accdb/delaccdb")
   public String deleteAllRectangles(Map<String, Object> model){
    try (Connection connection = dataSource.getConnection()) {
     Statement stmt = connection.createStatement();
     stmt.executeUpdate("DROP TABLE accounts");
-    stmt.executeUpdate("CREATE TABLE IF NOT EXISTS accounts (id serial, username varchar(20), password varchar(20), age integer, sex varchar(20), region varchar(20), bio varchar(150), pfp varchar(30), groups varchar(20))");
+    stmt.executeUpdate("CREATE TABLE IF NOT EXISTS accounts (id serial, username varchar(20), password varchar(20), type varchar(20), age integer, gender varchar(20), region varchar(20), bio varchar(150), pfp varchar(30), groups varchar(20))");
     return "redirect:/accdb";
    
     } catch (Exception e) {
