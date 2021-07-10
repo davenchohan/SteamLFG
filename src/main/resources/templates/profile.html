@@ -14,22 +14,22 @@
 
         <div class="profile-header">
             <div class="profile-img">
-               <img id="profile-img" src="/src/main/resources/public/blank-profile-picture.png" alt="blank-profile-picture">
+               <img id="profile-img" src="/blank-profile-picture.png" alt="blank-profile-picture">
             </div>
 
             <div class="profile-nav-info">
-                <h3 class="user-name">
-                   <p th:text="${record.getUsername()}"></p>
+                <h3 class="user-name" th:text="${record.getUsername()}">
+                  
                 </h3>
                 <div class="age">
-                    <p th:text="${record.getAge()}"> placeholder</p>
+                    <p th:text="${record.getAge()}"></p>
                 </div>
             </div>
         </div>
                 <div class="main-body">
                     <div class="left-side">
                         <div class="profile-side">
-                            <div class="user-bio" >
+                            <div class="user-bio">
                                 <h3>Bio</h3>
                                 <p class="bio" th:text="${record.getBio()}">  </p>
                             </div>
@@ -53,17 +53,17 @@
                         <div class="profile-body">
                             <div class="profile-stats tab">
                                 <h1>Level</h1>
-                                <p></p>
+                                <p>
+                                    </p>
                             </div>
                             <div class="profile-groups tab">
                                 <h1> Joined Groups</h1>
-                                <p> 
+                                <p>
                                     </p>
                             </div>
                             <div class="profile-settings tab">
                                 <h1> Account Settings</h1>
-                                <p>
-                                    </p>
+                                <p> </p>
                                 <div class="button-settings">
                                     <form th:action="@{/profile/edit}">
                                         <button type="submit">Edit Profile</button>
@@ -85,6 +85,6 @@
     
     </div>
 
-<script src="/src/main/resources/public/main.js"></script>
+<script src="/profile.js"></script>
 </body>
 </html>
