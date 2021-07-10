@@ -10,7 +10,7 @@ public class User {
     private String pfp;
     private String groups;
     private int id;
-    private String access;
+    private String type;
     private String adminkey;
 
     public String getUsername() {
@@ -49,8 +49,8 @@ public class User {
         return this.groups;
     }
 
-    public String getAccess(){
-        return this.access;
+    public String getType(){
+        return this.type;
     }
 
     public String getAdminkey(){
@@ -93,8 +93,8 @@ public class User {
         this.groups = i;
     }
 
-    public void setAccess(String i){
-        this.access = i;
+    public void setType(String i){
+        this.type = i;
     }
 
     public void setAdminkey(String i){

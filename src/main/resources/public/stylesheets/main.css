@@ -123,10 +123,8 @@ body {
 
 #submitbutton:hover{
     opacity: 50%;
-}
-
     cursor: pointer;
-  }
+}
 
 
 /* navigation styles start here */
@@ -540,4 +538,3 @@ ul li a#thirdd::before {
     transform: scale(0, 1);
     transition: transform ease-in-out 250ms;
 }
-
