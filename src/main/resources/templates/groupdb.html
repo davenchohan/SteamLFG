@@ -10,23 +10,23 @@
     <script src="../scripts/rec.js" defer></script>
 </head>
 <body>
-    <header>
-        <a href="/accdb/delaccdb"> THIS WILL DELETE ALL DATA IN THE DATABASE !!!</a>
-    </header>
-    <table>
-        <tr>
-            <th>ID</th>
-            <th>GROUPNAME</th>
-            <th>MAXMEMBERS</th>
-            <th>GAME</th>
-            <th>MEMBERS</th>
-        </tr>
-        <tr th:each="record : ${records}">
-            <td th:text="${record.getGid()}"> </td>
-            <td><a th:href="@{/user/read/{id}(id=${record.getGid()})}" th:text="${record.getGroupname()}"></a> </td>
-            <td th:text="${record.getMaxmembers()}"> </td>
-            <td th:text="${record.getGame()}"> </td>
-        </tr>
-    </table>
+<header>
+    <a href="/accdb/delaccdb"> THIS WILL DELETE ALL DATA IN THE DATABASE !!!</a>
+</header>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>GROUPNAME</th>
+        <th>MAXMEMBERS</th>
+        <th>GAME</th>
+        <th>MEMBERS</th>
+    </tr>
+    <tr th:each="record : ${records}">
+        <td th:text="${record.getGid()}"> </td>
+        <td><a th:href="@{/user/read/{id}(id=${record.getGid()})}" th:text="${record.getGroupname()}"></a> </td>
+        <td th:text="${record.getMaxmembers()}"> </td>
+        <td th:text="${record.getGame()}"> </td>
+    </tr>
+</table>
 </body>
 </html>
