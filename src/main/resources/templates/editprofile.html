@@ -10,6 +10,7 @@
     <script src="../scripts/rec.js" defer></script>
 </head>
 <body>
+    <p style="color:red" th:text="${message}"></p>
     <form action="#" method="post" th:action="@{/profile/edit}" th:object="${user}">
         <table th:each="record : ${records}">
             <tr>

@@ -112,7 +112,7 @@ public class Main {
       while(rs.next()){
         String tname = rs.getString("username");
         if(user.getUsername().equals(tname)){
-        model.put("message", "Username is already taken. Try again.");
+        model.put("message", "Username taken. Have an account? Log in.");
         return "signup";
         }
       }
@@ -168,12 +168,12 @@ public class Main {
             loggeduser.setType(type);
             return "redirect:/profile";
             }else{
-                model.put("message", "Username and password combination is incorrect. Try again.");
+                model.put("message", "Username/Password is incorrect. Create an account.");
                 return "login";
             }
         }
       }
-      model.put("message", "Username and password combination is incorrect. Try again.");
+      model.put("message", "Username/Password is incorrect. Create an account.");
       return "login";
     } catch (Exception e) {
       model.put("message", e.getMessage());
@@ -246,7 +246,7 @@ public class Main {
   public String handleGroupCreate(@ModelAttribute("loggeduser") User loggeduser, Map<String, Object> model, ObjGroup objgroup) {
   if(loggeduser.getId() == 0){
     System.out.println("you must be logged in");
-    return "mainpage";
+    return "login";
   }else{
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
@@ -360,6 +360,7 @@ public class Main {
       ArrayList<User> output = new ArrayList<User>();
       if(loggeduser.getId() == 0){
       model.put("message", "You must be logged in");
+      return "login";
       }else{
         ResultSet rs = stmt.executeQuery("SELECT * FROM accounts WHERE id="+loggeduser.getId());
         while(rs.next()){
@@ -403,8 +404,32 @@ public class Main {
       Statement stmt = connection.createStatement();
       ArrayList<User> output = new ArrayList<User>();
       if(loggeduser.getId() == 0){
-      return "profile";
+      return "login";
       }
+        ResultSet rs = stmt.executeQuery("SELECT * FROM accounts WHERE id="+loggeduser.getId());
+        while(rs.next()){
+        String tname = rs.getString("username");
+        String tpassword = rs.getString("password");
+        int id = rs.getInt("id");
+        int age = rs.getInt("age");
+        String gender = rs.getString("gender");
+        String region = rs.getString("region");
+        String bio = rs.getString("bio");
+        String pfp = rs.getString("pfp");
+        String groups = rs.getString("groups");
+        String type = rs.getString("type");
+        loggeduser.setId(id);
+        loggeduser.setUsername(tname);
+        loggeduser.setPassword(tpassword);
+        loggeduser.setId(id);
+        loggeduser.setAge(age);
+        loggeduser.setGender(gender);
+        loggeduser.setRegion(region);
+        loggeduser.setBio(bio);
+        loggeduser.setPfp(pfp);
+        loggeduser.setGroups(groups);
+        loggeduser.setType(type);
+        }
       output.add(loggeduser);
       model.put("records", output);
       return "editprofile";
@@ -422,15 +447,38 @@ public class Main {
       Statement stmt = connection.createStatement();
       ArrayList<User> output = new ArrayList<User>();
       if(loggeduser.getId() == 0){
-      return "profile";
+      return "login";
       }
-      
-      ResultSet rs = stmt.executeQuery("SELECT * FROM accounts");
+        ResultSet srs = stmt.executeQuery("SELECT * FROM accounts WHERE id="+loggeduser.getId());
+        while(srs.next()){
+        String tname = srs.getString("username");
+        String tpassword = srs.getString("password");
+        int id = srs.getInt("id");
+        int age = srs.getInt("age");
+        String gender = srs.getString("gender");
+        String region = srs.getString("region");
+        String bio = srs.getString("bio");
+        String pfp = srs.getString("pfp");
+        String groups = srs.getString("groups");
+        String type = srs.getString("type");
+        loggeduser.setId(id);
+        loggeduser.setUsername(tname);
+        loggeduser.setPassword(tpassword);
+        loggeduser.setId(id);
+        loggeduser.setAge(age);
+        loggeduser.setGender(gender);
+        loggeduser.setRegion(region);
+        loggeduser.setBio(bio);
+        loggeduser.setPfp(pfp);
+        loggeduser.setGroups(groups);
+        loggeduser.setType(type);
+        }
+      ResultSet rs = stmt.executeQuery("SELECT * FROM accounts WHERE username='" + user.getUsername() + "'");
       while(rs.next()){
       if(rs.getString("username").equals(user.getUsername())){
-        model.put("records", loggeduser);
         model.put("message", "Username taken");
-        return "profile";
+        model.put("records", loggeduser);
+        return "editprofile";
       }
       }
       if(!(user.getUsername().length() == 0)){

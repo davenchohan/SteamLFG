@@ -12,18 +12,17 @@
 <body>
     <div class="content" th:each="record : ${records}">
         <div class="profile-header">
-            <p th:text="${message}"></p>
             <div class="profile-img">
                <img id="profile-img" src="/blank-profile-picture.png" alt="blank-profile-picture">
             </div>
 
             <div class="profile-nav-info">
                 <h3 class="user-name" th:text="${record.getUsername()}">
-                  
                 </h3>
                 <div class="age">
                     <p th:text="${record.getAge()}"></p>
                 </div>
+                <p style="color:red" th:text="${message}"></p>
             </div>
         </div>
                 <div class="main-body">
