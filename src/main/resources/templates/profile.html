@@ -10,9 +10,9 @@
     <title>Login Check</title>
 </head>
 <body>
-<p th:text="${message}"></p>
     <div class="content" th:each="record : ${records}">
         <div class="profile-header">
+            <p th:text="${message}"></p>
             <div class="profile-img">
                <img id="profile-img" src="/blank-profile-picture.png" alt="blank-profile-picture">
             </div>
