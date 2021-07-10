@@ -74,6 +74,7 @@ public class Main {
   public String getUserForm(@ModelAttribute("loggeduser") User loggeduser, Map<String, Object> model){
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
+      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS grouptable (id serial, groupname varchar(20), membercount integer, game varchar(20), members varchar(300))");
       stmt.executeUpdate("CREATE TABLE IF NOT EXISTS accounts (id serial, username varchar(20), password varchar(20), age integer, sex varchar(20), region varchar(20), bio varchar(150), pfp varchar(30), groups varchar(20))");
       ResultSet rs = stmt.executeQuery("SELECT * FROM accounts");
       ArrayList<User> output = new ArrayList<User>();
@@ -144,7 +145,7 @@ public class Main {
     path = "/signuperror",
     consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
   )
-  public String handleBrowserSignupErrorSubmit(Map<String, Object> model, User user) throws Exception {
+  public String handleBrowserSignupErrorSubmit(Map<String, Object> model, User user, ObjGroup objgroup) throws Exception {
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
       stmt.executeUpdate("CREATE TABLE IF NOT EXISTS accounts (id serial, username varchar(20), password varchar(20), age integer, sex varchar(20), region varchar(20), bio varchar(150), pfp varchar(30), groups varchar(20))");
@@ -281,6 +282,70 @@ public class Main {
   }
 
 @GetMapping(
+    path = "/groupdb"
+  )
+  public String getGroupDatabase(@ModelAttribute("loggeduser") User loggeduser, Map<String, Object> model) {
+      try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS grouptable (id serial, groupname varchar(20), membercount integer, game varchar(20), members varchar(300))");
+      ResultSet rs = stmt.executeQuery("SELECT * FROM grouptable");
+      ArrayList<ObjGroup> output = new ArrayList<ObjGroup>();
+      while (rs.next()) {
+        ObjGroup tgroup = new ObjGroup();
+        String gname = rs.getString("groupname");
+        int mcount = rs.getInt("membercount");
+        String game = rs.getString("game");
+        String mems = rs.getString("members");
+        int id = rs.getInt("id");
+        tgroup.setGroupname(gname);
+        tgroup.setMaxmembers(mcount);
+        tgroup.setGame(game);
+        tgroup.setGid(id);
+        output.add(tgroup);
+      }
+      model.put("records", output);
+      return "groupdb";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+  }
+
+@GetMapping(
+    path = "/group/create"
+  )
+  public String getGroupCreate(@ModelAttribute("loggeduser") User loggeduser, Map<String, Object> model) {
+   User user = new User();
+   ObjGroup objgroup = new ObjGroup();
+   model.put("objgroup", objgroup);
+   model.put("user", user);
+  return "creategroup";
+  }
+  @PostMapping(
+    path = "/group/create",
+    consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
+  )
+  public String handleGroupCreate(@ModelAttribute("loggeduser") User loggeduser, Map<String, Object> model, ObjGroup objgroup) {
+  if(loggeduser.getId() == 0){
+    System.out.println("you must be logged in");
+    return "mainpage";
+  }else{
+    try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      System.out.println("0");
+      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS grouptable (id serial, groupname varchar(20), membercount integer, game varchar(20), members varchar(300))");
+      String sql = "INSERT INTO grouptable (groupname,membercount,game,members) VALUES ('" + objgroup.getGroupname() + "','" + objgroup.getMaxmembers() + "','" + objgroup.getGame() + "','" + loggeduser.getId() + "')";
+      stmt.executeUpdate(sql);
+      return "mainpage";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+    }
+  }
+
+
+@GetMapping(
     path = "/accdb"
   )
   public String getAccountDatabase(Map<String, Object> model, User user) {
@@ -321,7 +386,7 @@ public class Main {
 @GetMapping(
     path = "/logincheck"
   )
-  public String getAccountDatabase(@ModelAttribute("loggeduser") User loggeduser, Map<String, Object> model, User user) {
+  public String getLoginCheck(@ModelAttribute("loggeduser") User loggeduser, Map<String, Object> model, User user) {
       try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
       ArrayList<User> output = new ArrayList<User>();
