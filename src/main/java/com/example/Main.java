@@ -96,6 +96,51 @@ public class Main {
             model.put("message", e.getMessage());
             return "error";
         }
+
+  @Value("${spring.datasource.url}")
+  private String dbUrl;
+
+  @Autowired
+  private DataSource dataSource;
+
+
+   @ModelAttribute("loggeduser") //loggeduser IS THE User OBJECT THAT IS PER SESSION SO THIS CAN CARRY THE LGGED IN USERDATA MAYBE ????
+   public User setUpUserForm() {
+      return new User();
+   }
+
+
+
+  public static void main(String[] args) throws Exception {
+    SpringApplication.run(Main.class, args);
+  }
+
+
+  @RequestMapping("/")
+  String index(@ModelAttribute("loggeduser") User loggeduser) {
+    return "redirect:/mainpage";
+  }
+
+  @GetMapping(
+    path = "/mainpage"
+  )
+  public String getUserForm(@ModelAttribute("loggeduser") User loggeduser, Map<String, Object> model){
+    try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS grouptable (id serial, groupname varchar(20), membercount integer, game varchar(20), members varchar(300))");
+      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS accounts (id serial, username varchar(20), password varchar(20), type varchar(20), age integer, gender varchar(20), region varchar(20), bio varchar(150), pfp varchar(30), groups varchar(20))");
+      ResultSet rs = stmt.executeQuery("SELECT * FROM accounts");
+      ArrayList<User> output = new ArrayList<User>();
+      System.out.println(loggeduser.getId());
+      output.add(loggeduser);
+      if (loggeduser.getId() != 0){
+        model.put("welcome", "Welcome " + loggeduser.getUsername());
+      }
+      model.put("records", loggeduser);
+      return "mainpage";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
     }
 
     @GetMapping(
@@ -314,6 +359,46 @@ public class Main {
                 return "error";
             }
         }
+  }
+
+
+@GetMapping(
+    path = "/user/{pid}"
+  )
+  public String getAccountDatabase(@ModelAttribute("loggeduser") User loggeduser, Map<String, Object> model, User user, @PathVariable String pid) {
+      try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      ResultSet rs = stmt.executeQuery("SELECT * FROM accounts WHERE id="+pid);
+      ArrayList<User> output = new ArrayList<User>();
+      while (rs.next()) {
+        User tempuser = new User();
+        int id = rs.getInt("id");
+        String tname = rs.getString("username");
+        String password = rs.getString("password");
+        int age = rs.getInt("age");
+        String gender = rs.getString("gender");
+        String region = rs.getString("region");
+        String bio = rs.getString("bio");
+        String pfp = rs.getString("pfp");
+        String groups = rs.getString("groups");
+        String type = rs.getString("type");
+        tempuser.setUsername(tname);
+        tempuser.setPassword(password);
+        tempuser.setId(id);
+        tempuser.setAge(age);
+        tempuser.setGender(gender);
+        tempuser.setRegion(region);
+        tempuser.setBio(bio);
+        tempuser.setPfp(pfp);
+        tempuser.setGroups(groups);
+        tempuser.setType(type);
+        output.add(tempuser);
+      }
+      model.put("records", output);
+      return "User";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
     }
 
 
@@ -419,6 +504,47 @@ public class Main {
             model.put("message", e.getMessage());
             return "error";
         }
+      Statement stmt = connection.createStatement();
+      ArrayList<User> output = new ArrayList<User>();
+      if(loggeduser.getId() == 0){
+      return "profile";
+      }
+      
+      ResultSet rs = stmt.executeQuery("SELECT * FROM accounts");
+      while(rs.next()){
+      if(rs.getString("username").equals(user.getUsername())){
+        model.put("records", loggeduser);
+        model.put("message", "Username taken");
+        return "profile";
+      }
+      }
+      if(!(user.getUsername().length() == 0)){
+        stmt.executeUpdate("UPDATE accounts SET username='"+user.getUsername()+"' WHERE id="+loggeduser.getId());
+      }
+      if(!(user.getPassword().length() == 0)){
+        stmt.executeUpdate("UPDATE accounts SET password='"+user.getPassword()+"' WHERE id="+loggeduser.getId());
+      }
+      if(user.getAge() != 0){
+        stmt.executeUpdate("UPDATE accounts SET age='"+user.getAge()+"' WHERE id="+loggeduser.getId());
+      }
+      if(!(user.getGender().length() == 0)){
+        stmt.executeUpdate("UPDATE accounts SET gender='"+user.getGender()+"' WHERE id="+loggeduser.getId());
+      }
+      if(!(user.getRegion().length() == 0)){
+        stmt.executeUpdate("UPDATE accounts SET region='"+user.getRegion()+"' WHERE id="+loggeduser.getId());
+      }
+      if(!(user.getBio().length() == 0)){
+        stmt.executeUpdate("UPDATE accounts SET bio='"+user.getBio()+"' WHERE id="+loggeduser.getId());
+      }
+      if(user.getAdminkey().equals("bobby276")){
+        stmt.executeUpdate("UPDATE accounts SET type='admin' WHERE id="+loggeduser.getId());
+      }
+      output.add(loggeduser);
+      model.put("records", output);
+      return "redirect:/profile";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
     }
     @PostMapping(
             path = "/profile/edit",

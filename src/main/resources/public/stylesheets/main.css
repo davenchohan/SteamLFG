@@ -32,7 +32,6 @@ body {
 }
 
 .login {
-    background-image: linear-gradient(to right,blue,purple);
     width: 382px;
     overflow: hidden;
     padding: 0px 500px 100px 200px;
@@ -40,6 +39,8 @@ body {
     background: linear-gradient(27deg, #151515 5px, transparent 5px) 0 5px, linear-gradient(207deg, #151515 5px, transparent 5px) 10px 0px, linear-gradient(27deg, #222 5px, transparent 5px) 0px 10px, linear-gradient(207deg, #222 5px, transparent 5px) 10px 5px, linear-gradient(90deg, #1b1b1b 10px, transparent 10px), linear-gradient(#1d1d1d 25%, #1a1a1a 25%, #1a1a1a 50%, transparent 50%, transparent 75%, #242424 75%, #242424);
     background-color: #131313;
     background-size: 20px 20px;
+    /* position: absolute; */
+    margin-top: 500px;
 }
 
 .loginlabel {
@@ -123,6 +124,9 @@ body {
 #submitbutton:hover{
     opacity: 50%;
 }
+
+    cursor: pointer;
+  }
 
 
 /* navigation styles start here */
@@ -340,6 +344,18 @@ nav a:hover {
     nav a:hover::before
     {
         transform: scale(1,1);
+    }
+
+    .login {
+        width: 382px;
+        overflow: hidden;
+        padding: 0px 500px 100px 200px;
+        border: 1px solid white;
+        background: linear-gradient(27deg, #151515 5px, transparent 5px) 0 5px, linear-gradient(207deg, #151515 5px, transparent 5px) 10px 0px, linear-gradient(27deg, #222 5px, transparent 5px) 0px 10px, linear-gradient(207deg, #222 5px, transparent 5px) 10px 5px, linear-gradient(90deg, #1b1b1b 10px, transparent 10px), linear-gradient(#1d1d1d 25%, #1a1a1a 25%, #1a1a1a 50%, transparent 50%, transparent 75%, #242424 75%, #242424);
+        background-color: #131313;
+        background-size: 20px 20px;
+        /* position: absolute; */
+        margin-top: -100px;
     }
 
 

@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SteamLFG</title>
+    <script src="/navbar.js" defer></script>
     <script src="https://kit.fontawesome.com/9c0e4b65c1.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="/stylesheets/mainp.css">
     <link rel="shortcut icon" type="image/png" href=".\favicon.ico" />
@@ -26,7 +27,7 @@
                     <li><a id="thirdd" href="/groupdb"> Find Group</a></li>
                 </ul>
             </li>
-
+            <li id="fourth" th:text="${welcome}"><i class="fas fa-info"></i></a></li>
         </ul>
     </nav>
     <label for="nav-toggle" class="nav-toggle-label">
@@ -41,12 +42,20 @@
         <form th:action="@{/login}">
             <button id="login" type="submit"><i class="fas fa-sign-in-alt fa-2x"></i>  Login</button>
         </form>
+        <form th:action="@{/logout}">
+            <button id="logout" type="submit"><i class="fas fa-sign-in-alt fa-2x"></i>  Logout</button>
+        </form>
+        <form th:action="@{/profile}" >
+            <button id="profile" type="submit"><i class="fas fa-sign-in-alt fa-2x"></i> Profile</button>
+        </form>
     </div>
 
     <label for="dropbtn" class="droplabel">
         <span><i id="icon" class="fas fa-user fa-2x"> </i> </span>
     </label>
-
+    <table th:each="record : ${records}">
+        <td id="userid" th:text="${record.getId()}"> testing</td>
+    </table>
 </header>
 
 
