@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/src/main/resources/public/stylesheets/profile.css">
+    <link rel="stylesheet" href="/stylesheets/profile.css">
     <link rel="shortcut icon" type="image/png" href="/steamlogo.png" />
     <script src="https://kit.fontawesome.com/9c0e4b65c1.js" crossorigin="anonymous"></script>
     <title>Login Check</title>
 </head>
 <body>
-    <div class="content">
+    <div class="content" th:each="record : ${records}">
 
         <div class="profile-header">
             <div class="profile-img">
@@ -18,8 +18,8 @@
             </div>
 
             <div class="profile-nav-info">
-                <h3 class="user-name" th:each="record : ${records}">
-                   placeholder
+                <h3 class="user-name">
+                   <p th:text="${record.getUsername()}"></p>
                 </h3>
                 <div class="age">
                     <p th:text="${record.getAge()}"> placeholder</p>
@@ -29,7 +29,7 @@
                 <div class="main-body">
                     <div class="left-side">
                         <div class="profile-side">
-                            <div class="user-bio">
+                            <div class="user-bio" >
                                 <h3>Bio</h3>
                                 <p class="bio" th:text="${record.getBio()}">  </p>
                             </div>
@@ -53,23 +53,16 @@
                         <div class="profile-body">
                             <div class="profile-stats tab">
                                 <h1>Level</h1>
-                                <p>In this video we will take a look at how to create a responsive profile page for a website with see less, see more text, functional tabs, alert nofication, star rating etc using html css javascript
-                                    this profile page can be used for social website, e-commerce website or any other website with a profile page needed. 
-                                    it is also compatible with mobile 
-                                    </p>
+                                <p></p>
                             </div>
                             <div class="profile-groups tab">
                                 <h1> Joined Groups</h1>
-                                <p>In this video we will take a look at how to create a responsive profile page for a website with see less, see more text, functional tabs, alert nofication, star rating etc using html css javascript
-                                    this profile page can be used for social website, e-commerce website or any other website with a profile page needed. 
-                                    it is also compatible with mobile 
+                                <p> 
                                     </p>
                             </div>
                             <div class="profile-settings tab">
                                 <h1> Account Settings</h1>
-                                <p>In this video we will take a look at how to create a responsive profile page for a website with see less, see more text, functional tabs, alert nofication, star rating etc using html css javascript
-                                    this profile page can be used for social website, e-commerce website or any other website with a profile page needed. 
-                                    it is also compatible with mobile 
+                                <p>
                                     </p>
                                 <div class="button-settings">
                                     <form th:action="@{/profile/edit}">
@@ -92,6 +85,6 @@
     
     </div>
 
-<script src="/src/main/resources/public/profile.js"></script>
+<script src="/src/main/resources/public/main.js"></script>
 </body>
 </html>
