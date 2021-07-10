@@ -5,7 +5,7 @@ $('.nav ul li').click(function()
 )
 
 const tabBtn= document.querySelectorAll('.nav ul li');
-const tab = document.querySelectorAll('tab');
+const tab = document.querySelectorAll('.tab');
 
 function tabs(panel)
 {
