@@ -1,66 +1,97 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href=".\stylesheets\rectanglestyle.css">
+    <link rel="stylesheet" href="/src/main/resources/public/stylesheets/profile.css">
     <link rel="shortcut icon" type="image/png" href="/steamlogo.png" />
+    <script src="https://kit.fontawesome.com/9c0e4b65c1.js" crossorigin="anonymous"></script>
     <title>Login Check</title>
-    <script src="../scripts/rec.js" defer></script>
 </head>
 <body>
-    <header><a href="/login" th:text="${message}"></a></header>
-    <table th:each="record : ${records}">
-        <tr>
-            <th>ID: </th>
-            <td th:text="${record.getId()}"> </td>
-        </tr>
-        <tr>
-            <th>Username: </th>
-            <td th:text="${record.getUsername()}"> </td>
-        </tr>
-        <tr>
-            <th>Password: </th>
-            <td th:text="${record.getPassword()}"> </td>
-        </tr>
-        <tr>
-            <th>Age: </th>
-            <td th:text="${record.getAge()}"> </td>
-        </tr>
-        <tr>
-            <th>Gender: </th>
-            <td th:text="${record.getGender()}"> </td>
-        </tr>
-        <tr>
-            <th>Region: </th>
-            <td  th:text="${record.getRegion()}"> </td>
-        </tr>
-        <tr>
-            <th>Bio: </th>
-            <td  th:text="${record.getBio()}"> </td>
-        </tr>
-        <tr>
-            <th>PFP: </th>
-            <td  th:text="${record.getPfp()}"> </td>
-        </tr>
-        <tr>
-            <th>Groups: </th>
-            <td  th:text="${record.getGroups()}"> </td>
-        </tr>
-        <tr>
-            <th>Profile Type: </th>
-            <td  th:text="${record.getType()}"> </td>
-        </tr>
-    </table>
-    <form th:action="@{/profile/edit}">
-        <button type="submit">Edit Profile</button>
-    </form>
-    <form th:action="@{/mainpage}">
-        <button type="submit">Home</button>
-    </form>
-    <form th:action="@{/accdb}">
-        <button type="submit">View User Database (Admins Only)</button>
-    </form>
+    <div class="content">
+
+        <div class="profile-header">
+            <div class="profile-img">
+               <img id="profile-img" src="/src/main/resources/public/blank-profile-picture.png" alt="blank-profile-picture">
+            </div>
+
+            <div class="profile-nav-info">
+                <h3 class="user-name" th:each="record : ${records}">
+                   placeholder
+                </h3>
+                <div class="age">
+                    <p th:text="${record.getAge()}"> placeholder</p>
+                </div>
+            </div>
+        </div>
+                <div class="main-body">
+                    <div class="left-side">
+                        <div class="profile-side">
+                            <div class="user-bio">
+                                <h3>Bio</h3>
+                                <p class="bio" th:text="${record.getBio()}">  </p>
+                            </div>
+                            <div class="profile-btn">
+                                <button class="friend-button"><i class="fad fa-user-plus"></i></i>
+                                    Add friend
+                                </button>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="right-side">
+                        <div class="nav">
+                            <ul>
+                                <li  onclick="tabs(0)" class="user-stats active"> Stats</li>
+                                <li  onclick="tabs(1)" class="user-groups"> Groups</li>
+                                <li  onclick="tabs(2)" class="user-ssettings"> Settings</li>
+                            </ul>
+                        </div>
+                        <div class="profile-body">
+                            <div class="profile-stats tab">
+                                <h1>Level</h1>
+                                <p>In this video we will take a look at how to create a responsive profile page for a website with see less, see more text, functional tabs, alert nofication, star rating etc using html css javascript
+                                    this profile page can be used for social website, e-commerce website or any other website with a profile page needed. 
+                                    it is also compatible with mobile 
+                                    </p>
+                            </div>
+                            <div class="profile-groups tab">
+                                <h1> Joined Groups</h1>
+                                <p>In this video we will take a look at how to create a responsive profile page for a website with see less, see more text, functional tabs, alert nofication, star rating etc using html css javascript
+                                    this profile page can be used for social website, e-commerce website or any other website with a profile page needed. 
+                                    it is also compatible with mobile 
+                                    </p>
+                            </div>
+                            <div class="profile-settings tab">
+                                <h1> Account Settings</h1>
+                                <p>In this video we will take a look at how to create a responsive profile page for a website with see less, see more text, functional tabs, alert nofication, star rating etc using html css javascript
+                                    this profile page can be used for social website, e-commerce website or any other website with a profile page needed. 
+                                    it is also compatible with mobile 
+                                    </p>
+                                <div class="button-settings">
+                                    <form th:action="@{/profile/edit}">
+                                        <button type="submit">Edit Profile</button>
+                                    </form>
+                                    <form th:action="@{/mainpage}">
+                                        <button type="submit">Home</button>
+                                    </form>
+                                    <form th:action="@{/accdb}">
+                                        <button type="submit">View User Database (Admins Only)</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+            
+    
+    
+    </div>
+
+<script src="/src/main/resources/public/profile.js"></script>
 </body>
 </html>
