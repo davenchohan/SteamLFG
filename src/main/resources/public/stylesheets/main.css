@@ -32,14 +32,27 @@ body {
 }
 
 .login {
-    background-image: linear-gradient(to right,blue,purple);
-    width: 382px;
+    width: 32px;
     overflow: hidden;
-    padding: 0px 500px 100px 200px;
+    padding: 0px 310px 100px 10px;
     border: 1px solid white;
     background: linear-gradient(27deg, #151515 5px, transparent 5px) 0 5px, linear-gradient(207deg, #151515 5px, transparent 5px) 10px 0px, linear-gradient(27deg, #222 5px, transparent 5px) 0px 10px, linear-gradient(207deg, #222 5px, transparent 5px) 10px 5px, linear-gradient(90deg, #1b1b1b 10px, transparent 10px), linear-gradient(#1d1d1d 25%, #1a1a1a 25%, #1a1a1a 50%, transparent 50%, transparent 75%, #242424 75%, #242424);
     background-color: #131313;
     background-size: 20px 20px;
+    /* position: absolute; */
+    margin-top: 500px;
+}
+
+.signuppage {
+    width: 32px;
+    overflow: hidden;
+    padding: 0px 340px 100px 0px;
+    border: 1px solid white;
+    background: linear-gradient(27deg, #151515 5px, transparent 5px) 0 5px, linear-gradient(207deg, #151515 5px, transparent 5px) 10px 0px, linear-gradient(27deg, #222 5px, transparent 5px) 0px 10px, linear-gradient(207deg, #222 5px, transparent 5px) 10px 5px, linear-gradient(90deg, #1b1b1b 10px, transparent 10px), linear-gradient(#1d1d1d 25%, #1a1a1a 25%, #1a1a1a 50%, transparent 50%, transparent 75%, #242424 75%, #242424);
+    background-color: #131313;
+    background-size: 20px 20px;
+    /* position: absolute; */
+    margin-top: 500px;
 }
 
 .loginlabel {
@@ -86,20 +99,22 @@ body {
 
 #error{
     color: red;
-    font-size: 17px;  
+    font-size: 13px;  
     margin-left: -100px;
     margin-bottom: -50px;
-    width: 2000px;
+    width: 425px;
     padding-top: 50px;
+    padding-left: 125px;
 }
 
 #errorsignup{
     color: red;
-    font-size: 17px;  
-    margin-left: -10px;
+    font-size: 13px;  
+    margin-left: -100px;
     margin-bottom: -50px;
-    width: 2000px;
+    width: 425px;
     padding-top: 50px;
+    padding-left: 125px;
 }
 
 
@@ -122,6 +137,7 @@ body {
 
 #submitbutton:hover{
     opacity: 50%;
+    cursor: pointer;
   }
 
 
@@ -342,7 +358,94 @@ nav a:hover {
         transform: scale(1,1);
     }
 
+    .login {
+        width: 382px;
+        overflow: hidden;
+        padding: 0px 500px 100px 200px;
+        border: 1px solid white;
+        background: linear-gradient(27deg, #151515 5px, transparent 5px) 0 5px, linear-gradient(207deg, #151515 5px, transparent 5px) 10px 0px, linear-gradient(27deg, #222 5px, transparent 5px) 0px 10px, linear-gradient(207deg, #222 5px, transparent 5px) 10px 5px, linear-gradient(90deg, #1b1b1b 10px, transparent 10px), linear-gradient(#1d1d1d 25%, #1a1a1a 25%, #1a1a1a 50%, transparent 50%, transparent 75%, #242424 75%, #242424);
+        background-color: #131313;
+        background-size: 20px 20px;
+        /* position: absolute; */
+        margin-top: -100px;
+    }
 
+    #error{
+        color: red;
+        font-size: 17px;  
+        margin-left: -200px;
+        margin-bottom: -50px;
+        width: 2000px;
+        padding-top: 50px;
+    }
+    
+    #errorsignup{
+        color: red;
+        font-size: 17px;  
+        margin-left: -120px;
+        margin-bottom: -50px;
+        width: 2000px;
+        padding-top: 50px;
+    }
+
+    .signuppage {
+        width: 382px;
+        overflow: hidden;
+        padding: 0px 530px 100px 200px;
+        border: 1px solid white;
+        background: linear-gradient(27deg, #151515 5px, transparent 5px) 0 5px, linear-gradient(207deg, #151515 5px, transparent 5px) 10px 0px, linear-gradient(27deg, #222 5px, transparent 5px) 0px 10px, linear-gradient(207deg, #222 5px, transparent 5px) 10px 5px, linear-gradient(90deg, #1b1b1b 10px, transparent 10px), linear-gradient(#1d1d1d 25%, #1a1a1a 25%, #1a1a1a 50%, transparent 50%, transparent 75%, #242424 75%, #242424);
+        background-color: #131313;
+        background-size: 20px 20px;
+        /* position: absolute; */
+        margin-top: -100px;
+    }
+    
+
+}
+
+@media screen and (max-height: 852px) and (min-width: 800px) {
+    .login {
+        width: 382px;
+        overflow: hidden;
+        padding: 0px 500px 100px 200px;
+        border: 1px solid white;
+        background: linear-gradient(27deg, #151515 5px, transparent 5px) 0 5px, linear-gradient(207deg, #151515 5px, transparent 5px) 10px 0px, linear-gradient(27deg, #222 5px, transparent 5px) 0px 10px, linear-gradient(207deg, #222 5px, transparent 5px) 10px 5px, linear-gradient(90deg, #1b1b1b 10px, transparent 10px), linear-gradient(#1d1d1d 25%, #1a1a1a 25%, #1a1a1a 50%, transparent 50%, transparent 75%, #242424 75%, #242424);
+        background-color: #131313;
+        background-size: 20px 20px;
+        /* position: absolute; */
+        margin-top: 350px;
+    }
+
+    .signuppage {
+        width: 382px;
+        overflow: hidden;
+        padding: 0px 530px 100px 200px;
+        border: 1px solid white;
+        background: linear-gradient(27deg, #151515 5px, transparent 5px) 0 5px, linear-gradient(207deg, #151515 5px, transparent 5px) 10px 0px, linear-gradient(27deg, #222 5px, transparent 5px) 0px 10px, linear-gradient(207deg, #222 5px, transparent 5px) 10px 5px, linear-gradient(90deg, #1b1b1b 10px, transparent 10px), linear-gradient(#1d1d1d 25%, #1a1a1a 25%, #1a1a1a 50%, transparent 50%, transparent 75%, #242424 75%, #242424);
+        background-color: #131313;
+        background-size: 20px 20px;
+        /* position: absolute; */
+        margin-top: 300px;
+        margin-bottom: 250px;
+    }
+    
+    #error{
+        color: red;
+        font-size: 17px;  
+        margin-left: -200px;
+        margin-bottom: -50px;
+        width: 2000px;
+        padding-top: 50px;
+    }
+    
+    #errorsignup{
+        color: red;
+        font-size: 17px;  
+        margin-left: -120px;
+        margin-bottom: -50px;
+        width: 2000px;
+        padding-top: 50px;
+    }
 }
 
 /*//////////////////////dropdown for account below*/

@@ -49,15 +49,16 @@
     
     </header>
     <div class="content">
-        <div class="login">
+        <div class="signuppage">
             <h1 id="signuptitle">Registration Form</h1>
             <form id="login" action="#" method="post" th:action="@{/signup}" th:object="${user}">
                 <label for="name" class="loginlabel">Username: </label>
-                <input type="text" maxlength = "20" id="name" input required="" th:field=*{username} placeholder="username"> <br>
+                <input type="text" maxlength="20" id="name" input required="" th:field=*{username} placeholder="username"> <br>
                 <label for="name" class="loginlabel">Password: </label>
-                <input type="password" maxlength = "20" id="password" input required="" th:field=*{password} placeholder="password"> <br>
+                <input type="password" maxlength="20" id="password" input required="" th:field=*{password} placeholder="password"> <br>
                 <input type="submit" id="submitbutton" value="Submit">
             </form>
+            <p id="errorsignup" th:text="${message}"></p>
         </div>
     </div>
 </body>

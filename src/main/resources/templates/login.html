@@ -53,11 +53,12 @@
             <h1 id="logintitle">Login Form</h1>
             <form action="#" method="post" th:action="@{/login}" th:object="${user}">
                 <label class="loginlabel" for="name">Username: </label>
-                <input type="text" maxlength = "20" id="name" input required="" th:field=*{username} placeholder="username"> <br>
+                <input type="text" maxlength="20" id="name" input required="" th:field=*{username} placeholder="username"> <br>
                 <label class="loginlabel" for="name">Password: </label>
-                <input type="password" maxlength = "20" id="password" input required="" th:field=*{password} placeholder="password"> <br>
+                <input type="password" maxlength="20" id="password" input required="" th:field=*{password} placeholder="password"> <br>
                 <input type="submit" id="submitbutton" value="Submit">
             </form>
+            <p id="error" th:text="${message}"></p>
         </div>
     </div>
 </body>

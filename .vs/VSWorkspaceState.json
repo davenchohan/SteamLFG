@@ -9,9 +9,8 @@
     "\\src\\main\\resources",
     "\\src\\main\\resources\\public",
     "\\src\\main\\resources\\public\\stylesheets",
-    "\\src\\main\\resources\\templates",
-    "\\src\\main\\resources\\templates\\fragments"
+    "\\src\\main\\resources\\templates"
   ],
-  "SelectedNode": "\\src\\main\\resources\\templates\\accdb.html",
+  "SelectedNode": "\\src\\main\\resources\\templates\\profile.html",
   "PreviewInSolutionExplorer": true
 }
