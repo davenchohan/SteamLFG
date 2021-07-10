@@ -4,25 +4,25 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/src/main/resources/public/stylesheets/profile.css">
+    <link rel="stylesheet" href="/stylesheets/profile.css">
     <link rel="shortcut icon" type="image/png" href="/steamlogo.png" />
     <script src="https://kit.fontawesome.com/9c0e4b65c1.js" crossorigin="anonymous"></script>
     <title>Login Check</title>
 </head>
 <body>
-    <div class="content">
-
+    <div class="content" th:each="record : ${records}">
         <div class="profile-header">
+            <p th:text="${message}"></p>
             <div class="profile-img">
-               <img id="profile-img" src="/src/main/resources/public/blank-profile-picture.png" alt="blank-profile-picture">
+               <img id="profile-img" src="/blank-profile-picture.png" alt="blank-profile-picture">
             </div>
 
             <div class="profile-nav-info">
-                <h3 class="user-name" th:each="record : ${records}">
-                   placeholder
+                <h3 class="user-name" th:text="${record.getUsername()}">
+                  
                 </h3>
                 <div class="age">
-                    <p th:text="${record.getAge()}"> placeholder</p>
+                    <p th:text="${record.getAge()}"></p>
                 </div>
             </div>
         </div>
@@ -53,33 +53,26 @@
                         <div class="profile-body">
                             <div class="profile-stats tab">
                                 <h1>Level</h1>
-                                <p>In this video we will take a look at how to create a responsive profile page for a website with see less, see more text, functional tabs, alert nofication, star rating etc using html css javascript
-                                    this profile page can be used for social website, e-commerce website or any other website with a profile page needed. 
-                                    it is also compatible with mobile 
-                                    </p>
+                                <p>
+                                 </p>
                             </div>
                             <div class="profile-groups tab">
                                 <h1> Joined Groups</h1>
-                                <p>In this video we will take a look at how to create a responsive profile page for a website with see less, see more text, functional tabs, alert nofication, star rating etc using html css javascript
-                                    this profile page can be used for social website, e-commerce website or any other website with a profile page needed. 
-                                    it is also compatible with mobile 
+                                <p>
                                     </p>
                             </div>
                             <div class="profile-settings tab">
                                 <h1> Account Settings</h1>
-                                <p>In this video we will take a look at how to create a responsive profile page for a website with see less, see more text, functional tabs, alert nofication, star rating etc using html css javascript
-                                    this profile page can be used for social website, e-commerce website or any other website with a profile page needed. 
-                                    it is also compatible with mobile 
-                                    </p>
+                                <p> </p>
                                 <div class="button-settings">
                                     <form th:action="@{/profile/edit}">
-                                        <button type="submit">Edit Profile</button>
+                                        <button class="edit-button" type="submit">Edit Profile</button>
                                     </form>
                                     <form th:action="@{/mainpage}">
-                                        <button type="submit">Home</button>
+                                        <button class="home-button" type="submit">Home</button>
                                     </form>
                                     <form th:action="@{/accdb}">
-                                        <button type="submit">View User Database (Admins Only)</button>
+                                        <button class="user-db" type="submit">View User Database (Admins Only)</button>
                                     </form>
                                 </div>
                             </div>
@@ -91,7 +84,7 @@
     
     
     </div>
-
-<script src="/src/main/resources/public/profile.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="/profile.js"></script>
 </body>
 </html>
