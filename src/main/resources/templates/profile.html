@@ -19,8 +19,17 @@
             <div class="profile-nav-info">
                 <h3 class="user-name" th:text="${record.getUsername()}">
                 </h3>
-                <div class="age">
-                    <p th:text="${record.getAge()}"></p>
+                <div class="userinfo">
+                    <label for="userage" class="labeluser">Age: </label>
+                    <p id="userage" th:text="${record.getAge()}"></p>
+                </div>
+                <div class="userinfo">
+                    <label for="usergender" class="labeluser">Gender: </label>
+                    <p id="usergender" th:text="${record.getGender()}"></p>
+                </div>
+                <div class="userinfo">
+                    <label for="userregion" class="labeluser">Region: </label>
+                    <p id="userregion" th:text="${record.getRegion()}"></p>
                 </div>
                 <p style="color:red" th:text="${message}"></p>
             </div>
