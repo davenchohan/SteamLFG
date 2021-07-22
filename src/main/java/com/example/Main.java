@@ -116,7 +116,7 @@ public class Main {
         return "signup";
         }
       }
-      String sql = "INSERT INTO accounts (username,password,type,age,gender,region) VALUES ('" + user.getUsername() + "','" + user.getPassword() + "','" + "user" + "','" + user.getAge() + "','" + user.getGender() + "','" + user.getRegion() + "')";
+      String sql = "INSERT INTO accounts (username,password,type,age,gender,region,bio) VALUES ('" + user.getUsername() + "','" + user.getPassword() + "','" + "user" + "','" + user.getAge() + "','" + user.getGender() + "','" + user.getRegion() + "','" + "User Bio is Empty" + "')";
       stmt.executeUpdate(sql);
       return "login";
     } catch (Exception e) {

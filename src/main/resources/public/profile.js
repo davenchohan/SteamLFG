@@ -16,3 +16,7 @@ function tabs(panel)
 }
 
 tabs(0);
+
+function saveChanges() {
+    var bioText = document.getElementById("edit");
+}
