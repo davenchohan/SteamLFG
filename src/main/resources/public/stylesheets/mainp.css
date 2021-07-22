@@ -79,6 +79,7 @@ img {
 #fourth {
     color: white;
     text-shadow: 1.5px 1.5px black;
+    padding-left: 30px;
 } 
 
 .nav-toggle-label span,
