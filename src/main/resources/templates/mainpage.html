@@ -27,7 +27,7 @@
                         <li><a id="thirdd" href="/groupdb"> Find Group</a></li>
                     </ul>
             </li>
-            <li id="fourth" th:text="${welcome}"><i class="fas fa-info"></i></li>
+            <li id="fourth" th:text="${welcome}"> </li>
         </ul>
     </nav>
     <label for="nav-toggle" class="nav-toggle-label">
@@ -43,10 +43,10 @@
             <button id="login" type="submit"><i class="fas fa-sign-in-alt fa-2x"></i>  Login</button>
         </form>
         <form th:action="@{/logout}">
-            <button id="logout" type="submit"><i class="fas fa-sign-in-alt fa-2x"></i>  Logout</button>
+            <button id="logout" type="submit"><i class="fas fa-sign-out-alt fa-2x"></i>  Logout</button>
         </form>
         <form th:action="@{/profile}" >
-            <button id="profile" type="submit"><i class="fas fa-sign-in-alt fa-2x"></i> Profile</button>
+            <button id="profile" type="submit"><i class="fas fa-user-circle fa-2x"></i> Profile</button>
         </form>
     </div>
 
