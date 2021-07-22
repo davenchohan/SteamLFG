@@ -13,7 +13,7 @@
     <div class="content" th:each="record : ${records}">
         <div class="profile-header">
             <div class="profile-img">
-               <img id="profile-img" src="/blank-profile-picture.png" alt="blank-profile-picture">
+               <img id="profile-img" th:src="${record.getPfp()}" alt="Image Not Found" onerror="this.src='/blank-profile-picture.png';">
             </div>
 
             <div class="profile-nav-info">

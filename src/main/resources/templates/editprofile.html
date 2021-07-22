@@ -67,8 +67,9 @@
                         <td><textarea name="bio" id="bio" cols="50" rows="3" th:field=*{bio} maxlength="150"></textarea></td>
                     </tr>
                     <tr>
-                        <th>PFP: </th>
+                        <th>PFP (Link): </th>
                         <td th:text="${record.getPfp()}"> </td>
+                        <td><input maxlength="150" type="text" th:field=*{pfp} ></td>
                     </tr>
                     <tr>
                         <th>Groups: </th>
