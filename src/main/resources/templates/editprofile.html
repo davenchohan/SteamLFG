@@ -65,6 +65,7 @@
     <p>admin password is bobby276</p>
     <button type="submit">Accept</button>
 </form>
+    <p style="color:red" th:text="${message}"></p>
     <form action="#" method="post" th:action="@{/profile/edit}" th:object="${user}">
         <table th:each="record : ${records}">
             <tr>

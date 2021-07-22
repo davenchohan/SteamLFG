@@ -97,6 +97,30 @@ public class Main {
     public String getSignUpForm(Map<String, Object> model){
         User user = new User();
         model.put("user", user);
+  }
+
+  @GetMapping(
+    path = "/signup"
+  )
+  public String getSignUpForm(Map<String, Object> model){
+    User user = new User();
+    model.put("user", user);
+    return "signup";
+  }
+
+  @PostMapping(
+    path = "/signup",
+    consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
+  )//ADD CONFIRM PASSWORD AND MAYBE EMAIL? SEQURITY QUESTIONS? ENCRYPT PASSWORD? REGION? SEX? AGE? ETC>...>>>
+  public String handleBrowserSignupSubmit(Map<String, Object> model, User user) throws Exception {
+    try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS accounts (id serial, username varchar(20), password varchar(20), type varchar(20), age integer, gender varchar(20), region varchar(20), bio varchar(150), pfp varchar(30), groups varchar(20))");
+      ResultSet rs = stmt.executeQuery("SELECT * FROM accounts");
+      while(rs.next()){
+        String tname = rs.getString("username");
+        if(user.getUsername().equals(tname)){
+        model.put("message", "Username taken. Have an account? Log in.");
         return "signup";
     }
 
@@ -172,6 +196,61 @@ public class Main {
                         return "login";
                     }
                 }
+      }
+      String sql = "INSERT INTO accounts (username,password,type,age,gender,region) VALUES ('" + user.getUsername() + "','" + user.getPassword() + "','" + "user" + "','" + user.getAge() + "','" + user.getGender() + "','" + user.getRegion() + "')";
+      stmt.executeUpdate(sql);
+      return "login";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+  }
+
+  @GetMapping(
+    path = "/login"
+  )
+  public String getLoginForm(Map<String, Object> model) {
+    User user = new User();
+    model.put("user", user);
+    return "login";
+  }
+
+   @PostMapping("/login")
+   public String doLogin(@ModelAttribute("loggeduser") User loggeduser, Map<String, Object> model, User user) { //THE (@ModelAttribute("loggeduser") ... PARAM CARRIES SESSION DATA INTO THE PAGE SO WE CAN FIND THE USER STUFF IT WORKS!!!
+    try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      ResultSet rs = stmt.executeQuery("SELECT * FROM accounts");
+      ArrayList<User> output = new ArrayList<User>();
+      while (rs.next()) {
+        User tuser = new User();
+        String tname = rs.getString("username");
+        String tpassword = rs.getString("password");
+        int id = rs.getInt("id");
+        int age = rs.getInt("age");
+        String gender = rs.getString("gender");
+        String region = rs.getString("region");
+        String bio = rs.getString("bio");
+        String pfp = rs.getString("pfp");
+        String groups = rs.getString("groups");
+        String type = rs.getString("type");
+        if(user.getUsername().equals(tname)){
+            if(user.getPassword().equals(tpassword)) {
+            System.out.println("LOGGED IN AS1 " + user.getUsername());
+            loggeduser.setId(id);
+            loggeduser.setUsername(tname);
+            loggeduser.setPassword(tpassword);
+            loggeduser.setId(id);
+            loggeduser.setAge(age);
+            loggeduser.setGender(gender);
+            loggeduser.setRegion(region);
+            loggeduser.setBio(bio);
+            loggeduser.setPfp(pfp);
+            loggeduser.setGroups(groups);
+            loggeduser.setType(type);
+            return "redirect:/profile";
+            }else{
+                model.put("message", "Username/Password is incorrect. Create an account.");
+                return "login";
             }
             model.put("message", "Username and password combination is incorrect. Try again.");
             return "login";
@@ -179,6 +258,12 @@ public class Main {
             model.put("message", e.getMessage());
             return "error";
         }
+      }
+      model.put("message", "Username/Password is incorrect. Create an account.");
+      return "login";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
     }
 
     @GetMapping(
@@ -227,6 +312,66 @@ public class Main {
             model.put("message", e.getMessage());
             return "error";
         }
+@GetMapping(
+    path = "/groupdb"
+  )
+  public String getGroupDatabase(@ModelAttribute("loggeduser") User loggeduser, Map<String, Object> model) {
+      try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS grouptable (id serial, groupname varchar(20), membercount integer, game varchar(20), members varchar(300))");
+      ResultSet rs = stmt.executeQuery("SELECT * FROM grouptable");
+      ArrayList<ObjGroup> output = new ArrayList<ObjGroup>();
+      while (rs.next()) {
+        ObjGroup tgroup = new ObjGroup();
+        String gname = rs.getString("groupname");
+        int mcount = rs.getInt("membercount");
+        String game = rs.getString("game");
+        String mems = rs.getString("members");
+        int id = rs.getInt("id");
+        tgroup.setGroupname(gname);
+        tgroup.setMaxmembers(mcount);
+        tgroup.setGame(game);
+        tgroup.setGid(id);
+        output.add(tgroup);
+      }
+      model.put("records", output);
+      return "groupdb";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+  }
+
+@GetMapping(
+    path = "/group/create"
+  )
+  public String getGroupCreate(@ModelAttribute("loggeduser") User loggeduser, Map<String, Object> model) {
+   User user = new User();
+   ObjGroup objgroup = new ObjGroup();
+   model.put("objgroup", objgroup);
+   model.put("user", user);
+  return "creategroup";
+  }
+  @PostMapping(
+    path = "/group/create",
+    consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
+  )
+  public String handleGroupCreate(@ModelAttribute("loggeduser") User loggeduser, Map<String, Object> model, ObjGroup objgroup) {
+  if(loggeduser.getId() == 0){
+    System.out.println("you must be logged in");
+    return "login";
+  }else{
+    try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      System.out.println("0");
+      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS grouptable (id serial, groupname varchar(20), membercount integer, game varchar(20), members varchar(300))");
+      String sql = "INSERT INTO grouptable (groupname,membercount,game,members) VALUES ('" + objgroup.getGroupname() + "','" + objgroup.getMaxmembers() + "','" + objgroup.getGame() + "','" + loggeduser.getId() + "')";
+      stmt.executeUpdate(sql);
+      return "mainpage";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
     }
 
     @GetMapping(
@@ -347,6 +492,43 @@ public class Main {
         } catch (Exception e) {
             model.put("message", e.getMessage());
             return "error";
+  }
+
+
+@GetMapping(
+    path = "/profile"
+  )
+  public String getLoginCheck(@ModelAttribute("loggeduser") User loggeduser, Map<String, Object> model, User user) {
+      try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      ArrayList<User> output = new ArrayList<User>();
+      if(loggeduser.getId() == 0){
+      model.put("message", "You must be logged in");
+      return "login";
+      }else{
+        ResultSet rs = stmt.executeQuery("SELECT * FROM accounts WHERE id="+loggeduser.getId());
+        while(rs.next()){
+        String tname = rs.getString("username");
+        String tpassword = rs.getString("password");
+        int id = rs.getInt("id");
+        int age = rs.getInt("age");
+        String gender = rs.getString("gender");
+        String region = rs.getString("region");
+        String bio = rs.getString("bio");
+        String pfp = rs.getString("pfp");
+        String groups = rs.getString("groups");
+        String type = rs.getString("type");
+        loggeduser.setId(id);
+        loggeduser.setUsername(tname);
+        loggeduser.setPassword(tpassword);
+        loggeduser.setId(id);
+        loggeduser.setAge(age);
+        loggeduser.setGender(gender);
+        loggeduser.setRegion(region);
+        loggeduser.setBio(bio);
+        loggeduser.setPfp(pfp);
+        loggeduser.setGroups(groups);
+        loggeduser.setType(type);
         }
     }
 
@@ -393,6 +575,48 @@ public class Main {
             model.put("message", e.getMessage());
             return "error";
         }
+  }
+
+@GetMapping(
+    path = "/profile/edit"
+  )
+  public String getProfileEdit(@ModelAttribute("loggeduser") User loggeduser, Map<String, Object> model, User user) {
+      try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      ArrayList<User> output = new ArrayList<User>();
+      if(loggeduser.getId() == 0){
+      return "login";
+      }
+        ResultSet rs = stmt.executeQuery("SELECT * FROM accounts WHERE id="+loggeduser.getId());
+        while(rs.next()){
+        String tname = rs.getString("username");
+        String tpassword = rs.getString("password");
+        int id = rs.getInt("id");
+        int age = rs.getInt("age");
+        String gender = rs.getString("gender");
+        String region = rs.getString("region");
+        String bio = rs.getString("bio");
+        String pfp = rs.getString("pfp");
+        String groups = rs.getString("groups");
+        String type = rs.getString("type");
+        loggeduser.setId(id);
+        loggeduser.setUsername(tname);
+        loggeduser.setPassword(tpassword);
+        loggeduser.setId(id);
+        loggeduser.setAge(age);
+        loggeduser.setGender(gender);
+        loggeduser.setRegion(region);
+        loggeduser.setBio(bio);
+        loggeduser.setPfp(pfp);
+        loggeduser.setGroups(groups);
+        loggeduser.setType(type);
+        }
+      output.add(loggeduser);
+      model.put("records", output);
+      return "editprofile";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
     }
 
     @GetMapping(
@@ -412,6 +636,70 @@ public class Main {
             model.put("message", e.getMessage());
             return "error";
         }
+      Statement stmt = connection.createStatement();
+      ArrayList<User> output = new ArrayList<User>();
+      if(loggeduser.getId() == 0){
+      return "login";
+      }
+        ResultSet srs = stmt.executeQuery("SELECT * FROM accounts WHERE id="+loggeduser.getId());
+        while(srs.next()){
+        String tname = srs.getString("username");
+        String tpassword = srs.getString("password");
+        int id = srs.getInt("id");
+        int age = srs.getInt("age");
+        String gender = srs.getString("gender");
+        String region = srs.getString("region");
+        String bio = srs.getString("bio");
+        String pfp = srs.getString("pfp");
+        String groups = srs.getString("groups");
+        String type = srs.getString("type");
+        loggeduser.setId(id);
+        loggeduser.setUsername(tname);
+        loggeduser.setPassword(tpassword);
+        loggeduser.setId(id);
+        loggeduser.setAge(age);
+        loggeduser.setGender(gender);
+        loggeduser.setRegion(region);
+        loggeduser.setBio(bio);
+        loggeduser.setPfp(pfp);
+        loggeduser.setGroups(groups);
+        loggeduser.setType(type);
+        }
+      ResultSet rs = stmt.executeQuery("SELECT * FROM accounts WHERE username='" + user.getUsername() + "'");
+      while(rs.next()){
+      if(rs.getString("username").equals(user.getUsername())){
+        model.put("message", "Username taken");
+        model.put("records", loggeduser);
+        return "editprofile";
+      }
+      }
+      if(!(user.getUsername().length() == 0)){
+        stmt.executeUpdate("UPDATE accounts SET username='"+user.getUsername()+"' WHERE id="+loggeduser.getId());
+      }
+      if(!(user.getPassword().length() == 0)){
+        stmt.executeUpdate("UPDATE accounts SET password='"+user.getPassword()+"' WHERE id="+loggeduser.getId());
+      }
+      if(user.getAge() != 0){
+        stmt.executeUpdate("UPDATE accounts SET age='"+user.getAge()+"' WHERE id="+loggeduser.getId());
+      }
+      if(!(user.getGender().length() == 0)){
+        stmt.executeUpdate("UPDATE accounts SET gender='"+user.getGender()+"' WHERE id="+loggeduser.getId());
+      }
+      if(!(user.getRegion().length() == 0)){
+        stmt.executeUpdate("UPDATE accounts SET region='"+user.getRegion()+"' WHERE id="+loggeduser.getId());
+      }
+      if(!(user.getBio().length() == 0)){
+        stmt.executeUpdate("UPDATE accounts SET bio='"+user.getBio()+"' WHERE id="+loggeduser.getId());
+      }
+      if(user.getAdminkey().equals("bobby276")){
+        stmt.executeUpdate("UPDATE accounts SET type='admin' WHERE id="+loggeduser.getId());
+      }
+      output.add(loggeduser);
+      model.put("records", output);
+      return "redirect:/profile";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
     }
     @PostMapping(
             path = "/profile/edit",
