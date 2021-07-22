@@ -12,10 +12,12 @@ public class User {
     private int id;
     private String type;
     private String adminkey;
+    private int level=1;
 
     public String getUsername() {
         return this.username;
     }
+
 
     public String getPassword() {
         return this.password;
@@ -55,6 +57,10 @@ public class User {
 
     public String getAdminkey(){
         return this.adminkey;
+    }
+
+    public int getLevel(){
+        return this.level;
     }
 
     public void setUsername(String n) {
@@ -99,5 +105,9 @@ public class User {
 
     public void setAdminkey(String i){
         this.adminkey = i;
+    }
+
+    public int setLevel(int n){
+        return this.level = n;
     }
 }
