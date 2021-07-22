@@ -68,7 +68,7 @@
                     </tr>
                     <tr>
                         <th>PFP (Link): </th>
-                        <td> <img id="profile-img" th:src="${record.getPfp()}" alt="Image Not Found" onerror="this.src='/blank-profile-picture.png';"></td>
+                        <td> <img id="profileimage" th:src="${record.getPfp()}" alt="Image Not Found" onerror="this.src='/blank-profile-picture.png';"></td>
                     
                         <td><input maxlength="150" type="text" th:field=*{pfp} ></td>
                     </tr>
