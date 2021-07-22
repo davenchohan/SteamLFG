@@ -15,7 +15,7 @@
     padding-bottom: 800px;
 }
 
-#logo {
+.logo {
     width: 70px;
     overflow: auto;
     max-height: 100%;
@@ -107,7 +107,7 @@ cursor: pointer;
     padding-top: 50px;
 }
 
-#profileimage {
+.profileimage {
     border-radius: 50%;
     height: auto;
     width:70px;
