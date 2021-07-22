@@ -1,69 +1,92 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href=".\stylesheets\rectanglestyle.css">
+    <script src="https://kit.fontawesome.com/9c0e4b65c1.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/stylesheets/editprofile.css">
     <link rel="shortcut icon" type="image/png" href="/steamlogo.png" />
-    <title>Login Check</title>
-    <script src="../scripts/rec.js" defer></script>
+    <title>Edit Profile</title>
 </head>
 <body>
-    <form action="#" method="post" th:action="@{/profile/edit}" th:object="${user}">
-        <table th:each="record : ${records}">
-            <tr>
-                <th>ID: </th>
-                <td th:text="${record.getId()}"> </td>
-            </tr>
-            <tr>
-                <th>Username: </th>
-                <td th:text="${record.getUsername()}"> </td>
-                <td><input maxlength="20" type="text" th:field=*{username}></td>
-            </tr>
-            <tr>
-                <th>Password: </th>
-                <td th:text="${record.getPassword()}"> </td>
-                <td><input maxlength="20" type="text" th:field=*{password}></td>
-            </tr>
-            <tr>
-                <th>Age: </th>
-                <td th:text="${record.getAge()}"> </td>
-                <td><input min="0" max="100" type="number" th:field=*{age}></td>
-            </tr>
-            <tr>
-                <th>Gender: </th>
-                <td th:text="${record.getGender()}"> </td>
-                <td><input maxlength="20" type="text" th:field=*{gender}></td>
-            </tr>
-            <tr>
-                <th>Region: </th>
-                <td th:text="${record.getRegion()}"> </td>
-                <td><input maxlength="20" type="text" th:field=*{region}></td>
-            </tr>
-            <tr>
-                <th>Bio: </th>
-                <td th:text="${record.getBio()}"> </td>
-                <td><input maxlength="150" type="text" th:field=*{bio}></td>
-            </tr>
-            <tr>
-                <th>PFP: </th>
-                <td th:text="${record.getPfp()}"> </td>
-            </tr>
-            <tr>
-                <th>Groups: </th>
-                <td th:text="${record.getGroups()}"> </td>
-            </tr>
-            <tr>
-                <th>Profile Type: </th>
-                <td th:text="${record.getType()}"> </td>
-
-            </tr>
-        </table>
-        <label>Admin Password to become admin:</label>
-        <input maxlength="20" type="text" th:field=*{adminkey}> <br>
-        <p>admin password is bobby276</p>
-        <button type="submit">Accept</button>
-    </form>
+    <header>
+        <img src="/steamlogo.png" alt="steamlogo">
+        <h1 class="title">SteamLFG</h1>
+    </header>
+    <div class="content" th:each="record : ${records}">
+        <div id="editprofile">
+            <h1 id="profiletitle">Edit Profile</h1>
+            <form action="#" method="post" th:action="@{/profile/edit}" th:object="${user}">
+                <table>
+                    <tr>
+                        <th>ID: </th>
+                        <td th:text="${record.getId()}"> </td>
+                    </tr>
+                    <tr>
+                        <th>Username: </th>
+                        <td th:text="${record.getUsername()}"  id="username"> </td>
+                        <td><input maxlength="20" type="text" th:field=*{username} ></td>
+                    </tr>
+                    <tr>
+                        <th>Password: </th>
+                        <td th:text="${record.getPassword()}"  id="password"> </td>
+                        <td><input maxlength="20" type="text" th:field=*{password}></td>
+                    </tr>
+                    <tr>
+                        <th>Age: </th>
+                        <td th:text="${record.getAge()}"> </td>
+                        <td><input min="0" max="100" type="number" th:field=*{age}></td>
+                    </tr>
+                    <tr>
+                        <th>Gender: </th>
+                        <td th:text="${record.getGender()}"> </td>
+                        <td> <select name="gender" id="gender" th:field=*{gender}>
+                            <option value="" selected="selected" hidden="hidden" >Choose Gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select> </td>
+                    </tr>
+                    <tr>
+                        <th>Region: </th>
+                        <td th:text="${record.getRegion()}"> </td>
+                        <td><select name="region" id="region" th:field=*{region}>
+                            <option value="" selected="selected" hidden="hidden" >Choose Region</option>
+                            <option value="North America">North America</option>
+                            <option value="South America">South America</option>
+                            <option value="Europe">Europe</option>
+                            <option value="Asia">Asia</option>
+                            <option value="Africa">Africa</option>
+                            <option value="Oceania">Oceania</option>
+                        </select> </td>
+                    </tr>
+                    <tr>
+                        <th>Bio: </th>
+                        <td th:text="${record.getBio()}" id="bioText"> </td>
+                        <td><textarea name="bio" id="bio" cols="50" rows="3" th:field=*{bio} maxlength="150"></textarea></td>
+                    </tr>
+                    <tr>
+                        <th>PFP: </th>
+                        <td th:text="${record.getPfp()}"> </td>
+                    </tr>
+                    <tr>
+                        <th>Groups: </th>
+                        <td th:text="${record.getGroups()}"> </td>
+                    </tr>
+                    <tr>
+                        <th>Profile Type: </th>
+                        <td th:text="${record.getType()}"> </td>
+        
+                    </tr>
+                </table>
+                <label class="admin">Admin Password to become admin:</label>
+                <input maxlength="20" type="text" th:field=*{adminkey}> <br>
+                <p class="admin">admin password is bobby276</p>
+                <button type="submit" id="submitbutton">Accept</button>
+            </form>
+            <p style="color:red" th:text="${message}" id="error"></p>
+        </div>
+    </div>
 </body>
 </html>

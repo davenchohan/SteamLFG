@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css?family=Work+Sans:300,600');
+
+@font-face {
+    font-family: 'Streetvertising';
+    src: url("/Streetvertising.ttf");
+}
+
+.content {
+    background-image: url(https://source.unsplash.com/collection/87542052/1000x1000);
+    background-color: #333;
+    background-blend-mode: multiply;
+    background-size: cover;
+    display: grid;
+    place-items: center;
+    padding-bottom: 800px;
+}
+
+body {
+    margin: 0;
+    background: #222;
+    font-family: 'Work Sans', sans-serif;
+    font-weight: 400;
+}
+
+header {
+    background-image: linear-gradient(to right,blue,purple);
+    text-align: center;
+    margin-bottom: -20px;
+    padding-bottom: 10px;
+    padding-top: 5px;
+    width: 100%;
+}
+
+img {
+    width: 70px;
+    overflow: auto;
+    max-height: 100%;
+    height:auto;
+}
+
+.title {
+    font-family: 'Streetvertising', serif;
+}
+
+
+#editprofile {
+    width: 382px;
+    overflow: hidden;
+    padding: 0px 500px 50px 200px;
+    border: 1px solid white;
+    background: linear-gradient(27deg, #151515 5px, transparent 5px) 0 5px, linear-gradient(207deg, #151515 5px, transparent 5px) 10px 0px, linear-gradient(27deg, #222 5px, transparent 5px) 0px 10px, linear-gradient(207deg, #222 5px, transparent 5px) 10px 5px, linear-gradient(90deg, #1b1b1b 10px, transparent 10px), linear-gradient(#1d1d1d 25%, #1a1a1a 25%, #1a1a1a 50%, transparent 50%, transparent 75%, #242424 75%, #242424);
+    background-color: #131313;
+    background-size: 20px 20px;
+    /* position: absolute; */
+    margin-top: 5%;
+}
+
+th, td {
+    color: white;  
+    font-size: 20px;  
+    padding-bottom: 8px;
+}
+
+.admin {
+    color: white;  
+    font-size: 20px;  
+    padding-bottom: 8px;
+}
+
+#profiletitle{
+    text-align: center;
+    padding: 20px;
+    color: white;
+    width: 300px;
+    padding-left: 190px;
+}
+
+#bioText {
+    font-size: 12px;
+    min-width: 200px;
+    max-width: 200px;
+}
+
+#submitbutton {
+    font-size: 17px;
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    color: white;
+    text-align: center;
+    display: block;
+    background-image: linear-gradient(45deg, black 25%, transparent 25%, transparent 75%, black 75%, black), linear-gradient(45deg, black 25%, transparent 25%, transparent 75%, black 75%, black),linear-gradient(to bottom, rgb(8, 8, 8), rgb(32, 32, 32));
+    margin-top: 30px;
+    margin-bottom: -30px;
+    width: 200px;
+    border: 1px solid white;
+}
+
+#submitbutton:hover{
+opacity: 50%;
+cursor: pointer;
+}
+
+#error{
+    color: red;
+    padding-top: 50px;
+}

@@ -224,3 +224,25 @@ button.user-db
     box-shadow: 0px 5px 7px 0px rgba(0, 0, 0, 0.8);
     color: white;
 }
+
+.userinfo{
+    display: block;
+    overflow: hidden;
+}
+
+.labeluser {
+    float: left;
+}
+
+#userage {
+    padding-left: 36px;
+}
+
+#usergender {
+    padding-left: 60px;
+}
+
+#userregion {
+    float: right;
+    padding-left: 5px;
+}

@@ -20,15 +20,6 @@ body {
 }
 
 
-.content {
-    height: 200vh;
-    background-image: url(https://source.unsplash.com/collection/87542052/1000x1000);
-    background-color: #333;
-    background-blend-mode: multiply;
-    background-size: cover;
-    display: grid;
-    place-items: center;
-}
 
 /* navigation styles start here */
 
@@ -435,3 +426,81 @@ ul li a#thirdd::before {
     transition: transform ease-in-out 250ms;
 }
 
+
+
+
+
+/******** MAIN CONTENT **********/
+h2
+{
+    font-size: 100px;
+    color: white;
+    padding-top: 5%;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    height: 10%;
+}
+
+#desc
+{
+    font-size: 50px;
+    color: white;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    margin-bottom: 770px;
+}
+
+.content {
+    height: 200vh;
+    background-image: url(https://source.unsplash.com/collection/87542052/1000x1000);
+    background-color: #333;
+    background-blend-mode: multiply;
+    background-size: cover;
+    display: grid;
+    
+}
+
+.features
+{
+    color: white;
+    display: flex;
+    align-content: left;
+    justify-content: center;
+    margin-bottom: 450px;
+    font-size: 30px;
+}
+
+#CG
+{
+  color: rebeccapurple;
+}
+
+#FG
+{
+   padding-left:60px;
+   color: rebeccapurple;
+
+}
+#UP
+{
+    padding-left:60px;
+    color: rebeccapurple;
+}
+
+#one
+{
+    font-size: 20px;
+    
+}
+
+#two
+{
+    font-size: 20px;
+}
+
+#three
+{
+    font-size: 20px;
+}

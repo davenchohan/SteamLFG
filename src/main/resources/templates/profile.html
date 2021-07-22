@@ -12,18 +12,26 @@
 <body>
     <div class="content" th:each="record : ${records}">
         <div class="profile-header">
-            <p th:text="${message}"></p>
             <div class="profile-img">
                <img id="profile-img" src="/blank-profile-picture.png" alt="blank-profile-picture">
             </div>
 
             <div class="profile-nav-info">
                 <h3 class="user-name" th:text="${record.getUsername()}">
-                  
                 </h3>
-                <div class="age">
-                    <p th:text="${record.getAge()}"></p>
+                <div class="userinfo">
+                    <label for="userage" class="labeluser">Age: </label>
+                    <p id="userage" th:text="${record.getAge()}"></p>
                 </div>
+                <div class="userinfo">
+                    <label for="usergender" class="labeluser">Gender: </label>
+                    <p id="usergender" th:text="${record.getGender()}"></p>
+                </div>
+                <div class="userinfo">
+                    <label for="userregion" class="labeluser">Region: </label>
+                    <p id="userregion" th:text="${record.getRegion()}"></p>
+                </div>
+                <p style="color:red" th:text="${message}"></p>
             </div>
         </div>
                 <div class="main-body">
@@ -31,14 +39,13 @@
                         <div class="profile-side">
                             <div class="user-bio">
                                 <h3>Bio</h3>
-                                <p class="bio" th:text="${record.getBio()}">  </p>
+                                <div id="bio" th:text="${record.getBio()}"></div>
                             </div>
                             <div class="profile-btn">
                                 <button class="friend-button"><i class="fad fa-user-plus"></i></i>
                                     Add friend
                                 </button>
                             </div>
-
                         </div>
 
                     </div>
