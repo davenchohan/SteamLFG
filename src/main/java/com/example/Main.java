@@ -123,6 +123,13 @@ public class Main {
             model.put("message", e.getMessage());
             return "error";
         }
+      }
+      String sql = "INSERT INTO accounts (username,password,type,age,gender,region,bio) VALUES ('" + user.getUsername() + "','" + user.getPassword() + "','" + "user" + "','" + user.getAge() + "','" + user.getGender() + "','" + user.getRegion() + "','" + "User Bio is Empty" + "')";
+      stmt.executeUpdate(sql);
+      return "login";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
     }
 
     @GetMapping(
