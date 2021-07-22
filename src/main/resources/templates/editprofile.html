@@ -11,7 +11,7 @@
 </head>
 <body>
     <header>
-        <img src="/steamlogo.png" alt="steamlogo">
+        <img src="/steamlogo.png" alt="steamlogo" id="logo">
         <h1 class="title">SteamLFG</h1>
     </header>
     <div class="content" th:each="record : ${records}">
@@ -68,7 +68,8 @@
                     </tr>
                     <tr>
                         <th>PFP (Link): </th>
-                        <td th:text="${record.getPfp()}"> </td>
+                        <td> <img id="profile-img" th:src="${record.getPfp()}" alt="Image Not Found" onerror="this.src='/blank-profile-picture.png';"></td>
+                    
                         <td><input maxlength="150" type="text" th:field=*{pfp} ></td>
                     </tr>
                     <tr>
