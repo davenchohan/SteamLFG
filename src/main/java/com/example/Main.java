@@ -75,7 +75,7 @@ public class Main {
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
       stmt.executeUpdate("CREATE TABLE IF NOT EXISTS grouptable (id serial, groupname varchar(20), membercount integer, game varchar(20), members varchar(300))");
-      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS accounts (id serial, username varchar(20), password varchar(20), type varchar(20), age integer, gender varchar(20), region varchar(20), bio varchar(150), pfp varchar(30), groups varchar(20))");
+      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS accounts (id serial, username varchar(20), password varchar(20), type varchar(20), age integer, gender varchar(20), region varchar(20), bio varchar(150), pfp varchar(150), groups varchar(20))");
       ResultSet rs = stmt.executeQuery("SELECT * FROM accounts");
       ArrayList<User> output = new ArrayList<User>();
       System.out.println(loggeduser.getId());
@@ -107,7 +107,7 @@ public class Main {
   public String handleBrowserSignupSubmit(Map<String, Object> model, User user) throws Exception {
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
-      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS accounts (id serial, username varchar(20), password varchar(20), type varchar(20), age integer, gender varchar(20), region varchar(20), bio varchar(150), pfp varchar(30), groups varchar(20))");
+      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS accounts (id serial, username varchar(20), password varchar(20), type varchar(20), age integer, gender varchar(20), region varchar(20), bio varchar(150), pfp varchar(150), groups varchar(20))");
       ResultSet rs = stmt.executeQuery("SELECT * FROM accounts");
       while(rs.next()){
         String tname = rs.getString("username");
@@ -308,6 +308,54 @@ public class Main {
     }
     }
   }
+  
+
+  @GetMapping(
+    path = "/userslist"
+  )
+  public String getOtherUsersDatabase(@ModelAttribute("loggeduser") User loggeduser, Map<String, Object> model, User user) {
+  if(loggeduser.getId() == 0){
+    model.put("message", "You must be logged in");
+    return "login";
+  }else{
+      try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      ResultSet rs = stmt.executeQuery("SELECT * FROM accounts");
+      ArrayList<User> output = new ArrayList<User>();
+      while (rs.next()) {
+        if(loggeduser.getId() != rs.getInt("id")){
+          User tempuser = new User();
+          int id = rs.getInt("id");
+          String tname = rs.getString("username");
+          String password = rs.getString("password");
+          int age = rs.getInt("age");
+          String gender = rs.getString("gender");
+          String region = rs.getString("region");
+          String bio = rs.getString("bio");
+          String pfp = rs.getString("pfp");
+          String groups = rs.getString("groups");
+          String type = rs.getString("type");
+          tempuser.setUsername(tname);
+          tempuser.setPassword(password);
+          tempuser.setId(id);
+          tempuser.setAge(age);
+          tempuser.setGender(gender);
+          tempuser.setRegion(region);
+          tempuser.setBio(bio);
+          tempuser.setPfp(pfp);
+          tempuser.setGroups(groups);
+          tempuser.setType(type);
+          output.add(tempuser);
+        }
+      }
+      model.put("records", output);
+      return "userslist";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+    }
+  }
 
 
 @GetMapping(
@@ -344,6 +392,46 @@ public class Main {
       }
       model.put("records", output);
       return "User";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+  }
+
+  @GetMapping(
+    path = "/otheruser/{pid}"
+  )
+  public String getOtherUserDatabase(@ModelAttribute("loggeduser") User loggeduser, Map<String, Object> model, User user, @PathVariable String pid) {
+      try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      ResultSet rs = stmt.executeQuery("SELECT * FROM accounts WHERE id="+pid);
+      ArrayList<User> output = new ArrayList<User>();
+      while (rs.next()) {
+        User tempuser = new User();
+        int id = rs.getInt("id");
+        String tname = rs.getString("username");
+        String password = rs.getString("password");
+        int age = rs.getInt("age");
+        String gender = rs.getString("gender");
+        String region = rs.getString("region");
+        String bio = rs.getString("bio");
+        String pfp = rs.getString("pfp");
+        String groups = rs.getString("groups");
+        String type = rs.getString("type");
+        tempuser.setUsername(tname);
+        tempuser.setPassword(password);
+        tempuser.setId(id);
+        tempuser.setAge(age);
+        tempuser.setGender(gender);
+        tempuser.setRegion(region);
+        tempuser.setBio(bio);
+        tempuser.setPfp(pfp);
+        tempuser.setGroups(groups);
+        tempuser.setType(type);
+        output.add(tempuser);
+      }
+      model.put("records", output);
+      return "otheruser";
     } catch (Exception e) {
       model.put("message", e.getMessage());
       return "error";
@@ -499,6 +587,9 @@ public class Main {
       if(!(user.getBio().length() == 0)){
         stmt.executeUpdate("UPDATE accounts SET bio='"+user.getBio()+"' WHERE id="+loggeduser.getId());
       }
+      if(!(user.getPfp().length() == 0)){
+        stmt.executeUpdate("UPDATE accounts SET pfp='"+user.getPfp()+"' WHERE id="+loggeduser.getId());
+      }
       if(user.getAdminkey().equals("bobby276")){
         stmt.executeUpdate("UPDATE accounts SET type='admin' WHERE id="+loggeduser.getId());
       }
@@ -519,7 +610,7 @@ public class Main {
    try (Connection connection = dataSource.getConnection()) {
     Statement stmt = connection.createStatement();
     stmt.executeUpdate("DROP TABLE accounts");
-    stmt.executeUpdate("CREATE TABLE IF NOT EXISTS accounts (id serial, username varchar(20), password varchar(20), type varchar(20), age integer, gender varchar(20), region varchar(20), bio varchar(150), pfp varchar(30), groups varchar(20))");
+    stmt.executeUpdate("CREATE TABLE IF NOT EXISTS accounts (id serial, username varchar(20), password varchar(20), type varchar(20), age integer, gender varchar(20), region varchar(20), bio varchar(150), pfp varchar(150), groups varchar(20))");
     return "redirect:/accdb";
    
     } catch (Exception e) {
