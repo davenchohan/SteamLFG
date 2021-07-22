@@ -122,7 +122,7 @@
         <button type="submit">Accept</button>
     </form>
     <header>
-        <img src="/steamlogo.png" alt="steamlogo">
+        <img src="/steamlogo.png" alt="steamlogo" class="logo">
         <h1 class="title">SteamLFG</h1>
     </header>
     <div class="content" th:each="record : ${records}">
@@ -178,8 +178,10 @@
                         <td><textarea name="bio" id="bio" cols="50" rows="3" th:field=*{bio} maxlength="150"></textarea></td>
                     </tr>
                     <tr>
-                        <th>PFP: </th>
-                        <td th:text="${record.getPfp()}"> </td>
+                        <th>PFP (Link): </th>
+                        <td> <img class="profileimage" th:src="${record.getPfp()}" alt="Image Not Found" onerror="this.src='/blank-profile-picture.png';"></td>
+                    
+                        <td><input maxlength="150" type="text" th:field=*{pfp} ></td>
                     </tr>
                     <tr>
                         <th>Groups: </th>

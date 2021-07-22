@@ -15,6 +15,13 @@
     padding-bottom: 800px;
 }
 
+.logo {
+    width: 70px;
+    overflow: auto;
+    max-height: 100%;
+    height:auto;
+}
+
 body {
     margin: 0;
     background: #222;
@@ -29,13 +36,6 @@ header {
     padding-bottom: 10px;
     padding-top: 5px;
     width: 100%;
-}
-
-img {
-    width: 70px;
-    overflow: auto;
-    max-height: 100%;
-    height:auto;
 }
 
 .title {
@@ -105,4 +105,14 @@ cursor: pointer;
 #error{
     color: red;
     padding-top: 50px;
+}
+
+.profileimage {
+    border-radius: 50%;
+    height: auto;
+    width:70px;
+    border: 4px solid white;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.8);
+    margin-left: 40px;
+    margin-top: 40px;
 }
