@@ -79,6 +79,7 @@ img {
 #fourth {
     color: white;
     text-shadow: 1.5px 1.5px black;
+    padding-left: 30px;
 } 
 
 .nav-toggle-label span,
@@ -310,6 +311,38 @@ color: red;
 
 
 #login
+{
+    padding: 20px 20px;
+    font-size: 20px;
+    background: transparent;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+
+#logout:hover
+{
+color: red;
+}
+
+
+#logout
+{
+    padding: 20px 20px;
+    font-size: 20px;
+    background: transparent;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+
+#profile:hover
+{
+color: red;
+}
+
+
+#profile
 {
     padding: 20px 20px;
     font-size: 20px;

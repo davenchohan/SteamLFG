@@ -1,7 +1,6 @@
 document.getElementById("profile").style.display = "none";
 document.getElementById("logout").style.display = "none";
 window.onload = test();
-console.log("testing");
 function test(){
     document.getElementById("userid").style.display = "none";
     userId = document.getElementById("userid").innerHTML;

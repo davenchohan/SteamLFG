@@ -1,3 +1,4 @@
+
 $('.nav ul li').click(function() 
 {
     $(this).addClass("active").siblings().removeClass('active');
@@ -17,6 +18,17 @@ function tabs(panel)
 
 tabs(0);
 
-function saveChanges() {
-    var bioText = document.getElementById("edit");
+window.onload = popUp();
+function popUp() {
+    document.getElementById("checkpopup").style.display = "none";
+    var popUp = document.getElementById("newRequests");
+    checkRequests = document.getElementById("checkpopup").innerHTML;
+    if (checkRequests == "true"){
+        popUp.classList.toggle("show");
+    }
+}
+
+function closePopUp() {
+    var popUp = document.getElementById("newRequests");
+    popUp.classList.toggle("show");
 }

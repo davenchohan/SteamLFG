@@ -11,14 +11,14 @@
 </head>
 <body>
     <header>
-        <img src="/steamlogo.png" alt="steamlogo">
+        <img src="/steamlogo.png" alt="steamlogo" class="logo">
         <h1 class="title">SteamLFG</h1>
     </header>
     <div class="content" th:each="record : ${records}">
-        <div id="editprofile">
-            <h1 id="profiletitle">Edit Profile</h1>
+        <div id="editprofile1">
+            <h1 id="profiletitle1">Edit Profile</h1>
             <form action="#" method="post" th:action="@{/profile/edit}" th:object="${user}">
-                <table>
+                <table id="editprofiletable">
                     <tr>
                         <th>ID: </th>
                         <td th:text="${record.getId()}"> </td>
@@ -67,8 +67,10 @@
                         <td><textarea name="bio" id="bio" cols="50" rows="3" th:field=*{bio} maxlength="150"></textarea></td>
                     </tr>
                     <tr>
-                        <th>PFP: </th>
-                        <td th:text="${record.getPfp()}"> </td>
+                        <th>PFP (Link): </th>
+                        <td> <img class="profileimage" th:src="${record.getPfp()}" alt="Image Not Found" onerror="this.src='/blank-profile-picture.png';"></td>
+                    
+                        <td><input maxlength="150" type="text" th:field=*{pfp} ></td>
                     </tr>
                     <tr>
                         <th>Groups: </th>
@@ -83,7 +85,7 @@
                 <label class="admin">Admin Password to become admin:</label>
                 <input maxlength="20" type="text" th:field=*{adminkey}> <br>
                 <p class="admin">admin password is bobby276</p>
-                <button type="submit" id="submitbutton">Accept</button>
+                <button type="submit" id="submitbutton" class="goodbutton">Accept</button>
             </form>
             <p style="color:red" th:text="${message}" id="error"></p>
         </div>

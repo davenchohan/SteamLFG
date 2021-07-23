@@ -1,23 +1,21 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/src/main/resources/public/stylesheets/profile.css">
+    <link rel="stylesheet" href="/stylesheets/profile.css">
     <link rel="shortcut icon" type="image/png" href="/steamlogo.png" />
+    <script src="/otherprofile.js" defer></script>
     <script src="https://kit.fontawesome.com/9c0e4b65c1.js" crossorigin="anonymous"></script>
-    <title>My Profile</title>
+    <title>Profile</title>
 </head>
 <body>
-    <p th:text="${popupmessage}" id="checkpopup"> Testing</p>
+    <p id="request" th:text="${request}"></p>
     <div class="content" th:each="record : ${records}">
         <div class="profile-header">
             <div class="profile-img">
                <img id="profile-img" th:src="${record.getPfp()}" alt="Image Not Found" onerror="this.src='/blank-profile-picture.png';">
-               <div class="level-img">
-                <a th:text=${record.getLevel()}></a>
-            </div>
             </div>
 
             <div class="profile-nav-info">
@@ -46,12 +44,39 @@
                                 <div id="bio" th:text="${record.getBio()}"></div>
                             </div>
                             <div class="profile-btn">
-                                <form th:action="@{/mainpage}">
-                                    <button class="friend-button"><i class="fas fa-home"></i>
-                                        Home
+                                <form th:action="@{/addfriend/{id}(id=${record.getId()})}">
+                                    <button class="friend-button" id="addfriend"><i class="fas fa-user-plus"></i>
+                                        Add friend
                                     </button>
                                 </form>
+                                <button id="requestsent" class="otherbuttons" disabled><i class="fas fa-envelope"></i>
+                                    Friend Request Sent
+                                </button>
+                                <button class="otherbuttons" disabled id="friendreceive"><i class="fas fa-user-plus"></i>
+                                    Friend Request Received
+                                </button>
+                                <button class="otherbuttons" disabled id="addedfriend"><i class="fas fa-user-plus"></i>
+                                    Added as Friend
+                                </button>
+                                <form th:action="@{/mainpage}">
+                                    <button class="friend-button" type="submit"><i class="fas fa-home"></i>Home</button>
+                                </form>
                             </div>
+                            <form th:action="@{/acceptfriend/{id}(id=${record.getId()})}">
+                                <button class="friend-button" id="acceptfriend">
+                                    Accept
+                                </button>
+                            </form>
+                            <form th:action="@{/deletefriend/{id}(id=${record.getId()})}">
+                                <button class="friend-button" id="declinefriend">
+                                    Decline
+                                </button>
+                            </form>
+                            <form th:action="@{/deletefriend/{id}(id=${record.getId()})}">
+                                <button class="friend-button" id="deletefriend">
+                                    Delete
+                                </button>
+                            </form>
                         </div>
 
                     </div>
@@ -60,7 +85,6 @@
                             <ul>
                                 <li  onclick="tabs(0)" class="user-stats active"> Stats</li>
                                 <li  onclick="tabs(1)" class="user-groups"> Groups</li>
-                                <li  onclick="tabs(2)" class="user-ssettings"> Settings</li>
                             </ul>
                         </div>
                         <div class="profile-body">
@@ -74,29 +98,13 @@
                                 <p>
                                     </p>
                             </div>
-                            <div class="profile-settings tab">
-                                <h1> Account Settings</h1>
-                                <p> </p>
-                                <div class="button-settings">
-                                    <form th:action="@{/profile/edit}">
-                                        <button class="edit-button" type="submit">Edit Profile</button>
-                                    </form>
-                                    <form th:action="@{/friends/{id}(id=${record.getId()})}">
-                                        <button class="user-db" type="submit">Friends</button>
-                                    </form>
-                                    <form th:action="@{/accdb}">
-                                        <button class="user-db" type="submit">View User Database (Admins Only)</button>
-                                    </form>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
-    </div>
-    <div class="popUpBox" onclick="closePopUp()">
-        <span class="popUpText" id="newRequests"> You have new friend requests pending!</span>
+            </div>
+        </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="/profile.js"></script>
+    <script src="/profile.js"></script>
 </body>
 </html>
