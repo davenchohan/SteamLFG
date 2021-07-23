@@ -908,7 +908,7 @@ public class Main {
     stmt.executeUpdate("CREATE TABLE IF NOT EXISTS accounts (id serial, username varchar(20), password varchar(20), type varchar(20), age integer, gender varchar(20), region varchar(20), bio varchar(150), pfp varchar(150), groups varchar(20), level integer)");
     stmt.executeUpdate("DROP TABLE friendslist");
     stmt.executeUpdate("CREATE TABLE IF NOT EXISTS friendslist (id serial, username integer, friend integer, request integer)");
-    return "redirect:/accdb";
+    return "redirect:/mainpage";
    
     } catch (Exception e) {
       model.put("message", e.getMessage());
