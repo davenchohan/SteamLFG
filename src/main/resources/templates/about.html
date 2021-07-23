@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SteamLFG</title>
+    <script src="/navbar.js" defer></script>
+    <script src="https://kit.fontawesome.com/9c0e4b65c1.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/about.css">
+    <link rel="shortcut icon" type="image/png" href=".\favicon.ico" />
+    <link rel="shortcut icon" type="image/png" href="/steamlogo.png" />
+</head>
+<header>
+    <img src="/steamlogo.png" alt="steamlogo">
+    <h1 class="title">SteamLFG</h1>
+    <input type="checkbox" id="nav-toggle" class="nav-toggle">
+    <nav>
+        <ul>
+            <li id="first"><a  href="/mainpage"><i class="fas fa-home"></i>  Home</a></li>
+            <li id="second"><a href="/about"><i class="fas fa-info"></i>  About</a></li>
+            <li id="third" >
+                <a href="#"><i class="fas fa-users"></i>  Social</a>
+                <ul class="SdropContent">
+                    <li><a id="firstt" href="#"> Add Friend</a></li>
+                    <li><a id="secondd" href="/group/create"> Create Group</a></li>
+                    <li><a id="thirdd" href="/groupdb"> Find Group</a></li>
+                </ul>
+                    <ul class="SdropContent">
+                        <li><a id="firstt" href="/userslist"> Add Friend</a></li>
+                        <li><a id="secondd" href="/group/create"> Create Group</a></li>
+                        <li><a id="thirdd" href="/groupdb"> Find Group</a></li>
+                    </ul>
+            </li>
+            <li id="fourth" th:text="${welcome}"> </li>
+        </ul>
+    </nav>
+    <label for="nav-toggle" class="nav-toggle-label">
+        <span></span>
+    </label>
+
+    <input type="checkbox" id="dropbtn" class="dropbtn">
+    <div id="heads" class="head2">
+        <form th:action="@{/signup}">
+            <button id="submit" type="submit"><i class="fas fa-user-plus fa-2x"></i>  Sign Up</button>
+        </form>
+        <form th:action="@{/login}">
+            <button id="login" type="submit"><i class="fas fa-sign-in-alt fa-2x"></i>  Login</button>
+        </form>
+        <form th:action="@{/logout}">
+            <button id="logout" type="submit"><i class="fas fa-sign-out-alt fa-2x"></i>  Logout</button>
+        </form>
+        <form th:action="@{/profile}" >
+            <button id="profile" type="submit"><i class="fas fa-user-circle fa-2x"></i> Profile</button>
+        </form>
+    </div>
+
+    <label for="dropbtn" class="droplabel">
+        <span><i id="icon" class="fas fa-user fa-2x"> </i> </span>
+    </label>
+    <table th:each="record : ${records}">
+        <td id="userid" th:text="${record.getId()}"> testing</td>
+    </table>
+</header>
+
+
+<div class="aboutContent">
+    <h3>About Us
+    </h3>
+    <p id="aboutHeader">
+        Gaming while keeping it healthy
+    </p>
+    <p id="aboutDesc">
+        Here at SteamLFG we have made it our goal to help users find new people to play games with while also maintaining a healthy lifestyle when it comes to gaming. SteamLFG looks to tackle the issue of gaming addiction while keeping the exciting gaming experience that we all love. Users will be able to keep track of their hours played and interact with other SteamLFG users. Adding a healthy boost to a gamer’s life, while keeping all of the fun!
+    </p>
+    <p id="aboutHeader">
+        Changing the way gamers play 
+    </p>
+    <p id="aboutDesc">
+        SteamLFG is filled with amazing features to enhance your gaming experience and set you on the right track towards a healthier lifestyle. Here is some of what SteamLFG has to offer:
+    </p>
+    <div class="aboutFeatures"> 
+        <a id="CG1"><i class="fas fa-users"> Create Groups</i> 
+        <p id="one1">SteamLFG allows you the ability to get your friends together and make a group. The group feature will allow you to find new games that work for you and your friends, and will also give you the ability to checck your time spent playing together.</p>
+        </a>
+        <a id="FG1"><i class="fas fa-search"> Find Groups</i>
+        <p id="two1"> What if you dont't have a group? That's perfectly fine, as SteamLFG allows you to browse groups for games that you play, and you'll find the right people to help you with your gaming journey!</p>
+        </a>
+        <a id="UP1"><i class="fas fa-user-edit"> User Profile</i>
+        <p id="three1"> Everyone loves to be unqiue, and SteamLFG gives each user the ablity to express who they are. The ability to edit your profile how you like it will allow visiitng users to see what you really are about.</p>
+        </a>
+        <a id="TM1"><i class="far fa-clock"> Time Monitor</i>
+        <p id="four1"> SteamLFG will tackle down on vidoe game addiction through goal-setting, daily monitoring of hours played, and regular suggestions to unlock a better lifestyle in relation to video games and gaming. SteamLFG will also monitor a user's time played, and will incentivize healthy habits through achievements and increases in profile level. </p>
+        </a>
+    </div>
+</div>
+
+
+</html>
+
