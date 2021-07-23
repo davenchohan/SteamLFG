@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/9c0e4b65c1.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/stylesheets/editprofile.css">
     <link rel="shortcut icon" type="image/png" href="/steamlogo.png" />
-    <title>Users List</title>
+    <title>Friend Requests</title>
 </head>
 <body>
     <header>
@@ -15,7 +16,7 @@
     </header>
     <div class="content">
         <div id="editprofile">
-            <h1 id="profiletitle">All Users</h1>
+            <h1 id="profiletitle" th:text="${title}"> </h1>
             <table>
                 <tr>
                     <th>USERNAME</th>
@@ -31,8 +32,8 @@
                     <td> <img class="profileimage" th:src="${record.getPfp()}" alt="Image Not Found" onerror="this.src='/blank-profile-picture.png';"> </td>
                 </tr>
             </table>
-            <form th:action="@{/mainpage}" >
-                <button class="goodbutton" > Back</button>
+            <form th:action="@{/friends/{id}(id=${message})}">
+                <button class="goodbutton" type="submit">Back</button>
             </form>
         </div>
     </div>

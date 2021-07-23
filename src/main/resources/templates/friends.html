@@ -1,21 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/9c0e4b65c1.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/stylesheets/editprofile.css">
     <link rel="shortcut icon" type="image/png" href="/steamlogo.png" />
-    <title>Users List</title>
+    <title>Friends</title>
 </head>
 <body>
+    <p th:text="${testing}" id="checkpopup1"> Testing</p>
     <header>
         <img src="/steamlogo.png" alt="steamlogo" class="logo">
         <h1 class="title">SteamLFG</h1>
     </header>
     <div class="content">
         <div id="editprofile">
-            <h1 id="profiletitle">All Users</h1>
+            <h1 id="profiletitle">Friends</h1>
             <table>
                 <tr>
                     <th>USERNAME</th>
@@ -31,10 +33,20 @@
                     <td> <img class="profileimage" th:src="${record.getPfp()}" alt="Image Not Found" onerror="this.src='/blank-profile-picture.png';"> </td>
                 </tr>
             </table>
-            <form th:action="@{/mainpage}" >
+            <form th:action="@{/friendrequests/{id}(id=${message})}">
+                <button class="goodbutton" >Received Friend Requests</button>
+            </form>
+            <form th:action="@{/pendingfriendrequests/{id}(id=${message})}">
+                <button class="goodbutton" >Sent Friend Requests</button>
+            </form>
+            <form th:action="@{/profile}" >
                 <button class="goodbutton" > Back</button>
             </form>
         </div>
     </div>
+    <div class="popUpBox" onclick="closePopUp()">
+        <span class="popUpText2" id="newRequests"> You have new friend requests pending!</span>
+    </div>
+<script src="/friends.js"></script>
 </body>
 </html>

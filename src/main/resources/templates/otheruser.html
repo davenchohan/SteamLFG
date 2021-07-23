@@ -6,10 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/stylesheets/profile.css">
     <link rel="shortcut icon" type="image/png" href="/steamlogo.png" />
+    <script src="/otherprofile.js" defer></script>
     <script src="https://kit.fontawesome.com/9c0e4b65c1.js" crossorigin="anonymous"></script>
     <title>Profile</title>
 </head>
 <body>
+    <p id="request" th:text="${request}"></p>
     <div class="content" th:each="record : ${records}">
         <div class="profile-header">
             <div class="profile-img">
@@ -42,13 +44,39 @@
                                 <div id="bio" th:text="${record.getBio()}"></div>
                             </div>
                             <div class="profile-btn">
-                                <button class="friend-button"><i class="fas fa-user-plus"></i>
-                                    Add friend
+                                <form th:action="@{/addfriend/{id}(id=${record.getId()})}">
+                                    <button class="friend-button" id="addfriend"><i class="fas fa-user-plus"></i>
+                                        Add friend
+                                    </button>
+                                </form>
+                                <button id="requestsent" class="otherbuttons" disabled><i class="fas fa-envelope"></i>
+                                    Friend Request Sent
+                                </button>
+                                <button class="otherbuttons" disabled id="friendreceive"><i class="fas fa-user-plus"></i>
+                                    Friend Request Received
+                                </button>
+                                <button class="otherbuttons" disabled id="addedfriend"><i class="fas fa-user-plus"></i>
+                                    Added as Friend
                                 </button>
                                 <form th:action="@{/mainpage}">
                                     <button class="friend-button" type="submit"><i class="fas fa-home"></i>Home</button>
                                 </form>
                             </div>
+                            <form th:action="@{/acceptfriend/{id}(id=${record.getId()})}">
+                                <button class="friend-button" id="acceptfriend">
+                                    Accept
+                                </button>
+                            </form>
+                            <form th:action="@{/deletefriend/{id}(id=${record.getId()})}">
+                                <button class="friend-button" id="declinefriend">
+                                    Decline
+                                </button>
+                            </form>
+                            <form th:action="@{/deletefriend/{id}(id=${record.getId()})}">
+                                <button class="friend-button" id="deletefriend">
+                                    Delete
+                                </button>
+                            </form>
                         </div>
 
                     </div>
