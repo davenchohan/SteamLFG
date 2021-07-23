@@ -880,6 +880,25 @@ public class Main {
   }
 
 
+  @GetMapping(
+    path = "/about"
+  )
+  public String getAboutForm(@ModelAttribute("loggeduser") User loggeduser, Map<String, Object> model){
+    try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      ResultSet rs = stmt.executeQuery("SELECT * FROM accounts");
+      ArrayList<User> output = new ArrayList<User>();
+      output.add(loggeduser);
+      if (loggeduser.getId() != 0){
+        model.put("welcome", "Welcome " + loggeduser.getUsername());
+      }
+      model.put("records", loggeduser);
+      return "about";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+  }
 
 @GetMapping("/accdb/delaccdb")
   public String deleteAllRectangles(Map<String, Object> model){
