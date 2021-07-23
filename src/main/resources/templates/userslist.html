@@ -16,7 +16,7 @@
     <div class="content">
         <div id="editprofile">
             <h1 id="profiletitle">All Users</h1>
-            <table>
+            <table id="bigtable">
                 <tr>
                     <th>USERNAME</th>
                     <th>AGE</th>
@@ -24,17 +24,19 @@
                     <th>REGION</th>
                 </tr>
                 <tr th:each="record : ${records}">
-                    <td><a th:href="@{/otheruser/{id}(id=${record.getId()})}" th:text="${record.getUsername()}"></a> </td>
+                    <td><a th:href="@{/otheruser/{id}(id=${record.getId()})}" th:text="${record.getUsername()}" id="otherusername1"></a> </td>
                     <td th:text="${record.getAge()}"> </td>
                     <td th:text="${record.getGender()}"> </td>
                     <td th:text="${record.getRegion()}"> </td>
                     <td> <img class="profileimage" th:src="${record.getPfp()}" alt="Image Not Found" onerror="this.src='/blank-profile-picture.png';"> </td>
                 </tr>
             </table>
+            <h2 id="nousers">No users exist.</h2>
             <form th:action="@{/mainpage}" >
                 <button class="goodbutton" > Back</button>
             </form>
         </div>
     </div>
+<script defer src="/friendrequests.js"></script>
 </body>
 </html>
