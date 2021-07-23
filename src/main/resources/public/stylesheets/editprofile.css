@@ -11,6 +11,13 @@ table{
     padding: 55px;
 }
 
+#editprofiletable{
+    background-image: linear-gradient(white,gray);
+    border: 6px solid ghostwhite;
+    padding: 5px;
+    margin-bottom: 5%;
+}
+
 .content {
     background-image: url(https://source.unsplash.com/collection/87542052/1000x1000);
     background-color: #333;
@@ -61,6 +68,18 @@ header {
     margin-top: 5%;
 }
 
+#editprofile1 {
+    width: 382px;
+    overflow: hidden;
+    padding: 0px 600px 0px 200px;
+    border: 1px solid ghostwhite;
+    background: linear-gradient(27deg, #151515 5px, transparent 5px) 0 5px, linear-gradient(207deg, #151515 5px, transparent 5px) 10px 0px, linear-gradient(27deg, #222 5px, transparent 5px) 0px 10px, linear-gradient(207deg, #222 5px, transparent 5px) 10px 5px, linear-gradient(90deg, #1b1b1b 10px, transparent 10px), linear-gradient(#1d1d1d 25%, #1a1a1a 25%, #1a1a1a 50%, transparent 50%, transparent 75%, #242424 75%, #242424);
+    background-color: #131313;
+    background-size: 20px 20px;
+    /* position: absolute; */
+    margin-top: 5%;
+}
+
 th, td {
     color: black;  
     font-size: 20px;  
@@ -79,6 +98,14 @@ th, td {
     color: white;
     width: 300px;
     padding-left: 190px;
+}
+
+#profiletitle1{
+    text-align: center;
+    padding: 20px;
+    color: white;
+    width: 300px;
+    padding-left: 236px;
 }
 
 #bioText {

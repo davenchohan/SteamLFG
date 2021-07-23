@@ -15,10 +15,10 @@
         <h1 class="title">SteamLFG</h1>
     </header>
     <div class="content" th:each="record : ${records}">
-        <div id="editprofile">
-            <h1 id="profiletitle">Edit Profile</h1>
+        <div id="editprofile1">
+            <h1 id="profiletitle1">Edit Profile</h1>
             <form action="#" method="post" th:action="@{/profile/edit}" th:object="${user}">
-                <table>
+                <table id="editprofiletable">
                     <tr>
                         <th>ID: </th>
                         <td th:text="${record.getId()}"> </td>
