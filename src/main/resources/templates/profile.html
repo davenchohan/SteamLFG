@@ -14,6 +14,9 @@
         <div class="profile-header">
             <div class="profile-img">
                <img id="profile-img" th:src="${record.getPfp()}" alt="Image Not Found" onerror="this.src='/blank-profile-picture.png';">
+               <div class="level-img">
+                <a th:text=${record.getLevel()}></a>
+            </div>
             </div>
 
             <div class="profile-nav-info">

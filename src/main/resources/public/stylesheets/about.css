@@ -78,8 +78,7 @@ img {
 
 #fourth {
     color: white;
-    text-shadow: 1.5px 1.5px black;
-    padding-left: 30px;
+    margin-left: 5em;
 } 
 
 .nav-toggle-label span,
@@ -460,11 +459,9 @@ ul li a#thirdd::before {
 }
 
 
+/******** ABOUT PAGE **********/
 
-
-
-/******** MAIN CONTENT **********/
-h2
+h3
 {
     font-size: 100px;
     color: white;
@@ -475,17 +472,28 @@ h2
     height: 10%;
 }
 
-#desc
+#aboutHeader
 {
-    font-size: 50px;
+    font-size: 65px;
     color: white;
     display: flex;
+    text-align: center;
     align-content: center;
     justify-content: center;
-    margin-bottom: 770px;
 }
 
-.content {
+#aboutDesc
+{
+    font-size: 35px;
+    color: white;
+    padding-left: 10%;
+    padding-right: 10%;
+    text-align: center;
+    align-content: center;
+    justify-content: center;
+}
+
+.aboutContent {
     height: 200vh;
     background-image: url(https://source.unsplash.com/collection/87542052/1000x1000);
     background-color: #333;
@@ -495,45 +503,68 @@ h2
     
 }
 
-.features
+.aboutFeatures
 {
-    color: white;
-    display: flex;
-    align-content: left;
+    align-content: center;
     justify-content: center;
-    margin-bottom: 450px;
+    text-align: center;
+    margin-bottom: 45px;
     font-size: 30px;
 }
 
-#CG
+#CG1
 {
-  color: rebeccapurple;
+  color: white;
 }
 
-#FG
+#FG1
 {
-   padding-left:60px;
-   color: rebeccapurple;
+   color: white;
 
 }
-#UP
+#UP1
 {
-    padding-left:60px;
-    color: rebeccapurple;
+    color: white;
 }
 
-#one
+#TM1
 {
-    font-size: 20px;
+    color: white;
+}
+
+#one1
+{
+    font-size: 25px;
+    align-content: center;
+    justify-content: center;
+    padding-left: 10%;
+    padding-right: 10%;
     
 }
 
-#two
+#two1
 {
     font-size: 20px;
+    align-content: center;
+    justify-content: center;
+    padding-left: 10%;
+    padding-right: 10%;
 }
 
-#three
+#three1
 {
     font-size: 20px;
+    align-content: center;
+    justify-content: center;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+#four1
+{
+    font-size: 20px;
+    align-content: center;
+    justify-content: center;
+    padding-left: 10%;
+    padding-right: 10%;
 }
