@@ -18,7 +18,7 @@
     <div class="content">
         <div id="editprofile">
             <h1 id="profiletitle">Friends</h1>
-            <table>
+            <table id="bigtable">
                 <tr>
                     <th>USERNAME</th>
                     <th>AGE</th>
@@ -26,13 +26,14 @@
                     <th>REGION</th>
                 </tr>
                 <tr th:each="record : ${records}">
-                    <td><a th:href="@{/otheruser/{id}(id=${record.getId()})}" th:text="${record.getUsername()}"></a> </td>
+                    <td><a th:href="@{/otheruser/{id}(id=${record.getId()})}" th:text="${record.getUsername()}" id="otherusername1"></a> </td>
                     <td th:text="${record.getAge()}"> </td>
                     <td th:text="${record.getGender()}"> </td>
                     <td th:text="${record.getRegion()}"> </td>
                     <td> <img class="profileimage" th:src="${record.getPfp()}" alt="Image Not Found" onerror="this.src='/blank-profile-picture.png';"> </td>
                 </tr>
             </table>
+            <h2 id="nousers">No friends exist. Go add new friends!</h2>
             <form th:action="@{/friendrequests/{id}(id=${message})}">
                 <button class="goodbutton" >Received Friend Requests</button>
             </form>
@@ -47,6 +48,6 @@
     <div class="popUpBox" onclick="closePopUp()">
         <span class="popUpText2" id="newRequests"> You have new friend requests pending!</span>
     </div>
-<script src="/friends.js"></script>
+<script defer src="/friends.js"></script>
 </body>
 </html>
