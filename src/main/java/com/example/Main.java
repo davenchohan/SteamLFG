@@ -345,7 +345,6 @@ public class Main {
         String gname = rsm.getString("groupname");
         int mcount = rsm.getInt("maxmembers");
         String game = rsm.getString("game");
-        String mems = rsm.getString("members");
         int id = rsm.getInt("id");
         tgroup.setGroupname(gname);
         tgroup.setMaxmembers(mcount);
