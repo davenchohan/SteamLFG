@@ -13,6 +13,7 @@ public class User {
     private String type;
     private String adminkey;
     private int level=1;
+    private int experience;
 
     public String getUsername() {
         return this.username;
@@ -63,6 +64,10 @@ public class User {
         return this.level;
     }
 
+    public int getExperience(){
+        return this.experience;
+    }
+
     public void setUsername(String n) {
         this.username = n;
     }
@@ -109,5 +114,9 @@ public class User {
 
     public int setLevel(int n){
         return this.level = n;
+    }
+
+    public int setExperience(int n){
+        return this.experience=n;
     }
 }
