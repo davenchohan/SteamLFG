@@ -372,7 +372,7 @@ public class Main {
       }
       ResultSet rsk = stmt.executeQuery("SELECT * FROM grouptable WHERE id="+gid);
       while(rsk.next()){
-        if(rsk.getInt("maxmembers") >= currentgroupmembers){
+        if(rsk.getInt("maxmembers") <= currentgroupmembers){
         model.put("message", "This group is full");
         return "groupdb";
         }
@@ -386,6 +386,7 @@ public class Main {
       return "error";
     }
   }
+
 
 @GetMapping(
     path = "/accdb"
@@ -838,13 +839,13 @@ public class Main {
   public String getLoginCheck(@ModelAttribute("loggeduser") User loggeduser, Map<String, Object> model, User user) {
       try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
+      Statement stmt2 = connection.createStatement();
       ArrayList<User> output = new ArrayList<User>();
       if(loggeduser.getId() == 0){
       model.put("message", "You must be logged in");
       return "login";
       }else{
         ResultSet rs = stmt.executeQuery("SELECT * FROM accounts WHERE id="+loggeduser.getId());
-        Statement stmt2 = connection.createStatement();
         stmt2.executeUpdate("CREATE TABLE IF NOT EXISTS friendslist (id serial, username integer, friend integer, request integer)");
         while(rs.next()){
         String tname = rs.getString("username");
@@ -878,6 +879,17 @@ public class Main {
           model.put("popupmessage", "true");
         }
       }
+      ArrayList<String> groupout = new ArrayList<String>();
+      ResultSet srs2 = stmt.executeQuery("SELECT * FROM groupconnections WHERE uid="+ loggeduser.getId());
+      while(srs2.next()){
+        int groupid = srs2.getInt("gid");
+        ResultSet srs3 = stmt2.executeQuery("SELECT * FROM grouptable WHERE id="+ groupid);
+        while(srs3.next()){
+            System.out.println(srs3.getString("groupname"));
+            groupout.add(srs3.getString("groupname"));
+        }
+      }
+      model.put("groupout",groupout);
       return "profile";
     } catch (Exception e) {
       model.put("message", e.getMessage());

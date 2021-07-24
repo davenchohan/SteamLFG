@@ -81,7 +81,11 @@
                             </div>
                             <div class="profile-groups tab">
                                 <h1> Joined Groups</h1>
-                                <p></p>
+                                <table>
+                                    <tr th:each="grp : ${groupout}">
+                                        <td th:text="${grp}"></td>
+                                    </tr>
+                                </table>
                                 
                             </div>
                             <div class="profile-settings tab">
