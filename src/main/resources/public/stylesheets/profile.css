@@ -489,22 +489,13 @@ font-size: 22px;
 
 #a2 {
 
-    padding-top:150px;
+    padding-top:60px;
     font-size: 22px;
     padding-left:  80px;
-    padding-bottom:50px;
+    padding-bottom:15px;
     }
-    
-/************EXPERIENCE*************/
-body{
-    background:#050505;
-    margin:0px;
-    color:#eee;
-    font-family:Play;
-    user-select:none;
-    -webkit-user-select:none;
-    cursor:default;
-  }
+
+
   
   #account-bar-wrapper{
     left:0px;
@@ -582,4 +573,5 @@ body{
     border-radius:5px;
     -webkit-filter:blur(5px);
   }
+
   
