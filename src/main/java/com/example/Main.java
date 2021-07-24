@@ -204,7 +204,7 @@ public class Main {
       try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
       Statement stmt2 = connection.createStatement();
-      
+      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS groupconnections (id serial, gid integer, uid integer, request integer, type varchar(20))");
       stmt.executeUpdate("CREATE TABLE IF NOT EXISTS grouptable (id serial, groupname varchar(20), maxmembers integer, game varchar(20))");
       ResultSet rs = stmt.executeQuery("SELECT * FROM grouptable");
       ArrayList<ObjGroup> output = new ArrayList<ObjGroup>();
@@ -214,7 +214,6 @@ public class Main {
         String gname = rs.getString("groupname");
         int mcount = rs.getInt("maxmembers");
         String game = rs.getString("game");
-        String mems = rs.getString("members");
         int id = rs.getInt("id");
         tgroup.setGroupname(gname);
         tgroup.setMaxmembers(mcount);
