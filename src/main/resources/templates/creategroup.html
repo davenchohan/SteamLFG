@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,14 +10,14 @@
     <script src="../scripts/rec.js" defer></script>
 </head>
 <body>
-<form action="#" method="post" th:action="@{/group/create}" th:object="${objgroup}">
-    <label for="name">Groupname: </label>
-    <input type="text" th:field=*{groupname} placeholder="groupName" name="groupName"> <br>
-    <label for="name">Max Members: </label>
-    <input type="number" maxlength="20" id="password" input required="" th:field=*{maxmembers} placeholder="maxMembers"> <br>
-    <label for="name">Game: </label>
-    <input type="text" maxlength="20" id="password" input required="" th:field=*{game} placeholder="game"> <br>
-    <input type="submit" id="submit" value="Submit">
-</form>
+    <form action="#" method="post" th:action="@{/group/create}" th:object="${objgroup}">
+        <label for="name">Groupname: </label>
+        <input type="text" th:field=*{groupname} placeholder="groupName" name="groupName"> <br>
+        <label for="name">Max Members: </label>
+        <input type="number" maxlength="20" id="password" input required="" th:field=*{maxmembers} placeholder="maxMembers"> <br>
+        <label for="name">Game: </label>
+        <input type="text" maxlength="20" id="password" input required="" th:field=*{game} placeholder="game"> <br>
+        <input type="submit" id="submit" value="Submit">
+    </form>
 </body>
 </html>

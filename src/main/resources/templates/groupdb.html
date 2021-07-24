@@ -8,7 +8,6 @@
     <link rel="shortcut icon" type="image/png" href="/steamlogo.png" />
 </head>
 <body>
-<<<<<<< HEAD
     <header>
         <a href="/groupdb/delgroupdb"> THIS WILL DELETE ALL DATA IN THE DATABASE !!!</a>
     </header>
@@ -29,25 +28,5 @@
             <td th:text="${record.getCurrentmembers()}"></td>
         </tr>
     </table>
-=======
-<header>
-    <a href="/accdb/delaccdb"> THIS WILL DELETE ALL DATA IN THE DATABASE !!!</a>
-</header>
-<table>
-    <tr>
-        <th>ID</th>
-        <th>GROUPNAME</th>
-        <th>MAXMEMBERS</th>
-        <th>GAME</th>
-        <th>MEMBERS</th>
-    </tr>
-    <tr th:each="record : ${records}">
-        <td th:text="${record.getGid()}"> </td>
-        <td><a th:href="@{/user/read/{id}(id=${record.getGid()})}" th:text="${record.getGroupname()}"></a> </td>
-        <td th:text="${record.getMaxmembers()}"> </td>
-        <td th:text="${record.getGame()}"> </td>
-    </tr>
-</table>
->>>>>>> a629e3203d34a536faff3f9035c1df996a485445
 </body>
 </html>
