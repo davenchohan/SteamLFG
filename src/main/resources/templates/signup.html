@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+﻿﻿<!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
@@ -10,6 +10,37 @@
     <title>Login</title>
 </head>
 <body>
+<header>
+    <img src="/steamlogo.png" alt="steamlogo">
+    <h1 class="title">SteamLFG</h1>
+    <input type="checkbox" id="nav-toggle" class="nav-toggle">
+    <nav>
+        <ul>
+            <li id="first"><a  href="/"><i class="fas fa-home"></i>  Home</a></li>
+            <li id="second"><a href="/accdb"><i class="fas fa-info"></i>  About</a></li>
+            <li id="third" >
+                <a href="#"><i class="fas fa-users"></i>  Social</a>
+                <ul class="SdropContent">
+                    <li><a id="firstt" href="#"> Add Friend</a></li>
+                    <li><a id="secondd" href="/group/create"> Create Group</a></li>
+                    <li><a id="thirdd" href="/groupdb"> Find Group</a></li>
+                </ul>
+            </li>
+
+        </ul>
+    </nav>
+    <label for="nav-toggle" class="nav-toggle-label">
+        <span></span>
+    </label>
+
+    <input type="checkbox" id="dropbtn" class="dropbtn">
+    <div id="heads" class="head2">
+        <form th:action="@{/signup}">
+            <button id="submit" type="submit"><i class="fas fa-user-plus fa-2x"></i>  Sign Up</button>
+        </form>
+        <form th:action="@{/login}">
+            <button id="login" type="submit"><i class="fas fa-sign-in-alt fa-2x"></i>  Login</button>
+        </form>
     <header>
         <img src="/steamlogo.png" alt="steamlogo">
         <h1 class="title">SteamLFG</h1>
@@ -80,5 +111,24 @@
             <p id="errorsignup" href="/login" th:text="${message}"></p>
         </div>
     </div>
+
+    <label for="dropbtn" class="droplabel">
+        <span><i id="icon" class="fas fa-user fa-2x"> </i> </span>
+    </label>
+
+</header>
+<div class="content">
+    <div class="login">
+        <h1 id="signuptitle">Registration Form</h1>
+        <form id="login" action="#" method="post" th:action="@{/signup}" th:object="${user}">
+            <label for="name" class="loginlabel">Username: </label>
+            <input type="text" maxlength="20" id="name" input required="" th:field=*{username} placeholder="username"> <br>
+            <label for="name" class="loginlabel">Password: </label>
+            <input type="password" maxlength="20" id="password" input required="" th:field=*{password} placeholder="password"> <br>
+            <input type="submit" id="submitbutton" value="Submit">
+        </form>
+        <p id="errorsignup" th:text="${message}"></p>
+    </div>
+</div>
 </body>
 </html>
