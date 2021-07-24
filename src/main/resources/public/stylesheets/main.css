@@ -140,6 +140,33 @@ body {
     cursor: pointer;
   }
 
+#logout:hover {
+    color: red;
+}
+
+
+#logout {
+    padding: 20px 20px;
+    font-size: 20px;
+    background: transparent;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+
+#profile:hover {
+    color: red;
+}
+
+
+#profile {
+    padding: 20px 20px;
+    font-size: 20px;
+    background: transparent;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
 
 /* navigation styles start here */
 
