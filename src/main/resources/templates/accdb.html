@@ -10,33 +10,6 @@
     <script src="../scripts/rec.js" defer></script>
 </head>
 <body>
-<header>
-    <a href="/accdb/delaccdb"> THIS WILL DELETE ALL DATA IN THE DATABASE !!!</a>
-</header>
-<table>
-    <tr>
-        <th>ID</th>
-        <th>USERNAME</th>
-        <th>PASSWORD</th>
-        <th>AGE</th>
-        <th>GENDER</th>
-        <th>REGION</th>
-        <th>BIO</th>
-        <th>PFP</th>
-        <th>GROUPS</th>
-    </tr>
-    <tr th:each="record : ${records}">
-        <td th:text="${record.getId()}"> </td>
-        <td><a th:href="@{/user/{id}(id=${record.getId()})}" th:text="${record.getUsername()}"></a> </td>
-        <td th:text="${record.getPassword()}"> </td>
-        <td th:text="${record.getAge()}"> </td>
-        <td th:text="${record.getGender()}"> </td>
-        <td th:text="${record.getRegion()}"> </td>
-        <td th:text="${record.getBio()}"> </td>
-        <td th:text="${record.getPfp()}"> </td>
-        <td th:text="${record.getGroups()}"> </td>
-    </tr>
-</table>
     <header>
         <a href="/accdb/delaccdb"> THIS WILL DELETE ALL DATA IN THE DATABASE !!!</a>
     </header>

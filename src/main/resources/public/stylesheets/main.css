@@ -56,31 +56,31 @@ body {
 }
 
 .loginlabel {
-    color: white;
-    font-size: 20px;
+    color: white;  
+    font-size: 20px;  
     padding-bottom: 8px;
 }
 
-#name{
-    width: 300px;
-    height: 30px;
-    border: none;
-    border-radius: 3px;
-    padding-left: 14px;
+#name{  
+    width: 300px;  
+    height: 30px;  
+    border: none;  
+    border-radius: 3px;  
+    padding-left: 14px;  
     margin-bottom: 10px;
     margin-right: 15px;
-
-}
-#password{
-    width: 300px;
-    height: 30px;
-    border: none;
-    border-radius: 3px;
-    padding-left: 14px;
+   
+}  
+#password{  
+    width: 300px;  
+    height: 30px;  
+    border: none;  
+    border-radius: 3px;  
+    padding-left: 14px;  
     margin-right: 15px;
-
-
-}
+    
+      
+}  
 
 #logintitle{
     text-align: center;
@@ -99,8 +99,7 @@ body {
 
 #error{
     color: red;
-    font-size: 17px;
-    font-size: 13px;
+    font-size: 13px;  
     margin-left: -100px;
     margin-bottom: -50px;
     width: 425px;
@@ -110,8 +109,6 @@ body {
 
 #errorsignup{
     color: red;
-    font-size: 17px;
-    margin-left: -10px;
     font-size: 13px;  
     margin-left: -100px;
     margin-bottom: -50px;
@@ -123,25 +120,25 @@ body {
 
 
 #submitbutton {
-    font-size: 17px;
-    padding-left: 10px;
-    padding-top: 10px;
-    padding-right: 10px;
-    padding-bottom: 10px;
-    color: white;
-    text-align: center;
-    display: block;
-    background-image: linear-gradient(45deg, black 25%, transparent 25%, transparent 75%, black 75%, black), linear-gradient(45deg, black 25%, transparent 25%, transparent 75%, black 75%, black),linear-gradient(to bottom, rgb(8, 8, 8), rgb(32, 32, 32));
-    margin-top: 30px;
-    margin-bottom: -30px;
-    width: 200px;
-    border: 1px solid white;
+        font-size: 17px;
+        padding-left: 10px;
+        padding-top: 10px;
+        padding-right: 10px;
+        padding-bottom: 10px;
+        color: white;
+        text-align: center;
+        display: block;
+        background-image: linear-gradient(45deg, black 25%, transparent 25%, transparent 75%, black 75%, black), linear-gradient(45deg, black 25%, transparent 25%, transparent 75%, black 75%, black),linear-gradient(to bottom, rgb(8, 8, 8), rgb(32, 32, 32));
+        margin-top: 30px;
+        margin-bottom: -30px;
+        width: 200px;
+        border: 1px solid white;
 }
 
 #submitbutton:hover{
     opacity: 50%;
     cursor: pointer;
-}
+  }
 
 
 /* navigation styles start here */
@@ -510,7 +507,7 @@ nav a:hover {
 
 #login:hover
 {
-    color: red;
+color: red;
 }
 
 
@@ -630,3 +627,4 @@ ul li a#thirdd::before {
     transform: scale(0, 1);
     transition: transform ease-in-out 250ms;
 }
+

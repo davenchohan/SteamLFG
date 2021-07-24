@@ -2,15 +2,17 @@ package com.example;
 
 public class ObjGroup {
     private String groupname;
-    private String membername;
+    private int[] members = {0,0,0,0,0,0,0,0,0,0,0,0};
     private int maxmembers;
-    private int currentmembers;
     private String game;
     private int gid;
 
+    public int[] getMembers() {
+        return this.members;
+    }
 
-    public String getMembername() {
-        return this.membername;
+    public int getMember(int i) {
+        return this.members[i];
     }
 
     public String getGame() {
@@ -29,12 +31,15 @@ public class ObjGroup {
         return this.gid;
     }
 
-    public int getCurrentmembers(){
-        return this.currentmembers;
+    public void setMembers(int[] n) {
+        this.members = n;
+        for(int i = 0; i < maxmembers; i++){
+            this.members[i] = n[i];
+        }
     }
 
-    public void setMembername(String n) {
-        this.membername = n;
+    public void setMember(int index, int id) {
+        this.members[index] = id;
     }
 
     public void setGame(String n){
@@ -51,9 +56,5 @@ public class ObjGroup {
 
     public void setGid(int id){
         this.gid = id;
-    }
-
-    public int setCurrentmembers(int id){
-        return this.currentmembers = id;
     }
 }

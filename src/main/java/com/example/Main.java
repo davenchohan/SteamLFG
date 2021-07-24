@@ -74,8 +74,8 @@ public class Main {
   public String getUserForm(@ModelAttribute("loggeduser") User loggeduser, Map<String, Object> model){
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
-      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS grouptable (id serial, groupname varchar(20), maxmembers integer, game varchar(20))");
-      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS accounts (id serial, username varchar(20), password varchar(20), type varchar(20), age integer, gender varchar(20), region varchar(20), bio varchar(150), pfp varchar(150), groups varchar(20), level integer)");
+      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS grouptable (id serial, groupname varchar(20), membercount integer, game varchar(20), members varchar(300))");
+      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS accounts (id serial, username varchar(20), password varchar(20), type varchar(20), age integer, gender varchar(20), region varchar(20), bio varchar(150), pfp varchar(150), groups varchar(20), level integer, experience integer)");
       ResultSet rs = stmt.executeQuery("SELECT * FROM accounts");
       ArrayList<User> output = new ArrayList<User>();
       output.add(loggeduser);
@@ -106,7 +106,7 @@ public class Main {
   public String handleBrowserSignupSubmit(Map<String, Object> model, User user) throws Exception {
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
-      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS accounts (id serial, username varchar(20), password varchar(20), type varchar(20), age integer, gender varchar(20), region varchar(20), bio varchar(150), pfp varchar(150), groups varchar(20), level integer)");
+      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS accounts (id serial, username varchar(20), password varchar(20), type varchar(20), age integer, gender varchar(20), region varchar(20), bio varchar(150), pfp varchar(150), groups varchar(20), level integer, experience integer)");
       ResultSet rs = stmt.executeQuery("SELECT * FROM accounts");
       while(rs.next()){
         String tname = rs.getString("username");
@@ -197,33 +197,27 @@ public class Main {
         return "mainpage";
         }
 
+
 @GetMapping(
     path = "/groupdb"
   )
   public String getGroupDatabase(@ModelAttribute("loggeduser") User loggeduser, Map<String, Object> model) {
       try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
-      Statement stmt2 = connection.createStatement();
-      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS groupconnections (id serial, gid integer, uid integer, request integer, type varchar(20))");
-      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS grouptable (id serial, groupname varchar(20), maxmembers integer, game varchar(20))");
+      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS grouptable (id serial, groupname varchar(20), membercount integer, game varchar(20), members varchar(300))");
       ResultSet rs = stmt.executeQuery("SELECT * FROM grouptable");
       ArrayList<ObjGroup> output = new ArrayList<ObjGroup>();
       while (rs.next()) {
-        int currentmembers = 0;
         ObjGroup tgroup = new ObjGroup();
         String gname = rs.getString("groupname");
-        int mcount = rs.getInt("maxmembers");
+        int mcount = rs.getInt("membercount");
         String game = rs.getString("game");
+        String mems = rs.getString("members");
         int id = rs.getInt("id");
         tgroup.setGroupname(gname);
         tgroup.setMaxmembers(mcount);
         tgroup.setGame(game);
         tgroup.setGid(id);
-        ResultSet rs2 = stmt2.executeQuery("SELECT * FROM groupconnections WHERE gid="+id);
-        while(rs2.next()){
-            currentmembers = currentmembers + 1;
-        }
-        tgroup.setCurrentmembers(currentmembers);
         output.add(tgroup);
       }
       model.put("records", output);
@@ -233,7 +227,6 @@ public class Main {
       return "error";
     }
   }
-
 
 @GetMapping(
     path = "/group/create"
@@ -243,10 +236,6 @@ public class Main {
    ObjGroup objgroup = new ObjGroup();
    model.put("objgroup", objgroup);
    model.put("user", user);
-   if(loggeduser.getId() == 0){
-    model.put("message", "You must be logged in");
-    return "login";
-    }
   return "creategroup";
   }
   @PostMapping(
@@ -255,18 +244,14 @@ public class Main {
   )
   public String handleGroupCreate(@ModelAttribute("loggeduser") User loggeduser, Map<String, Object> model, ObjGroup objgroup) {
   if(loggeduser.getId() == 0){
+    System.out.println("you must be logged in");
     return "login";
   }else{
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
-      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS grouptable (id serial, groupname varchar(20), maxmembers integer, game varchar(20))");
-      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS groupconnections (id serial, gid integer, uid integer, request integer, type varchar(20))");
-      ResultSet rs = stmt.executeQuery("INSERT INTO grouptable (groupname,maxmembers,game) VALUES ('" + objgroup.getGroupname() + "','" + objgroup.getMaxmembers() + "','" + objgroup.getGame() + "') RETURNING id");
-      int ngroupid = 0;
-      while(rs.next()){
-            ngroupid = rs.getInt("id");
-      }
-      String sql = "INSERT INTO groupconnections (gid,uid,type) VALUES ('" + ngroupid + "','" + loggeduser.getId() + "','Owner')";
+      System.out.println("0");
+      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS grouptable (id serial, groupname varchar(20), membercount integer, game varchar(20), members varchar(300))");
+      String sql = "INSERT INTO grouptable (groupname,membercount,game,members) VALUES ('" + objgroup.getGroupname() + "','" + objgroup.getMaxmembers() + "','" + objgroup.getGame() + "','" + loggeduser.getId() + "')";
       stmt.executeUpdate(sql);
       return "mainpage";
     } catch (Exception e) {
@@ -276,117 +261,6 @@ public class Main {
     }
   }
 
-@GetMapping(
-    path = "/group/{gid}"
-  )
-  public String getSpecificGroup(@ModelAttribute("loggeduser") User loggeduser, Map<String, Object> model, User user, @PathVariable String gid) {
-      try (Connection connection = dataSource.getConnection()) {
-      Statement stmt = connection.createStatement();
-      Statement stmt2 = connection.createStatement();
-      ResultSet rs = stmt.executeQuery("SELECT * FROM grouptable WHERE id="+gid);
-      ArrayList<ObjGroup> output = new ArrayList<ObjGroup>();
-      
-      while (rs.next()) {
-        int currentmembers = 0;
-        ObjGroup tempgroup = new ObjGroup();
-        int id = rs.getInt("id");
-        String gname = rs.getString("groupname");
-        int maxmembers = rs.getInt("maxmembers");
-        String game = rs.getString("game");
-        tempgroup.setGid(id);
-        tempgroup.setGroupname(gname);
-        tempgroup.setMaxmembers(maxmembers);
-        tempgroup.setGame(game);
-        ResultSet rs2 = stmt2.executeQuery("SELECT * FROM groupconnections WHERE gid="+id);
-        while(rs2.next()){
-            currentmembers = currentmembers + 1;
-        }
-        tempgroup.setCurrentmembers(currentmembers);
-        output.add(tempgroup);
-      }
-      ResultSet rss = stmt.executeQuery("SELECT * FROM groupconnections WHERE gid="+gid);
-      ArrayList<String> usersout = new ArrayList<String>();
-      while(rss.next()){
-      int uid = rss.getInt("uid");
-      System.out.println(uid);
-      ResultSet srs = stmt2.executeQuery("SELECT * FROM accounts WHERE id="+uid);
-        while(srs.next()){
-            String usern = srs.getString("username");
-            System.out.println(usern);
-            usersout.add(usern);
-        }
-      }
-      model.put("members", usersout);
-      model.put("records", output);
-      return "readgroup";
-    } catch (Exception e) {
-      model.put("message", e.getMessage());
-      return "error";
-    }
-  }
-
-
-@GetMapping(
-    path = "/group/{gid}/join"
-  )
-  public String getJoinGroup(@ModelAttribute("loggeduser") User loggeduser, Map<String, Object> model, User user, @PathVariable String gid) {
-   if(loggeduser.getId() == 0){
-    model.put("message", "You must be logged in");
-    return "login";
-    }
-  try (Connection connection = dataSource.getConnection()) {
-      Statement stmt = connection.createStatement();
-      Statement stmt2 = connection.createStatement();
-      ResultSet rsm = stmt.executeQuery("SELECT * FROM grouptable");
-      ArrayList<ObjGroup> output = new ArrayList<ObjGroup>();
-      while (rsm.next()) {
-        int currentmembers = 0;
-        ObjGroup tgroup = new ObjGroup();
-        String gname = rsm.getString("groupname");
-        int mcount = rsm.getInt("maxmembers");
-        String game = rsm.getString("game");
-        String mems = rsm.getString("members");
-        int id = rsm.getInt("id");
-        tgroup.setGroupname(gname);
-        tgroup.setMaxmembers(mcount);
-        tgroup.setGame(game);
-        tgroup.setGid(id);
-        ResultSet rs = stmt2.executeQuery("SELECT * FROM groupconnections WHERE gid="+id);
-        while(rs.next()){
-            currentmembers = currentmembers + 1;
-        }
-        tgroup.setCurrentmembers(currentmembers);
-        output.add(tgroup);
-      }
-      model.put("records", output);
-
-
-      int currentgroupmembers = 0;
-      ResultSet rs = stmt.executeQuery("SELECT * FROM groupconnections WHERE gid="+gid);
-      while (rs.next()) {
-      currentgroupmembers = currentgroupmembers + 1;
-      int uid = rs.getInt("uid");
-      if(uid == loggeduser.getId()){
-        model.put("message", "You are already in this group");
-        return "groupdb";
-      }
-      }
-      ResultSet rsk = stmt.executeQuery("SELECT * FROM grouptable WHERE id="+gid);
-      while(rsk.next()){
-        if(rsk.getInt("maxmembers") >= currentgroupmembers){
-        model.put("message", "This group is full");
-        return "groupdb";
-        }
-      }
-      String sql = "INSERT INTO groupconnections (gid,uid,type) VALUES ('" + gid + "','" + loggeduser.getId() + "','User')";
-      stmt.executeUpdate(sql);
-      model.put("message", "You are now in this group");
-      return "groupdb";
-    } catch (Exception e) {
-      model.put("message", e.getMessage());
-      return "error";
-    }
-  }
 
 @GetMapping(
     path = "/accdb"
@@ -1027,17 +901,13 @@ public class Main {
   }
 
 @GetMapping("/accdb/delaccdb")
-  public String deleteAllAccountsDB(Map<String, Object> model){
+  public String deleteAllRectangles(Map<String, Object> model){
    try (Connection connection = dataSource.getConnection()) {
     Statement stmt = connection.createStatement();
     stmt.executeUpdate("DROP TABLE accounts");
-    stmt.executeUpdate("CREATE TABLE IF NOT EXISTS accounts (id serial, username varchar(20), password varchar(20), type varchar(20), age integer, gender varchar(20), region varchar(20), bio varchar(150), pfp varchar(150), groups varchar(20), level integer)");
+    stmt.executeUpdate("CREATE TABLE IF NOT EXISTS accounts (id serial, username varchar(20), password varchar(20), type varchar(20), age integer, gender varchar(20), region varchar(20), bio varchar(150), pfp varchar(150), groups varchar(20), level integer, experience integer)");
     stmt.executeUpdate("DROP TABLE friendslist");
     stmt.executeUpdate("CREATE TABLE IF NOT EXISTS friendslist (id serial, username integer, friend integer, request integer)");
-    stmt.executeUpdate("DROP TABLE grouptable");
-    stmt.executeUpdate("CREATE TABLE IF NOT EXISTS grouptable (id serial, groupname varchar(20), maxmembers integer, game varchar(20))");
-    stmt.executeUpdate("DROP TABLE groupconnections");
-    stmt.executeUpdate("CREATE TABLE IF NOT EXISTS groupconnections (id serial, gid integer, uid integer, request integer, type varchar(20))");
     return "redirect:/mainpage";
    
     } catch (Exception e) {
