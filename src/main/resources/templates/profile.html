@@ -15,7 +15,7 @@
         <div class="profile-header">
             <div class="profile-img">
                <img id="profile-img" th:src="${record.getPfp()}" alt="Image Not Found" onerror="this.src='/blank-profile-picture.png';">
-               <div class="level-img">
+               <div onclick='doit()' class="level-img">
                 <a th:text=${record.getLevel()}></a>
             </div>
             </div>
@@ -66,13 +66,23 @@
                         <div class="profile-body">
                             <div class="profile-stats tab">
                                 <h1>Level</h1>
-                                <p>
-                                 </p>
+                                <p></p>
+                                <div id="account-bar-wrapper">
+                                    <div id="account-bar">
+                                        <div id="account-bar-level"></div>
+                                        <div id="xp-bar">
+                                        <div id="xp-bar-fill">
+                                            <div id='xp-increase-fx'><div id='xp-increase-fx-flicker'><div class='xp-increase-glow1'></div><div class='xp-increase-glow2'></div><div class='xp-increase-glow3'></div></div><div class='xp-increase-glow2'></div></div>
+                                        </div>
+                                        </div>
+                                        </div>
+                                        </div>         
+                                </div>                                                 
                             </div>
                             <div class="profile-groups tab">
                                 <h1> Joined Groups</h1>
-                                <p>
-                                    </p>
+                                <p></p>
+                                
                             </div>
                             <div class="profile-settings tab">
                                 <h1> Account Settings</h1>
@@ -143,6 +153,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="/profile.js"></script>
 
+<script src="/xp.js"></script>
 </body>
 
 
