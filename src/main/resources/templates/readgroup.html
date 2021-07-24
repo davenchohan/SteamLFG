@@ -9,9 +9,7 @@
 </head>
 <body>
     <header>
-        <a href="/groupdb/delgroupdb"> THIS WILL DELETE ALL DATA IN THE DATABASE !!!</a>
     </header>
-    <a th:text="${message}"></a>
     <table>
         <tr>
             <th>ID</th>
@@ -28,5 +26,17 @@
             <td th:text="${record.getCurrentmembers()}"></td>
         </tr>
     </table>
+    <table>
+        <tr>
+            <th>Members</th>
+        </tr>
+        <tr th:each="member : ${members}">
+            <td th:text="${member}"> </td>
+        </tr>
+    </table>
+    <div th:each="record : ${records}">
+        <a th:href="@{/group/{id}/join(id=${record.getGid()})}">Join</a>
+    </div>
+    <a th:text="${message}"></a>
 </body>
 </html>
