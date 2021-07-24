@@ -351,4 +351,147 @@ button.user-db
     to {opacity:1 ;}
 }
 
+.health_title{
+    padding-top: 450px;
+    font-size: xx-large;
+    font-style: bold;
+    font-family: "Dank Mono", ui-monospace, monospace;
+    color: white;
+    background: linear-gradient(
+        to right, 
+        hsl(98 100% 62%), 
+        hsl(204 100% 59%)
+      );
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-align: left;
+}
 
+.health_mini{
+    font-size: 20px;
+    padding-top: 30px;
+    font-style: bold;
+    font-family: "Dank Mono", ui-monospace, monospace;
+    color:  white;
+    
+
+}
+
+
+
+.sliders {
+    font-style: bold;
+    font-family: "Dank Mono", ui-monospace, monospace;
+    padding-top: 30px;
+    width:500px;
+    height:100px;
+    
+}
+
+
+
+.sliders .show-value   {
+ position:relative;
+ width:100%;
+ height:55px;
+    
+}
+
+.sliders .show-value1   {
+    position:relative;
+    width:100%;
+    height:55px;
+       
+   }
+   
+
+
+.sliders .show-value span  {
+    position: absolute;
+    width: 45px;
+    height: 45px;
+    background: #f5f5f5;
+    color:#111;
+    text-align:center;
+    line-height:45px;
+    border-radius:50%;
+    left:50%;
+    transform: translate(-50%) scale(0);
+    transform-origin:bottom;
+    transition:transform 300ms ease-in-out;
+}
+
+.sliders .show-value1 span  {
+    position: absolute;
+    width: 45px;
+    height: 45px;
+    background: #f5f5f5;
+    color:#111;
+    text-align:center;
+    line-height:45px;
+    border-radius:50%;
+    left:50%;
+    transform: translate(-50%) scale(0);
+    transform-origin:bottom;
+    transition:transform 300ms ease-in-out;
+}
+
+.sliders .show-value span.active {
+    transform:translateX(-50%) scale(1);
+}
+
+.sliders .show-value1 span.active {
+    transform:translateX(-50%) scale(1);
+}
+    
+
+
+.sliders input[type="range"]{
+    -webkit-appearance: none;
+    width:100%;
+    height: 2px;
+    background: #f5f5f5;
+    border-radius: 2px;
+    outline:none;
+    border:none;}
+    
+
+.sliders input  [type = "range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width:15px;
+    height:30px;
+    background:#f5f5f5;
+    border-radius: 10px;
+    cursor:pointer;
+        }
+
+.sliders .range {
+    margin-top:10px;
+    position:relative;
+}
+
+.sliders .range div{
+    position: absolute;
+    color: #ddd;
+    font-weight:600;
+}
+
+.sliders  .range div:nth-child(2) {
+    right: 0px;
+}
+
+#a1 {
+padding-left: 60px;
+padding-top: 50px;
+font-size: 22px;
+}
+
+
+#a2 {
+
+    padding-top:150px;
+    font-size: 22px;
+    padding-left:  80px;
+    padding-bottom:50px;
+    }
+    
