@@ -79,15 +79,30 @@
                                         </div>         
                                 </div>                                                 
                             </div>
-                            <div class="profile-groups tab">
-                                <h1> Joined Groups</h1>
-                                <table>
-                                    <tr th:each="grp : ${groupout}">
-                                        <td th:text="${grp}"></td>
-                                    </tr>
-                                </table>
-                                
-                            </div>
+                        <div class="profile-groups tab">
+                            <h1> Joined Groups</h1>
+                            <form th:action="@{/group/create}">
+                                <button class="user-db" type="submit">Create Group</button>
+                            </form>
+                            <form th:action="@{/groupdb}">
+                                <button class="user-db" type="submit">Join Group</button>
+                            </form>
+                            <table style="background-image: linear-gradient(white,gray); border: 6px solid ghostwhite; padding: 55px;">
+                                <tr style="color: black; font-size: 20px; padding: 10px;">
+                                    <th>Group</th>
+                                    <th>Game</th>
+                                </tr>
+                                <tr th:each="grp : ${groupout}">
+                                    <td>
+                                        <form th:action="@{/group/{id}(id=${grp.getGid()})}">
+                                            <button class="user-db" type="submit" th:text="${grp.getGroupname()}"></button>
+                                        </form>
+                                    </td>
+                                    <td th:text="${grp.getGame()}" style="color: black; font-size: 20px; padding: 10px;"> </td>
+                                </tr>
+                            </table>
+
+                        </div>
                             <div class="profile-settings tab">
                                 <h1> Account Settings</h1>
                                 <p> </p>
@@ -97,6 +112,9 @@
                                     </form>
                                     <form th:action="@{/friends/{id}(id=${record.getId()})}">
                                         <button class="user-db" type="submit">Friends</button>
+                                    </form>
+                                    <form th:action="@{/userslist}">
+                                        <button class="user-db" type="submit">Add Friends</button>
                                     </form>
                                     <form th:action="@{/accdb}">
                                         <button class="user-db" type="submit">View User Database (Admins Only)</button>

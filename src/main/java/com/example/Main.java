@@ -153,7 +153,6 @@ public class Main {
         String type = rs.getString("type");
         if(user.getUsername().equals(tname)){
             if(user.getPassword().equals(tpassword)) {
-            System.out.println("LOGGED IN AS " + user.getUsername());
             loggeduser.setId(id);
             loggeduser.setUsername(tname);
             loggeduser.setPassword(tpassword);
@@ -268,7 +267,7 @@ public class Main {
       }
       String sql = "INSERT INTO groupconnections (gid,uid,type) VALUES ('" + ngroupid + "','" + loggeduser.getId() + "','Owner')";
       stmt.executeUpdate(sql);
-      return "mainpage";
+      return "redirect:/profile";
     } catch (Exception e) {
       model.put("message", e.getMessage());
       return "error";
@@ -308,11 +307,9 @@ public class Main {
       ArrayList<String> usersout = new ArrayList<String>();
       while(rss.next()){
       int uid = rss.getInt("uid");
-      System.out.println(uid);
       ResultSet srs = stmt2.executeQuery("SELECT * FROM accounts WHERE id="+uid);
         while(srs.next()){
             String usern = srs.getString("username");
-            System.out.println(usern);
             usersout.add(usern);
         }
       }
@@ -529,6 +526,7 @@ public class Main {
   public String getOtherUserDatabase(@ModelAttribute("loggeduser") User loggeduser, Map<String, Object> model, User user, @PathVariable String pid) {
       try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
+      Statement stmt2 = connection.createStatement();
       stmt.executeUpdate("CREATE TABLE IF NOT EXISTS friendslist (id serial, username integer, friend integer, request integer)");
       ResultSet rs = stmt.executeQuery("SELECT * FROM accounts WHERE id="+pid);
       ArrayList<User> output = new ArrayList<User>();
@@ -562,11 +560,9 @@ public class Main {
         if(srs.getString("friend").equals(pid)){
           if(srs.getInt("request") == 1) {
             model.put("request", "sent");
-            System.out.println("friend request sent already");
           }
           else {
             model.put("request", "accepted");
-            System.out.println("this is your friend");
           }
         }
       }
@@ -575,14 +571,28 @@ public class Main {
         if(srs2.getString("username").equals(pid)){
           if(srs2.getInt("request") == 1) {
             model.put("request", "received");
-            System.out.println("friend request received already");
           }
           else {
             model.put("request", "accepted");
-            System.out.println("this is your friend");
           }
         }
       }
+      ArrayList<ObjGroup> groupout = new ArrayList<ObjGroup>();
+      
+      ResultSet srs3 = stmt.executeQuery("SELECT * FROM groupconnections WHERE uid="+ pid);
+      while(srs3.next()){
+        ObjGroup grouplist = new ObjGroup();
+        int groupid = srs3.getInt("gid");
+        ResultSet srs4 = stmt2.executeQuery("SELECT * FROM grouptable WHERE id="+ groupid);
+        while(srs4.next()){
+        grouplist.setGroupname(srs4.getString("groupname"));
+        grouplist.setGame(srs4.getString("game"));
+        grouplist.setGid(groupid);
+        }
+            
+            groupout.add(grouplist);
+      }
+      model.put("groupout",groupout);
       return "otheruser";
     } catch (Exception e) {
       model.put("message", e.getMessage());
@@ -788,7 +798,6 @@ public class Main {
       stmt.executeUpdate("CREATE TABLE IF NOT EXISTS friendslist (id serial, username integer, friend integer, request integer)");
       String sql = "INSERT INTO friendslist (username,friend,request) VALUES ('" + loggeduser.getId() + "','" + pid + "','" + 1 + "')";
       stmt.executeUpdate(sql);
-      System.out.println("Added Friend");
       return "redirect:/otheruser/"+pid;
     } catch (Exception e) {
       model.put("message", e.getMessage());
@@ -807,7 +816,6 @@ public class Main {
       stmt.executeUpdate(sql);
       String sql1 ="UPDATE friendslist SET request=" + 2 + " WHERE username=" + loggeduser.getId() + " AND friend="+ pid;
       stmt2.executeUpdate(sql1);
-      System.out.println("Added Friend");
       return "redirect:/otheruser/"+pid;
     } catch (Exception e) {
       model.put("message", e.getMessage());
@@ -824,7 +832,6 @@ public class Main {
       Statement stmt2 = connection.createStatement();
       stmt.executeUpdate("DELETE FROM friendslist WHERE username="+ pid + " AND friend="+ loggeduser.getId());
       stmt2.executeUpdate("DELETE FROM friendslist WHERE username="+ loggeduser.getId() + " AND friend="+ pid);
-      System.out.println("Deleted Friend");
       return "redirect:/otheruser/"+pid;
     } catch (Exception e) {
       model.put("message", e.getMessage());
@@ -879,15 +886,19 @@ public class Main {
           model.put("popupmessage", "true");
         }
       }
-      ArrayList<String> groupout = new ArrayList<String>();
-      ResultSet srs2 = stmt.executeQuery("SELECT * FROM groupconnections WHERE uid="+ loggeduser.getId());
-      while(srs2.next()){
-        int groupid = srs2.getInt("gid");
-        ResultSet srs3 = stmt2.executeQuery("SELECT * FROM grouptable WHERE id="+ groupid);
-        while(srs3.next()){
-            System.out.println(srs3.getString("groupname"));
-            groupout.add(srs3.getString("groupname"));
+      ArrayList<ObjGroup> groupout = new ArrayList<ObjGroup>();
+      ResultSet srs3 = stmt.executeQuery("SELECT * FROM groupconnections WHERE uid="+ loggeduser.getId());
+      while(srs3.next()){
+        ObjGroup grouplist = new ObjGroup();
+        int groupid = srs3.getInt("gid");
+        ResultSet srs4 = stmt2.executeQuery("SELECT * FROM grouptable WHERE id="+ groupid);
+        while(srs4.next()){
+        grouplist.setGroupname(srs4.getString("groupname"));
+        grouplist.setGame(srs4.getString("game"));
+        grouplist.setGid(groupid);
         }
+            
+            groupout.add(grouplist);
       }
       model.put("groupout",groupout);
       return "profile";
