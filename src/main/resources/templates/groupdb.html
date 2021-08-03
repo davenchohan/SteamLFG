@@ -1,32 +1,40 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href=".\stylesheets\rectanglestyle.css">
+    <link rel="stylesheet" href="/stylesheets/editprofile.css">
     <link rel="shortcut icon" type="image/png" href="/steamlogo.png" />
-    <title>Rectangles</title>
-    <script src="../scripts/rec.js" defer></script>
+    <title>Users List</title>
 </head>
 <body>
-<header>
-    <a href="/accdb/delaccdb"> THIS WILL DELETE ALL DATA IN THE DATABASE !!!</a>
-</header>
-<table>
-    <tr>
-        <th>ID</th>
-        <th>GROUPNAME</th>
-        <th>MAXMEMBERS</th>
-        <th>GAME</th>
-        <th>MEMBERS</th>
-    </tr>
-    <tr th:each="record : ${records}">
-        <td th:text="${record.getGid()}"> </td>
-        <td><a th:href="@{/user/read/{id}(id=${record.getGid()})}" th:text="${record.getGroupname()}"></a> </td>
-        <td th:text="${record.getMaxmembers()}"> </td>
-        <td th:text="${record.getGame()}"> </td>
-    </tr>
-</table>
+    <header>
+        <img src="/steamlogo.png" alt="steamlogo" class="logo">
+        <h1 class="title">SteamLFG</h1>
+    </header>
+    <div class="content">
+        <div id="editprofile">
+            <h1 id="profiletitle">All Groups</h1>
+            <table id="bigtable">
+                <tr>
+                    <th>Group</th>
+                    <th>Game</th>
+                    <th>Current Members</th>
+                </tr>
+                <tr th:each="record : ${records}">
+                    <td><a th:href="@{/group/{id}(id=${record.getGid()})}" th:text="${record.getGroupname()}" id="otherusername1"></a> </td>
+                    <td th:text="${record.getGame()}"> </td>
+                    <td><a th:text="${record.getCurrentmembers()}"></a><a>/</a><a th:text="${record.getMaxmembers()}"></a></td>
+                </tr>
+            </table>
+            <h2 id="nousers">No groups exist.</h2>
+            <p style="color:red" th:text="${message}"></p>
+            <form th:action="@{/mainpage}">
+                <button class="goodbutton"> Home</button>
+            </form>
+        </div>
+    </div>
+    <script defer src="/friendrequests.js"></script>
 </body>
 </html>

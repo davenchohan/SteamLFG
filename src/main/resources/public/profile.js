@@ -32,3 +32,24 @@ function closePopUp() {
     var popUp = document.getElementById("newRequests");
     popUp.classList.toggle("show");
 }
+
+
+document.getElementById("slider1").addEventListener("input", function(event){
+    let value = event.target.value;
+    document.getElementById("current-value").innerText  = value;
+    document.getElementById("current-value").classList.add("active");
+    document.getElementById("current-value").style.left = `${value/0.2425}%`
+   });
+
+   document.getElementById("slider2").addEventListener("input", function(event){
+    let value = event.target.value;
+    document.getElementById("current-value1").innerText  = value;
+    document.getElementById("current-value1").classList.add("active");
+    document.getElementById("current-value1").style.left = `${value/0.2425}%`
+   });
+
+
+
+ 
+
+

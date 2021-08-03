@@ -92,6 +92,12 @@ th, td {
     padding-bottom: 8px;
 }
 
+#nousers{
+    color: white;
+    width: 120%;
+    padding-left: 30%;
+}
+
 #profiletitle{
     text-align: center;
     padding: 20px;

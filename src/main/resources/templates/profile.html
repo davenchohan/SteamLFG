@@ -15,7 +15,7 @@
         <div class="profile-header">
             <div class="profile-img">
                <img id="profile-img" th:src="${record.getPfp()}" alt="Image Not Found" onerror="this.src='/blank-profile-picture.png';">
-               <div class="level-img">
+               <div onclick='doit()' class="level-img">
                 <a th:text=${record.getLevel()}></a>
             </div>
             </div>
@@ -66,14 +66,43 @@
                         <div class="profile-body">
                             <div class="profile-stats tab">
                                 <h1>Level</h1>
-                                <p>
-                                 </p>
+                                <p></p>
+                                <div id="account-bar-wrapper">
+                                    <div id="account-bar">
+                                        <div id="account-bar-level"></div>
+                                        <div id="xp-bar">
+                                        <div id="xp-bar-fill">
+                                            <div id='xp-increase-fx'><div id='xp-increase-fx-flicker'><div class='xp-increase-glow1'></div><div class='xp-increase-glow2'></div><div class='xp-increase-glow3'></div></div><div class='xp-increase-glow2'></div></div>
+                                        </div>
+                                        </div>
+                                        </div>
+                                        </div>         
+                                </div>                                                 
                             </div>
-                            <div class="profile-groups tab">
-                                <h1> Joined Groups</h1>
-                                <p>
-                                    </p>
-                            </div>
+                        <div class="profile-groups tab">
+                            <h1> Joined Groups</h1>
+                            <form th:action="@{/group/create}">
+                                <button class="user-db" type="submit">Create Group</button>
+                            </form>
+                            <form th:action="@{/groupdb}">
+                                <button class="user-db" type="submit">Join Group</button>
+                            </form>
+                            <table style="background-image: linear-gradient(white,gray); border: 6px solid ghostwhite; padding: 55px;">
+                                <tr style="color: black; font-size: 20px; padding: 10px;">
+                                    <th>Group</th>
+                                    <th>Game</th>
+                                </tr>
+                                <tr th:each="grp : ${groupout}">
+                                    <td>
+                                        <form th:action="@{/group/{id}(id=${grp.getGid()})}">
+                                            <button class="user-db" type="submit" th:text="${grp.getGroupname()}"></button>
+                                        </form>
+                                    </td>
+                                    <td th:text="${grp.getGame()}" style="color: black; font-size: 20px; padding: 10px;"> </td>
+                                </tr>
+                            </table>
+
+                        </div>
                             <div class="profile-settings tab">
                                 <h1> Account Settings</h1>
                                 <p> </p>
@@ -84,6 +113,9 @@
                                     <form th:action="@{/friends/{id}(id=${record.getId()})}">
                                         <button class="user-db" type="submit">Friends</button>
                                     </form>
+                                    <form th:action="@{/userslist}">
+                                        <button class="user-db" type="submit">Add Friends</button>
+                                    </form>
                                     <form th:action="@{/accdb}">
                                         <button class="user-db" type="submit">View User Database (Admins Only)</button>
                                     </form>
@@ -91,12 +123,58 @@
                             </div>
                         </div>
                     </div>
+                
+                    <div class = "health_title"> Health and Goal Tracker:
+                        <div class = "health_mini">Use these sliders to help keep track of your goals and progress</div>
+                        <article id="a1">Hours spent on playing games today</article>
+                      </div>
+      
+                   
+                  
+                    <div class = center>
+                    <div class = 'sliders'>
+                        <div class = "show-value">
+                        <span id = "current-value">12</span>
+                        </div>
+                         <input type="range"  min="0" max="24" value = "12" id="slider1" steps="1">
+                         <div class="range">
+                          <div>0</div>
+                          <div>24</div>
+                        </div>
+                         <article class ="health_title" id="a2">Hours of sleep last night</article>
+                         <div class = "show-value1">
+                          <span id = "current-value1">12</span>
+                          </div>
+                        
+                         <input type="range"  min="0" max="24" value = "12" id="slider2" steps="1">
+                          <div class="range">
+                            <div>0</div>
+                            <div>24</div>
+                          </div>
+                    </div>
+                  </div>
+      
+                 
+      
+                   
+          
+          
+                  </div>
+                
+                
                 </div>
-    </div>
+    
+    
+    
+              
     <div class="popUpBox" onclick="closePopUp()">
         <span class="popUpText" id="newRequests"> You have new friend requests pending!</span>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="/profile.js"></script>
+    <script src="/profile.js"></script>
+
+<script src="/xp.js"></script>
 </body>
+
+
 </html>
