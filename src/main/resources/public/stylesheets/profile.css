@@ -299,6 +299,11 @@ button.user-db
     overflow: hidden;
 }
 
+.steamProfile{
+    display: flex;
+    flex-direction: row;
+}
+
 .labeluser {
     float: left;
 }
@@ -312,7 +317,6 @@ button.user-db
 }
 
 #userregion {
-    float: right;
     padding-left: 5px;
 }
 
@@ -573,4 +577,4 @@ font-size: 22px;
 .sliders .show-value1 span.active {
     transform:translateX(-50%) scale(1);
 }
-  
+

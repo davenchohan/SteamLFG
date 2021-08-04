@@ -81,6 +81,11 @@
                         <td th:text="${record.getType()}"> </td>
         
                     </tr>
+                    <tr>
+                        <th>Steam Profile Link: </th>
+                        <td th:text="${record.getSteamid()}"></td>
+                        <td><input type="text" id="steamid" th:field=*{steamid} placeholder="Profile Link"></td>
+                    </tr>
                 </table>
                 <label class="admin">Admin Password to become admin:</label>
                 <input maxlength="20" type="text" th:field=*{adminkey}> <br>

@@ -75,7 +75,7 @@ public class Main {
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
       stmt.executeUpdate("CREATE TABLE IF NOT EXISTS grouptable (id serial, groupname varchar(20), maxmembers integer, game varchar(20))");
-      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS accounts (id serial, username varchar(20), password varchar(20), type varchar(20), age integer, gender varchar(20), region varchar(20), bio varchar(150), pfp varchar(150), groups varchar(20), level integer)");
+      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS accounts (id serial, username varchar(20), password varchar(20), type varchar(20), age integer, gender varchar(20), region varchar(20), bio varchar(150), pfp varchar(150), groups varchar(20), level integer, steamid varchar(200))");
       ResultSet rs = stmt.executeQuery("SELECT * FROM accounts");
       ArrayList<User> output = new ArrayList<User>();
       output.add(loggeduser);
@@ -106,7 +106,7 @@ public class Main {
   public String handleBrowserSignupSubmit(Map<String, Object> model, User user) throws Exception {
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
-      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS accounts (id serial, username varchar(20), password varchar(20), type varchar(20), age integer, gender varchar(20), region varchar(20), bio varchar(150), pfp varchar(150), groups varchar(20), level integer)");
+      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS accounts (id serial, username varchar(20), password varchar(20), type varchar(20), age integer, gender varchar(20), region varchar(20), bio varchar(150), pfp varchar(150), groups varchar(20), level integer, steamid varchar(200))");
       ResultSet rs = stmt.executeQuery("SELECT * FROM accounts");
       while(rs.next()){
         String tname = rs.getString("username");
@@ -193,6 +193,7 @@ public class Main {
         loggeduser.setPfp("");
         loggeduser.setGroups("");
         loggeduser.setType("");
+        loggeduser.setSteamid("");
         return "mainpage";
         }
 
@@ -865,6 +866,7 @@ public class Main {
         String pfp = rs.getString("pfp");
         String groups = rs.getString("groups");
         String type = rs.getString("type");
+        String tsteamid = rs.getString("steamid");
         loggeduser.setId(id);
         loggeduser.setUsername(tname);
         loggeduser.setPassword(tpassword);
@@ -876,6 +878,7 @@ public class Main {
         loggeduser.setPfp(pfp);
         loggeduser.setGroups(groups);
         loggeduser.setType(type);
+        loggeduser.setSteamid(tsteamid);
         }
       output.add(loggeduser);
       model.put("records", output);
@@ -908,7 +911,52 @@ public class Main {
     }
   }
 
-@GetMapping(
+@PostMapping(
+  path = "/setsteam",
+  consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
+)
+public String setSteamID(@ModelAttribute("loggeduser") User loggeduser, Map<String, Object> model, User user) {
+  try (Connection connection = dataSource.getConnection()) {
+    Statement stmt = connection.createStatement();
+    if(loggeduser.getId() == 0){
+      model.put("message", "You must be logged in");
+      return "login";
+    }
+      ResultSet srs = stmt.executeQuery("SELECT * FROM accounts WHERE id="+loggeduser.getId());
+      while(srs.next()){
+        String tsteamid = srs.getString("steamid");
+        String tname = srs.getString("username");
+        String tpassword = srs.getString("password");
+        int id = srs.getInt("id");
+        int age = srs.getInt("age");
+        String gender = srs.getString("gender");
+        String region = srs.getString("region");
+        String bio = srs.getString("bio");
+        String pfp = srs.getString("pfp");
+        String groups = srs.getString("groups");
+        String type = srs.getString("type");
+        loggeduser.setId(id);
+        loggeduser.setUsername(tname);
+        loggeduser.setPassword(tpassword);
+        loggeduser.setAge(age);
+        loggeduser.setGender(gender);
+        loggeduser.setRegion(region);
+        loggeduser.setBio(bio);
+        loggeduser.setPfp(pfp);
+        loggeduser.setGroups(groups);
+        loggeduser.setType(type);
+        loggeduser.setSteamid(tsteamid);
+      }
+    stmt.executeUpdate("UPDATE accounts SET steamid='"+user.getSteamid()+"' WHERE id="+loggeduser.getId());
+    return "redirect:/profile";
+  } catch (Exception e) {
+    model.put("message", e.getMessage());
+    return "error";
+  }
+
+  }
+
+  @GetMapping(
     path = "/profile/edit"
   )
   public String getProfileEdit(@ModelAttribute("loggeduser") User loggeduser, Map<String, Object> model, User user) {
@@ -930,6 +978,7 @@ public class Main {
         String pfp = rs.getString("pfp");
         String groups = rs.getString("groups");
         String type = rs.getString("type");
+        String tsteamid = rs.getString("steamid");
         loggeduser.setId(id);
         loggeduser.setUsername(tname);
         loggeduser.setPassword(tpassword);
@@ -941,6 +990,7 @@ public class Main {
         loggeduser.setPfp(pfp);
         loggeduser.setGroups(groups);
         loggeduser.setType(type);
+        loggeduser.setSteamid(tsteamid);
         }
       output.add(loggeduser);
       model.put("records", output);
@@ -950,6 +1000,7 @@ public class Main {
       return "error";
     }
   }
+
   @PostMapping(
     path = "/profile/edit",
     consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
@@ -973,6 +1024,7 @@ public class Main {
         String pfp = srs.getString("pfp");
         String groups = srs.getString("groups");
         String type = srs.getString("type");
+        String tsteamid = srs.getString("steamid");
         loggeduser.setId(id);
         loggeduser.setUsername(tname);
         loggeduser.setPassword(tpassword);
@@ -984,6 +1036,7 @@ public class Main {
         loggeduser.setPfp(pfp);
         loggeduser.setGroups(groups);
         loggeduser.setType(type);
+        loggeduser.setSteamid(tsteamid);
         }
       ResultSet rs = stmt.executeQuery("SELECT * FROM accounts WHERE username='" + user.getUsername() + "'");
       while(rs.next()){
@@ -1016,6 +1069,9 @@ public class Main {
       }
       if(user.getAdminkey().equals("bobby276")){
         stmt.executeUpdate("UPDATE accounts SET type='admin' WHERE id="+loggeduser.getId());
+      }
+      if(!(user.getSteamid().length() == 0)){
+        stmt.executeUpdate("UPDATE accounts SET steamid='"+user.getSteamid()+"' WHERE id="+loggeduser.getId());
       }
       output.add(loggeduser);
       model.put("records", output);
@@ -1053,7 +1109,7 @@ public class Main {
    try (Connection connection = dataSource.getConnection()) {
     Statement stmt = connection.createStatement();
     stmt.executeUpdate("DROP TABLE accounts");
-    stmt.executeUpdate("CREATE TABLE IF NOT EXISTS accounts (id serial, username varchar(20), password varchar(20), type varchar(20), age integer, gender varchar(20), region varchar(20), bio varchar(150), pfp varchar(150), groups varchar(20), level integer)");
+    stmt.executeUpdate("CREATE TABLE IF NOT EXISTS accounts (id serial, username varchar(20), password varchar(20), type varchar(20), age integer, gender varchar(20), region varchar(20), bio varchar(150), pfp varchar(150), groups varchar(20), level integer, steamid varchar(200))");
     stmt.executeUpdate("DROP TABLE friendslist");
     stmt.executeUpdate("CREATE TABLE IF NOT EXISTS friendslist (id serial, username integer, friend integer, request integer)");
     stmt.executeUpdate("DROP TABLE grouptable");

@@ -1,4 +1,6 @@
-
+var steamid = document.getElementById("steamidhidden").innerHTML;
+steamid = steamid.substring(36);
+document.getElementById("steamidhidden").style.display = "none";
 $('.nav ul li').click(function() 
 {
     $(this).addClass("active").siblings().removeClass('active');
@@ -47,6 +49,34 @@ document.getElementById("slider1").addEventListener("input", function(event){
     document.getElementById("current-value1").classList.add("active");
     document.getElementById("current-value1").style.left = `${value/0.2425}%`
    });
+
+const apiData = {
+    url: 'http://api.steampowered.com/ISteamUser/',
+    version: 'v0001',
+    type: 'GetPlayerSummaries',
+    id: steamid,
+}
+
+const {url, type, version,id} = apiData
+const apiUrl = `https://blooming-headland-71532.herokuapp.com/${url}/${type}/${version}/?key=89024256E255B94B2EB67AC30A60D4A6&steamids=${id}`
+fetch(apiUrl)
+    .then( (data) => data.json())
+    .then( (user) => generateHtml(user) )
+
+const generateHtml = (data) => {
+    console.log(data)
+    const html = `
+        <div class="name" style="color:white" >Steam Name: ${data.response.players.player[0].personaname}</div>
+        <img src=${data.response.players.player[0].avatarmedium}>
+        <a class="link" style="color:white" href=${data.response.players.player[0].profileurl} >Take me to Steam </a>
+    `
+    const steamDiv = document.querySelector('.steam')
+    steamDiv.innerHTML = html
+}
+
+
+
+
 
 
 
