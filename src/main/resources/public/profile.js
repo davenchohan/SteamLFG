@@ -1,8 +1,37 @@
 var steamid = document.getElementById("steamidhidden").innerHTML;
-steamid = steamid.match(/\d/g);
-if (steamid != null){
-    steamid = steamid.join("");
+var tempSteamID = steamid.match(/\d/g);
+if (tempSteamID != null){
+    tempSteamID = tempSteamID.join("");
+    if(tempSteamID.length == 17) {
+        steamid = steamid.match(/\d/g);
+        steamid = steamid.join("");
+    }
 }
+/* else {
+    var splitSteamId = steamid.split('/id/').pop();
+    const getSteamID = {
+        url2: 'http://api.steampowered.com/ISteamUser/',
+        version2: 'v0001',
+        type2: 'ResolveVanityURL',
+        id2: splitSteamId,
+    }
+    
+    const {url2, type2, version2,id2} = getSteamID
+    const steamIDUrl = `https://blooming-headland-71532.herokuapp.com/${url2}/${type2}/${version2}/?key=89024256E255B94B2EB67AC30A60D4A6&vanityurl=${id2}`
+    fetch(steamIDUrl)
+        .then( (data) => data.json())
+        .then( (user) => generateSteamID(user) )
+        .then( (data1) => steamid = data1.response.steamid)
+    
+        function generateSteamID(data){
+            //console.log(data);
+            steamid = data.response.steamid;
+            console.log(steamid);
+        }
+    console.log(steamid)
+} */
+
+
 document.getElementById("steamidhidden").style.display = "none";
 $('.nav ul li').click(function() 
 {
@@ -67,14 +96,14 @@ fetch(apiUrl)
     .then( (user) => generateHtml(user) )
 
 const generateHtml = (data) => {
-    console.log(data)
+    //console.log(data)
     const html = `
-        <div class="name" style="color:white" >Steam Name: ${data.response.players.player[0].personaname}</div>
-        <img src=${data.response.players.player[0].avatarmedium}>
-        <a class="link" style="color:white" href=${data.response.players.player[0].profileurl} >Take me to Steam </a><br/><br/>
+        <div class="name" style="color:white" id="steamName" >Steam Name: ${data.response.players.player[0].personaname}</div>
+        <img id="steamImage" src=${data.response.players.player[0].avatarmedium}>
+        <a class="link" style="color:white" id="steamLink" href=${data.response.players.player[0].profileurl} >Take me to Steam </a><br/><br/>
     `
     const steamDiv = document.querySelector('.steam')
-    console.log(html);
+    //console.log(html);
     steamDiv.innerHTML = html
 }
 
@@ -92,19 +121,19 @@ fetch(recentUrl)
     .then( (user) => generateRecent(user) )
 
 const generateRecent = (data) => {
-    console.log(data)
+    //console.log(data)
 
-    var html1 = '<span class="name" style="color:white; text-decoration: underline" > Recently Played Games</span><br/><br/>';
+    var html1 = '<div class="name" style="color:white; text-decoration: underline" id="recentTitle" > Recently Played Games</div><br/><br/>';
     var total = data.response.total_count;
     if(total > 7){
         total = 7;
     }
     for(var i = 0; i < total; i++) {
         var timePlayed = Math.round(data.response.games[i].playtime_forever/60);
-        html1 += `<span class="name" style="color:white" >Game Name: ${data.response.games[i].name}</span><br/><br/><img src=http://media.steampowered.com/steamcommunity/public/images/apps/${data.response.games[i].appid}/${data.response.games[i].img_logo_url}.jpg><br/><br/>`
-        html1 += '<span class="name" style="color:white" >Time Played: ' + timePlayed+' hours<br/><br/>';
+        html1 += `<div class="name" style="color:white" id="gameName" >${data.response.games[i].name}</div><br/><img src=http://media.steampowered.com/steamcommunity/public/images/apps/${data.response.games[i].appid}/${data.response.games[i].img_logo_url}.jpg id="gameImage" ><br/>`
+        html1 += '<div class="name" style="color:white" id="timePlayed" >Time Played: ' + timePlayed+' hours</div><br/><br/>';
     }
-    console.log(html1);
+    //console.log(html1);
     const steamGames = document.querySelector('.steamGames');
     steamGames.innerHTML = html1;
 }
