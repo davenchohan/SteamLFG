@@ -35,6 +35,8 @@ document.getElementById("steamidhidden").style.display = "none";
 window.onload = test();
 console.log("testing");
 function test(){
+    document.getElementById("steam").style.display = "none";
+    document.getElementById("steamGames").style.display = "none";
     document.getElementById("request").style.display = "none";
     request = document.getElementById("request").innerHTML;
     console.log(request);
@@ -75,6 +77,7 @@ const generateHtml = (data) => {
         <img id="steamImage" src=${data.response.players.player[0].avatarmedium}>
         <a class="link" style="color:white" id="steamLink" href=${data.response.players.player[0].profileurl} >Take me to Steam </a><br/><br/>
     `
+    document.getElementById("steam").style.display = "block";
     const steamDiv = document.querySelector('.steam')
     steamDiv.innerHTML = html
 }
@@ -106,6 +109,7 @@ const generateRecent = (data) => {
         html1 += '<div class="name" style="color:white" id="timePlayed" >Time Played: ' + timePlayed+' hours</div><br/><br/>';
     }
     console.log(html1);
+    document.getElementById("steamGames").style.display = "block";
     const steamGames = document.querySelector('.steamGames');
     steamGames.innerHTML = html1;
 }

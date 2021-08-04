@@ -55,6 +55,8 @@ tabs(0);
 window.onload = popUp();
 function popUp() {
     document.getElementById("checkpopup").style.display = "none";
+    document.getElementById("steam").style.display = "none";
+    document.getElementById("steamGames").style.display = "none";
     var popUp = document.getElementById("newRequests");
     checkRequests = document.getElementById("checkpopup").innerHTML;
     if (checkRequests == "true"){
@@ -102,6 +104,7 @@ const generateHtml = (data) => {
         <img id="steamImage" src=${data.response.players.player[0].avatarmedium}>
         <a class="link" style="color:white" id="steamLink" href=${data.response.players.player[0].profileurl} >Take me to Steam </a><br/><br/>
     `
+    document.getElementById("steam").style.display = "block";
     const steamDiv = document.querySelector('.steam')
     //console.log(html);
     steamDiv.innerHTML = html
@@ -134,6 +137,7 @@ const generateRecent = (data) => {
         html1 += '<div class="name" style="color:white" id="timePlayed" >Time Played: ' + timePlayed+' hours</div><br/><br/>';
     }
     //console.log(html1);
+    document.getElementById("steamGames").style.display = "block";
     const steamGames = document.querySelector('.steamGames');
     steamGames.innerHTML = html1;
 }
