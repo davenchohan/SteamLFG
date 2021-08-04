@@ -133,7 +133,8 @@ const generateRecent = (data) => {
     }
     for(var i = 0; i < total; i++) {
         var timePlayed = Math.round(data.response.games[i].playtime_forever/60);
-        html1 += `<div class="name" style="color:white" id="gameName" >${data.response.games[i].name}</div><br/><img src=http://media.steampowered.com/steamcommunity/public/images/apps/${data.response.games[i].appid}/${data.response.games[i].img_logo_url}.jpg id="gameImage" ><br/>`
+        html1 += `<div class="name" style="color:white" id="gameName" >${data.response.games[i].name}</div><br/> <a href="https://store.steampowered.com/app/${data.response.games[i].appid}">
+                  <img src=http://media.steampowered.com/steamcommunity/public/images/apps/${data.response.games[i].appid}/${data.response.games[i].img_logo_url}.jpg id="gameImage" ></a><br/>`
         html1 += '<div class="name" style="color:white" id="timePlayed" >Time Played: ' + timePlayed+' hours</div><br/><br/>';
     }
     //console.log(html1);
