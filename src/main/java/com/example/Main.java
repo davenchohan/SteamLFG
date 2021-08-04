@@ -543,6 +543,7 @@ public class Main {
         String pfp = rs.getString("pfp");
         String groups = rs.getString("groups");
         String type = rs.getString("type");
+        String tsteamid = rs.getString("steamid");
         tempuser.setUsername(tname);
         tempuser.setPassword(password);
         tempuser.setId(id);
@@ -553,6 +554,7 @@ public class Main {
         tempuser.setPfp(pfp);
         tempuser.setGroups(groups);
         tempuser.setType(type);
+        tempuser.setSteamid(tsteamid);
         output.add(tempuser);
       }
       model.put("records", output);
