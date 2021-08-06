@@ -1085,7 +1085,58 @@ public String setSteamID(@ModelAttribute("loggeduser") User loggeduser, Map<Stri
 
   }
 
+  @GetMapping(
+    path = "/hourstats"
+  )
+  public String getHourStats(@ModelAttribute("loggeduser") User loggeduser, Map<String, Object> model, User user) {
+    Hour hourStats = new Hour();
+    model.put("hourStats", hourStats);
+      try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      ArrayList<User> output = new ArrayList<User>();
+      if(loggeduser.getId() == 0){
+      return "login";
+      }
+        stmt.executeUpdate("CREATE TABLE IF NOT EXISTS hourTable (id serial, hoursId integer, hoursPlayed integer, hoursSlept integer, hoursExercised integer)");
+        ResultSet rs = stmt.executeQuery("SELECT * FROM hourTable WHERE id="+loggeduser.getId());
+        while(rs.next()){
+        Hour hour = new Hour();
+        int id = rs.getInt("id");
+        int hPlayed = rs.getInt("hoursPlayed");
+        int hSlept = rs.getInt("hoursSlept");
+        int hExercised = rs.getInt("hoursExercised");
+        hour.sethoursId(id);
+        hour.sethoursPlayed(hPlayed);
+        hour.sethoursSlept(hSlept);
+        hour.sethoursExercised(hExercised);
+        }
+      output.add(loggeduser);
+      model.put("records", output);
+      return "hourstats";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+  }
 
+  @PostMapping(
+    path = "/hourstats",
+          consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
+  )
+  public String HourStatsSubmit(@ModelAttribute("loggeduser") User loggeduser, Map<String, Object> model, Hour hour) {
+    try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      String sql = "INSERT INTO hourTable (hoursId,hoursPlayed,hoursSlept,hoursExercised) VALUES ('" + hour.gethoursId() + "','" + hour.gethoursPlayed() + " ',' " + hour.gethoursSlept() + " ',' " + hour.gethoursExercised() + "')";
+      stmt.executeUpdate(sql);
+      System.out.println(hour.gethoursId() + " " + hour.gethoursPlayed() + " " + hour.gethoursSlept() + " " + hour.gethoursExercised());
+      return "redirect:/hourstats";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+  }
+
+  
   @GetMapping(
     path = "/about"
   )
