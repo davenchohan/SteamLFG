@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 
 
+
 import javax.swing.JOptionPane;
 import javax.swing.text.Document;
 
@@ -1120,15 +1121,60 @@ public String setSteamID(@ModelAttribute("loggeduser") User loggeduser, Map<Stri
       }
       if(!(user.getPfp().length() == 0)){
         stmt.executeUpdate("UPDATE accounts SET pfp='"+user.getPfp()+"' WHERE id="+loggeduser.getId());
+        Statement stmt2 = connection.createStatement();
+        ArrayList<User> output2 = new ArrayList<User>();
+        ResultSet rs2 = stmt.executeQuery("SELECT * FROM accounts WHERE id="+loggeduser.getId());
+        while(rs2.next()){
+        int level=rs2.getInt("level");
+        int experience=rs2.getInt("experience");
+        experience=experience+200;
+        if(experience>=level*1000){
+        level++;
+        experience=0;
+      }
+
+      System.out.println(level);
+      System.out.println(experience);
+      stmt2.executeUpdate("UPDATE accounts SET level='"+level+"' WHERE id="+loggeduser.getId());
+      stmt2.executeUpdate("UPDATE accounts SET experience='"+experience+"' WHERE id="+loggeduser.getId());
+      loggeduser.setLevel(level);
+      loggeduser.setExperience(experience);
+
+      output.add(loggeduser);
+      model.put("records", output2);
+    }
       }
       if(user.getAdminkey().equals("bobby276")){
         stmt.executeUpdate("UPDATE accounts SET type='admin' WHERE id="+loggeduser.getId());
       }
       if(!(user.getSteamid().length() == 0)){
         stmt.executeUpdate("UPDATE accounts SET steamid='"+user.getSteamid()+"' WHERE id="+loggeduser.getId());
+        Statement stmt2 = connection.createStatement();
+        ArrayList<User> output2 = new ArrayList<User>();
+        ResultSet rs2 = stmt.executeQuery("SELECT * FROM accounts WHERE id="+loggeduser.getId());
+        while(rs2.next()){
+        int level=rs2.getInt("level");
+        int experience=rs2.getInt("experience");
+        experience=experience+200;
+        if(experience>=level*1000){
+        level++;
+        experience=0;
+      }
+
+      System.out.println(level);
+      System.out.println(experience);
+      stmt2.executeUpdate("UPDATE accounts SET level='"+level+"' WHERE id="+loggeduser.getId());
+      stmt2.executeUpdate("UPDATE accounts SET experience='"+experience+"' WHERE id="+loggeduser.getId());
+      loggeduser.setLevel(level);
+      loggeduser.setExperience(experience);
+
+      output.add(loggeduser);
+      model.put("records", output2);
+    }
       }
       output.add(loggeduser);
       model.put("records", output);
+      
       return "redirect:/profile";
     } catch (Exception e) {
       model.put("message", e.getMessage());
