@@ -574,3 +574,7 @@ font-size: 22px;
     transform:translateX(-50%) scale(1);
 }
   
+#test
+{
+    margin-left: 60px;
+}

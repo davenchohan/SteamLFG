@@ -15,8 +15,14 @@
         <div class="profile-header">
             <div class="profile-img">
                <img id="profile-img" th:src="${record.getPfp()}" alt="Image Not Found" onerror="this.src='/blank-profile-picture.png';">
-               <div onclick='doit()' class="level-img">
+               <div onclick='doit()' class="level-img" th:action="@{/addexp/{id}(id=${record.getId()})}">
                 <a th:text=${record.getLevel()}></a>
+                <a id="test" th:text=${record.getExperience()}></a>
+                <form th:action="@{/addexp/{id}(id=${record.getId()})}">
+                    <button class="test-button" id="test-button">
+                        TEST
+                    </button>
+                </form>
             </div>
             </div>
 

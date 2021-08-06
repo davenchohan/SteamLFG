@@ -12,7 +12,7 @@ public class User {
     private int id;
     private String type;
     private String adminkey;
-    private int level=1;
+    private int level;
     private int experience;
 
     public String getUsername() {

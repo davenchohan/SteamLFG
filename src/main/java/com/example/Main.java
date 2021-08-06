@@ -27,9 +27,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.swing.JOptionPane;
+import javax.swing.text.Document;
 
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.MediaType;
+import org.springframework.http.converter.xml.SourceHttpMessageConverter;
+
 import static javax.swing.JOptionPane.showMessageDialog;
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -75,7 +78,7 @@ public class Main {
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
       stmt.executeUpdate("CREATE TABLE IF NOT EXISTS grouptable (id serial, groupname varchar(20), maxmembers integer, game varchar(20))");
-      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS accounts (id serial, username varchar(20), password varchar(20), type varchar(20), age integer, gender varchar(20), region varchar(20), bio varchar(150), pfp varchar(150), groups varchar(20), level integer)");
+      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS accounts (id serial, username varchar(20), password varchar(20), type varchar(20), age integer, gender varchar(20), region varchar(20), bio varchar(150), pfp varchar(150), groups varchar(20), level integer, experience integer)");
       ResultSet rs = stmt.executeQuery("SELECT * FROM accounts");
       ArrayList<User> output = new ArrayList<User>();
       output.add(loggeduser);
@@ -106,7 +109,7 @@ public class Main {
   public String handleBrowserSignupSubmit(Map<String, Object> model, User user) throws Exception {
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
-      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS accounts (id serial, username varchar(20), password varchar(20), type varchar(20), age integer, gender varchar(20), region varchar(20), bio varchar(150), pfp varchar(150), groups varchar(20), level integer)");
+      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS accounts (id serial, username varchar(20), password varchar(20), type varchar(20), age integer, gender varchar(20), region varchar(20), bio varchar(150), pfp varchar(150), groups varchar(20), level integer, experience integer)");
       ResultSet rs = stmt.executeQuery("SELECT * FROM accounts");
       while(rs.next()){
         String tname = rs.getString("username");
@@ -839,6 +842,7 @@ public class Main {
     }
   }
 
+  
 
 @GetMapping(
     path = "/profile"
@@ -865,6 +869,11 @@ public class Main {
         String pfp = rs.getString("pfp");
         String groups = rs.getString("groups");
         String type = rs.getString("type");
+        int level= rs.getInt("level");
+        int experience=rs.getInt("experience");  
+          
+
+
         loggeduser.setId(id);
         loggeduser.setUsername(tname);
         loggeduser.setPassword(tpassword);
@@ -876,6 +885,8 @@ public class Main {
         loggeduser.setPfp(pfp);
         loggeduser.setGroups(groups);
         loggeduser.setType(type);
+        loggeduser.setLevel(level);
+        loggeduser.setExperience(experience);
         }
       output.add(loggeduser);
       model.put("records", output);
@@ -907,6 +918,41 @@ public class Main {
       return "error";
     }
   }
+
+  @GetMapping
+  (
+    path ="/addexp/{pid}"
+  )
+
+  public String AddExp(@ModelAttribute("loggeduser") User loggeduser, Map<String, Object> model, User user) {
+    try (Connection connection = dataSource.getConnection()) {
+    Statement stmt = connection.createStatement();
+    Statement stmt2 = connection.createStatement();
+    ArrayList<User> output = new ArrayList<User>();
+    ResultSet rs = stmt.executeQuery("SELECT * FROM accounts WHERE id="+loggeduser.getId());
+    while(rs.next()){
+    int level=user.getLevel();
+    level++;
+    System.out.println(level);
+    int experience=user.getExperience();
+    experience=experience+200;
+    System.out.println(experience);
+     stmt2.executeUpdate("UPDATE accounts SET level='"+level+"' WHERE id="+loggeduser.getId());
+   stmt2.executeUpdate("UPDATE accounts SET experience='"+experience+"' WHERE id="+loggeduser.getId());
+    }
+  output.add(loggeduser);
+  model.put("records", output);
+
+
+    
+    return "profile";
+  } catch (Exception e) {
+    model.put("message", e.getMessage());
+    return "error";
+    }
+  }
+
+
 
 @GetMapping(
     path = "/profile/edit"
@@ -1048,12 +1094,15 @@ public class Main {
     }
   }
 
+
+ 
+
 @GetMapping("/accdb/delaccdb")
   public String deleteAllAccountsDB(Map<String, Object> model){
    try (Connection connection = dataSource.getConnection()) {
     Statement stmt = connection.createStatement();
     stmt.executeUpdate("DROP TABLE accounts");
-    stmt.executeUpdate("CREATE TABLE IF NOT EXISTS accounts (id serial, username varchar(20), password varchar(20), type varchar(20), age integer, gender varchar(20), region varchar(20), bio varchar(150), pfp varchar(150), groups varchar(20), level integer)");
+    stmt.executeUpdate("CREATE TABLE IF NOT EXISTS accounts (id serial, username varchar(20), password varchar(20), type varchar(20), age integer, gender varchar(20), region varchar(20), bio varchar(150), pfp varchar(150), groups varchar(20), level integer, experience integer)");
     stmt.executeUpdate("DROP TABLE friendslist");
     stmt.executeUpdate("CREATE TABLE IF NOT EXISTS friendslist (id serial, username integer, friend integer, request integer)");
     stmt.executeUpdate("DROP TABLE grouptable");
