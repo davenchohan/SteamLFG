@@ -809,6 +809,28 @@ public class Main {
       stmt.executeUpdate("CREATE TABLE IF NOT EXISTS friendslist (id serial, username integer, friend integer, request integer)");
       String sql = "INSERT INTO friendslist (username,friend,request) VALUES ('" + loggeduser.getId() + "','" + pid + "','" + 1 + "')";
       stmt.executeUpdate(sql);
+      Statement stmt2 = connection.createStatement();
+        ArrayList<User> output2 = new ArrayList<User>();
+        ResultSet rs2 = stmt.executeQuery("SELECT * FROM accounts WHERE id="+loggeduser.getId());
+        while(rs2.next()){
+        int level=rs2.getInt("level");
+        int experience=rs2.getInt("experience");
+        experience=experience+200;
+        if(experience>=level*1000){
+        level++;
+        experience=0;
+      }
+
+      System.out.println(level);
+      System.out.println(experience);
+      stmt2.executeUpdate("UPDATE accounts SET level='"+level+"' WHERE id="+loggeduser.getId());
+      stmt2.executeUpdate("UPDATE accounts SET experience='"+experience+"' WHERE id="+loggeduser.getId());
+      loggeduser.setLevel(level);
+      loggeduser.setExperience(experience);
+
+      output2.add(loggeduser);
+      model.put("records", output2);
+    }
       return "redirect:/otheruser/"+pid;
     } catch (Exception e) {
       model.put("message", e.getMessage());
@@ -1140,7 +1162,7 @@ public String setSteamID(@ModelAttribute("loggeduser") User loggeduser, Map<Stri
       loggeduser.setLevel(level);
       loggeduser.setExperience(experience);
 
-      output.add(loggeduser);
+      output2.add(loggeduser);
       model.put("records", output2);
     }
       }
@@ -1168,7 +1190,7 @@ public String setSteamID(@ModelAttribute("loggeduser") User loggeduser, Map<Stri
       loggeduser.setLevel(level);
       loggeduser.setExperience(experience);
 
-      output.add(loggeduser);
+      output2.add(loggeduser);
       model.put("records", output2);
     }
       }
