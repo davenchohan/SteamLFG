@@ -1,23 +1,67 @@
-<!DOCTYPE html>
-<html lang="en">
+﻿<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href=".\stylesheets\rectanglestyle.css">
+    <script src="https://kit.fontawesome.com/9c0e4b65c1.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/stylesheets/main.css">
     <link rel="shortcut icon" type="image/png" href="/steamlogo.png" />
-    <title>Rectangles</title>
-    <script src="../scripts/rec.js" defer></script>
+    <title>Create Group</title>
 </head>
 <body>
-    <form action="#" method="post" th:action="@{/group/create}" th:object="${objgroup}">
-        <label for="name">Groupname: </label>
-        <input type="text" th:field=*{groupname} placeholder="groupName" name="groupName"> <br>
-        <label for="name">Max Members: </label>
-        <input type="number" maxlength="20" id="password" input required="" th:field=*{maxmembers} placeholder="maxMembers"> <br>
-        <label for="name">Game: </label>
-        <input type="text" maxlength="20" id="password" input required="" th:field=*{game} placeholder="game"> <br>
-        <input type="submit" id="submit" value="Submit">
-    </form>
+    <header>
+        <img src="/steamlogo.png" alt="steamlogo">
+        <h1 class="title">SteamLFG</h1>
+        <input type="checkbox" id="nav-toggle" class="nav-toggle">
+        <nav>
+            <ul>
+                <li id="first"><a href="/"><i class="fas fa-home"></i>  Home</a></li>
+                <li id="second"><a href="/about"><i class="fas fa-info"></i>  About</a></li>
+                <li id="third">
+                    <a href="#"><i class="fas fa-users"></i>  Social</a>
+                    <ul class="SdropContent">
+                        <li><a id="firstt" href="/userslist"> Add Friend</a></li>
+                        <li><a id="secondd" href="/group/create"> Create Group</a></li>
+                        <li><a id="thirdd" href="/groupdb"> Find Group</a></li>
+                    </ul>
+                </li>
+
+            </ul>
+        </nav>
+        <label for="nav-toggle" class="nav-toggle-label">
+            <span></span>
+        </label>
+
+        <input type="checkbox" id="dropbtn" class="dropbtn">
+        <div id="heads" class="head2">
+            <form th:action="@{/logout}">
+                <button id="logout" type="submit"><i class="fas fa-sign-out-alt fa-2x"></i>  Logout</button>
+            </form>
+            <form th:action="@{/profile}">
+                <button id="profile" type="submit"><i class="fas fa-user-circle fa-2x"></i> Profile</button>
+            </form>
+        </div>
+
+        <label for="dropbtn" class="droplabel">
+            <span><i id="icon" class="fas fa-user fa-2x"> </i> </span>
+        </label>
+
+    </header>
+    <div class="content">
+        <div class="login">
+            <h1 id="logintitle">Create Group</h1>
+            <form action="#" method="post" th:action="@{/group/create}" th:object="${objgroup}">
+                <label class="loginlabel" for="name">Groupname: </label>
+                <input type="text" maxlength="20" id="name" input required="" th:field=*{groupname} placeholder="group name"> <br>
+                <label class="loginlabel" for="name">Max: </label>
+                <input type="number" min="1" id="password" input required="" th:field=*{maxmembers} placeholder="max"> <br>
+                <label class="loginlabel" for="name">Game: </label>
+                <input type="text" maxlength="20" id="name" input required="" th:field=*{game} placeholder="game"> <br>
+                <input type="submit" id="submitbutton" value="Submit">
+            </form>
+            <p id="error" href="/signup" th:text="${message}"></p>
+        </div>
+    </div>
 </body>
 </html>

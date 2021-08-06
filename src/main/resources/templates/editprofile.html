@@ -81,6 +81,15 @@
                         <td th:text="${record.getType()}"> </td>
         
                     </tr>
+                    <tr>
+                        <th>Steam Profile Link (http://steamcommunity.com<br>/profiles/XXXXXXXXXXX): </th>
+                        <td id="steamIDbreak" th:text="${record.getSteamid()}"></td>
+                        <td>
+                                <input type="text" id="steamid" th:field=*{steamid} th:action placeholder="Profile Link"></td>
+                    </tr>
+                    <tr>
+                        <td id="alertPublic">(Alert: Profile must be public! If you are using a custom ID, use this website to aquire your profile link: <a href="https://www.steamidfinder.com/">SteamIdFinder</a>)</td>
+                    </tr>
                 </table>
                 <label class="admin">Admin Password to become admin:</label>
                 <input maxlength="20" type="text" th:field=*{adminkey}> <br>

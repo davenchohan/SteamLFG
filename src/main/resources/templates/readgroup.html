@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/profile.css">
+    <link rel="shortcut icon" type="image/png" href="/steamlogo.png" />
+    <script src="https://kit.fontawesome.com/9c0e4b65c1.js" crossorigin="anonymous"></script>
+    <title>Profile</title>
+</head>
+<body>
+    <div class="content" th:each="record : ${records}">
+        <div class="profile-header">
+            <div class="profile-img">
+                <img id="profile-img" src="/default-group.png" alt="Image Not Found" onerror="this.src='/default-group.png';">
+            </div>
+
+            <div class="profile-nav-info">
+                <h3 class="user-name" th:text="${record.getGroupname()}">
+                </h3>
+                <div class="userinfo">
+                    <label for="userage" class="labeluser">Slots: </label>
+                </div>
+                <div class="userinfo">
+                    <p  class="labeluser" th:text="${record.getCurrentmembers()}"></p><p class="labeluser" >/</p><p class="labeluser" th:text="${record.getMaxmembers()}"></p>
+                </div>
+                <p>Group</p>
+                <p style="color:red" th:text="${message}"></p>
+            </div>
+        </div>
+        <div class="main-body">
+            <div class="left-side">
+                <div class="profile-side">
+                    <div class="user-bio">
+                        <h3>Game</h3>
+                        <div id="bio" th:text="${record.getGame()}"></div>
+                    </div>
+                    <div class="profile-btn">
+                        <form th:action="@{/group/{id}/join(id=${record.getGid()})}">
+                            <button class="friend-button" id="addfriend">
+                                <i class="fas fa-user-plus"></i>
+                                Join Group
+                            </button>
+                        </form>
+                        <form th:action="@{/mainpage}">
+                            <button class="friend-button" type="submit"><i class="fas fa-home"></i>Home</button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+            <div class="right-side">
+                <div class="nav">
+                    <ul>
+                        <li onclick="tabs(0)" class="user-stats active"> Members</li>
+                    </ul>
+                </div>
+                <div class="profile-body">
+                    <div class="profile-stats tab">
+                        <h1>Members</h1>
+                        <table>
+                            <tr th:each="member : ${members}">
+                                <td th:text="${member}"> </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="/group.js"></script>
+</body>
+</html>

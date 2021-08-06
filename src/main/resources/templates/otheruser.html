@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
@@ -34,6 +34,9 @@
                     <p id="userregion" th:text="${record.getRegion()}"></p>
                 </div>
                 <p style="color:red" th:text="${message}"></p>
+                <table th:each="record : ${records}">
+                    <td id="steamidhidden" th:text="${record.getSteamid()}"> testing</td>
+                </table>
             </div>
         </div>
                 <div class="main-body">
@@ -95,16 +98,33 @@
                             </div>
                             <div class="profile-groups tab">
                                 <h1> Joined Groups</h1>
-                                <p>
-                                    </p>
+                                <table>
+                                    <tr style="color: white; font-size: 20px;">
+                                        <th>Group</th>
+                                        <th>Game</th>
+                                    </tr>
+                                    <tr th:each="grp : ${groupout}">
+                                        <td>
+                                            <form th:action="@{/group/{id}(id=${grp.getGid()})}">
+                                                <button class="user-db" type="submit" th:text="${grp.getGroupname()}"></button>
+                                            </form>
+                                        </td>
+                                        <td th:text="${grp.getGame()}" style="color: black; font-size: 20px; padding: 10px;"> </td>
+                                    </tr>
+                                </table>
+
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="steamWrapper" >
+                    <div class="steam" id="steam"></div>
+                    <div class="steamGames" id="steamGames"></div>
                 </div>
             </div>
         </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="/profile.js"></script>
+    <script src="/otherprofile.js" ></script>
 </body>
 </html>
