@@ -26,6 +26,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import netscape.javascript.JSObject;
+
+
+
 import javax.swing.JOptionPane;
 import javax.swing.text.Document;
 
@@ -34,6 +38,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.converter.xml.SourceHttpMessageConverter;
 
 import static javax.swing.JOptionPane.showMessageDialog;
+
+import javax.script.ScriptEngineManager;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -939,7 +945,9 @@ public class Main {
     experience=experience+200;
     if(experience>=level*1000){
       level++;
+      experience=0;
     }
+
     System.out.println(level);
     System.out.println(experience);
      stmt2.executeUpdate("UPDATE accounts SET level='"+level+"' WHERE id="+loggeduser.getId());

@@ -1,6 +1,7 @@
 ﻿<!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <import javafx.scene.control.*?></import>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,8 +16,8 @@
         <div class="profile-header">
             <div class="profile-img">
                <img id="profile-img" th:src="${record.getPfp()}" alt="Image Not Found" onerror="this.src='/blank-profile-picture.png';">
-               <div onclick='doit()' class="level-img">
-                <a th:text=${record.getLevel()} th:action="@{/addexp}"></a>
+               <div class="level-img">
+                <a id="level" th:text=${record.getLevel()}></a>
             </div>
             </div>
 
@@ -80,7 +81,10 @@
                                         </div>
                                         </div>
                                         </div>
-                                        </div>         
+                                        </div>  
+                                        <div class="exp-counter" th:text="'Current Experience:' + ${record.getExperience()} + '/' + ${record.getLevel()*1000}"></div>
+                                                <button id="b-level-up" onclick='doit()'>Level Up Animation!</button>
+                                        </div>
                                 </div>                                                 
                             </div>
                         <div class="profile-groups tab">
