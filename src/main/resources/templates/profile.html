@@ -84,6 +84,10 @@
                                         </div>  
                                         <div class="exp-counter" th:text="'Current Experience:' + ${record.getExperience()} + '/' + ${record.getLevel()*1000}"></div>
                                                 <button id="b-level-up" onclick='doit()'>Level Up Animation!</button>
+
+                                                <form th:action="@{addexp}">
+                                                    <button id="b-level-up2">Add Exp!</button>
+                                                </form>
                                         </div>
                                 </div>                                                 
                             </div>

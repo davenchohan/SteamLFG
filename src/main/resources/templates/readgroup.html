@@ -37,7 +37,7 @@
                         <div id="bio" th:text="${record.getGame()}"></div>
                     </div>
                     <div class="profile-btn">
-                        <form th:action="@{/group/{id}/join(id=${record.getGid()})}" th:action="@{/addexp}">
+                        <form th:action="@{/group/{id}/join(id=${record.getGid()})}">
                             <button class="friend-button" id="addfriend">
                                 <i class="fas fa-user-plus"></i>
                                 Join Group
