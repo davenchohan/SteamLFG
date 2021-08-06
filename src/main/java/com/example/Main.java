@@ -924,7 +924,7 @@ public class Main {
 
   @GetMapping
   (
-    path ="/addexp/{pid}"
+    path ="/addexp"
   )
 
   public String AddExp(@ModelAttribute("loggeduser") User loggeduser, Map<String, Object> model, User user) {
@@ -934,19 +934,22 @@ public class Main {
     ArrayList<User> output = new ArrayList<User>();
     ResultSet rs = stmt.executeQuery("SELECT * FROM accounts WHERE id="+loggeduser.getId());
     while(rs.next()){
-    int level=user.getLevel();
-    level++;
-    System.out.println(level);
-    int experience=user.getExperience();
+    int level=rs.getInt("level");
+    int experience=rs.getInt("experience");
     experience=experience+200;
+    if(experience>=level*1000){
+      level++;
+    }
+    System.out.println(level);
     System.out.println(experience);
      stmt2.executeUpdate("UPDATE accounts SET level='"+level+"' WHERE id="+loggeduser.getId());
    stmt2.executeUpdate("UPDATE accounts SET experience='"+experience+"' WHERE id="+loggeduser.getId());
+   loggeduser.setLevel(level);
+  loggeduser.setExperience(experience);
+
+   output.add(loggeduser);
+   model.put("records", output);
     }
-  output.add(loggeduser);
-  model.put("records", output);
-
-
     
     return "profile";
   } catch (Exception e) {
