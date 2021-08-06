@@ -7,10 +7,9 @@
     <script src="https://kit.fontawesome.com/9c0e4b65c1.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/stylesheets/editprofile.css">
     <link rel="shortcut icon" type="image/png" href="/steamlogo.png" />
-    <title>Friends</title>
+    <title>Hours Logged</title>
 </head>
 <body>
-    <p th:text="${testing}" id="checkpopup1"> Testing</p>
     <header>
         <img src="/steamlogo.png" alt="steamlogo" class="logo">
         <h1 class="title">SteamLFG</h1>
@@ -18,10 +17,10 @@
     <div class="content">
         <div id="editprofile">
             <h1 id="profiletitle">Hours Logged</h1>
-            <form th:action="@{/hourstats/{id}(id=${record.getId()})}" method="post" th:action="@{/hourstats}" th:object="${hourstats}">
-                <input type="number" th:field="*{hoursPlayed}" placeholder="Hours Played" required> <br>
-                <input type="number" th:field="*{hoursSlept}" placeholder="Hours Slept" required> <br>
-                <input type="number" th:field="*{hoursExercised}" placeholder="Hours Exercised" required> <br>
+            <form action="#" method="post" th:action="@{/hourstats}" th:object="${hour}">
+                <input type="number" th:field=*{hoursplayed} placeholder="Hours Played" required> <br>
+                <input type="number" th:field=*{hoursslept} placeholder="Hours Slept" required> <br>
+                <input type="number" th:field=*{hoursexercised} placeholder="Hours Exercised" required> <br>
                 <input type="submit" value="Submit Rectangle">
             </form>
             <table id="bigtable">
@@ -31,9 +30,9 @@
                     <th>EXERCISED</th>
                 </tr>
                 <tr th:each="record : ${records}">
-                    <td th:text="${record.hoursPlayed()}"></td>
-                    <td th:text="${record.hoursSlept()}"></td>
-                    <td th:text="${record.hoursExercised()}"></td>
+                    <td th:text="${record.getHoursplayed()}"></td>
+                    <td th:text="${record.getHoursslept()}"></td>
+                    <td th:text="${record.getHoursexercised()}"></td>
                 </tr>
             </table>
             <form th:action="@{/profile}" >

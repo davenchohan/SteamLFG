@@ -1,20 +1,20 @@
 package com.example;
 
 public class Hour {
-    private Integer hoursId;
-    private Integer hoursPlayed;
-    private Integer hoursSlept;
-    private Integer hoursExercised;
+    private Integer hoursid;
+    private Integer hoursplayed;
+    private Integer hoursslept;
+    private Integer hoursexercised;
 
-    public Integer gethoursId(){return this.hoursId;}
-    public Integer gethoursPlayed(){return this.hoursPlayed;}
-    public Integer gethoursSlept(){return this.hoursSlept;}
-    public Integer gethoursExercised(){return this.hoursExercised;}
+    public Integer getHoursid(){return this.hoursid;}
+    public Integer getHoursplayed(){return this.hoursplayed;}
+    public Integer getHoursslept(){return this.hoursslept;}
+    public Integer getHoursexercised(){return this.hoursexercised;}
 
-    public void sethoursId(Integer hoursId) {this.hoursId = hoursId;}
-    public void sethoursPlayed(Integer hoursPlayed) {this.hoursPlayed = hoursPlayed;}
-    public void sethoursSlept(Integer hoursSlept) {this.hoursSlept = hoursSlept;}
-    public void sethoursExercised(Integer hoursExercised) {this.hoursExercised = hoursExercised;}
+    public void setHoursid(Integer hoursid) {this.hoursid = hoursid;}
+    public void setHoursplayed(Integer hoursplayed) {this.hoursplayed = hoursplayed;}
+    public void setHoursslept(Integer hoursslept) {this.hoursslept = hoursslept;}
+    public void setHoursexercised(Integer hoursexercised) {this.hoursexercised = hoursexercised;}
 
 }
 
