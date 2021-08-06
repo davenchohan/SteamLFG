@@ -82,8 +82,8 @@
         
                     </tr>
                     <tr>
-                        <th>Steam Profile Link (http://steamcommunity.com/profiles/XXXXXXXXXXX): </th>
-                        <td th:text="${record.getSteamid()}"></td>
+                        <th>Steam Profile Link (http://steamcommunity.com<br>/profiles/XXXXXXXXXXX): </th>
+                        <td id="steamIDbreak" th:text="${record.getSteamid()}"></td>
                         <td><input type="text" id="steamid" th:field=*{steamid} placeholder="Profile Link"></td>
                     </tr>
                     <tr>
