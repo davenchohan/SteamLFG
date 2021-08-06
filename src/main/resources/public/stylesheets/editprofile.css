@@ -11,6 +11,13 @@ table{
     padding: 55px;
 }
 
+#bigtable5{
+    background-image: linear-gradient(white,gray);
+    border: 6px solid ghostwhite;
+    padding: 55px;
+    margin-left: 125px;
+}
+
 #editprofiletable{
     background-image: linear-gradient(white,gray);
     border: 6px solid ghostwhite;

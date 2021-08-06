@@ -93,8 +93,8 @@
                             <form th:action="@{/groupdb}">
                                 <button class="user-db" type="submit">Join Group</button>
                             </form>
-                            <table style="background-image: linear-gradient(white,gray); border: 6px solid ghostwhite; padding: 55px;">
-                                <tr style="color: black; font-size: 20px; padding: 10px;">
+                            <table>
+                                <tr style="color: white; font-size: 20px;">
                                     <th>Group</th>
                                     <th>Game</th>
                                 </tr>
@@ -129,10 +129,10 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="steam" id="steam"></div>
-                    <div class="steamGames" id="steamGames"></div>
-                
+                    <div class="steamWrapper" >
+                        <div class="steam" id="steam"></div>
+                        <div class="steamGames" id="steamGames"></div>
+                    </div>
                     <div class = "health_title"> Health and Goal Tracker:
                         <div class = "health_mini">Use these sliders to help keep track of your goals and progress</div>
                         <article id="a1">Hours spent on playing games today</article>
