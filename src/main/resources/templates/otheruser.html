@@ -34,6 +34,9 @@
                     <p id="userregion" th:text="${record.getRegion()}"></p>
                 </div>
                 <p style="color:red" th:text="${message}"></p>
+                <table th:each="record : ${records}">
+                    <td id="steamidhidden" th:text="${record.getSteamid()}"> testing</td>
+                </table>
             </div>
         </div>
                 <div class="main-body">
@@ -114,10 +117,12 @@
                         </div>
                     </div>
                 </div>
+                <div class="steam" id="steam"></div>
+                <div class="steamGames" id="steamGames"></div>
             </div>
         </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="/profile.js"></script>
+    <script src="/otherprofile.js" ></script>
 </body>
 </html>

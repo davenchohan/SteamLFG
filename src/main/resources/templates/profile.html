@@ -42,6 +42,9 @@
                     <p id="userregion" th:text="${record.getRegion()}"></p>
                 </div>
                 <p style="color:red" th:text="${message}"></p>
+                <table th:each="record : ${records}">
+                    <td id="steamidhidden" th:text="${record.getSteamid()}"> testing</td>
+                </table>
             </div>
         </div>
                 <div class="main-body">
@@ -129,13 +132,14 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="steam" id="steam"></div>
+                    <div class="steamGames" id="steamGames"></div>
                 
                     <div class = "health_title"> Health and Goal Tracker:
                         <div class = "health_mini">Use these sliders to help keep track of your goals and progress</div>
                         <article id="a1">Hours spent on playing games today</article>
                       </div>
-      
-                   
                   
                     <div class = center>
                     <div class = 'sliders'>

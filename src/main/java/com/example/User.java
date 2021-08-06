@@ -14,6 +14,7 @@ public class User {
     private String adminkey;
     private int level;
     private int experience;
+    private String steamid;
 
     public String getUsername() {
         return this.username;
@@ -68,6 +69,10 @@ public class User {
         return this.experience;
     }
 
+    public String getSteamid(){
+        return this.steamid;
+    }
+
     public void setUsername(String n) {
         this.username = n;
     }
@@ -116,7 +121,12 @@ public class User {
         return this.level = n;
     }
 
-    public int setExperience(int n){
-        return this.experience=n;
+    public void setExperience(int n){
+        this.experience=n;
     }
+
+    public void setSteamid(String n){
+        this.steamid = n;
+    }
+
 }

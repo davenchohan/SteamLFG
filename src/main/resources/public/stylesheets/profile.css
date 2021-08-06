@@ -299,6 +299,11 @@ button.user-db
     overflow: hidden;
 }
 
+.steamProfile{
+    display: flex;
+    flex-direction: row;
+}
+
 .labeluser {
     float: left;
 }
@@ -312,8 +317,7 @@ button.user-db
 }
 
 #userregion {
-    float: right;
-    padding-left: 5px;
+    padding-left: 65px;
 }
 
 .popUpBox{
@@ -573,8 +577,67 @@ font-size: 22px;
 .sliders .show-value1 span.active {
     transform:translateX(-50%) scale(1);
 }
-  
-#test
-{
-    margin-left: 60px;
+
+.steam{
+    width: 15%;
+    background-size: 20px 20px;
+    border: 1px solid white;
+    background: linear-gradient(27deg, #151515 5px, transparent 5px) 0 5px, linear-gradient(207deg, #151515 5px, transparent 5px) 10px 0px, linear-gradient(27deg, #222 5px, transparent 5px) 0px 10px, linear-gradient(207deg, #222 5px, transparent 5px) 10px 5px, linear-gradient(90deg, #1b1b1b 10px, transparent 10px), linear-gradient(#1d1d1d 25%, #1a1a1a 25%, #1a1a1a 50%, transparent 50%, transparent 75%, #242424 75%, #242424);
+    background-color: #131313;
+    background-size: 20px 20px;
+    margin-left: 2%;
+    margin-bottom: 30px;
+    margin-top: 1%;
+}
+
+
+#steamImage{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border: 4px solid white;
+}
+
+#steamLink{
+    display: block;
+    text-align: center;
+    padding-top: 20px;
+}
+
+#steamName{
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 15px;
+}
+
+.steamGames{
+    width: 20%;
+    background-size: 20px 20px;
+    border: 1px solid white;
+    background: linear-gradient(27deg, #151515 5px, transparent 5px) 0 5px, linear-gradient(207deg, #151515 5px, transparent 5px) 10px 0px, linear-gradient(27deg, #222 5px, transparent 5px) 0px 10px, linear-gradient(207deg, #222 5px, transparent 5px) 10px 5px, linear-gradient(90deg, #1b1b1b 10px, transparent 10px), linear-gradient(#1d1d1d 25%, #1a1a1a 25%, #1a1a1a 50%, transparent 50%, transparent 75%, #242424 75%, #242424);
+    background-color: #131313;
+    background-size: 20px 20px;
+    margin-left: 2%;
+}
+
+
+#gameImage{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border: 4px solid white;
+}
+
+#timePlayed{
+    text-align: center;
+}
+
+#gameName{
+    text-align: center;
+}
+
+#recentTitle{
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 15px;
 }
