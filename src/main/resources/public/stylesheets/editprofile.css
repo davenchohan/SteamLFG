@@ -62,6 +62,10 @@ header {
     font-family: 'Streetvertising', serif;
 }
 
+#steamIDbreak{
+    word-break:break-all;
+}
+
 
 #editprofile {
     width: 382px;
@@ -76,7 +80,7 @@ header {
 }
 
 #editprofile1 {
-    width: 582px;
+    width: 520px;
     overflow: hidden;
     padding: 0px 600px 0px 95px;
     border: 1px solid ghostwhite;
@@ -123,7 +127,7 @@ th, td {
     padding: 20px;
     color: white;
     width: 300px;
-    padding-left: 400px;
+    padding-left: 355px;
 }
 
 #bioText {
