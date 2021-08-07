@@ -726,4 +726,106 @@ font-size: 22px;
     padding-right: 20px;
 }
 
+.Goals {
+    font-size: 35px;
+    font-style: normal;
+    font-family: "Dank Mono", ui-monospace, monospace;
+    color: white;
+    background: linear-gradient(
+        to right, 
+        hsl(98 100% 62%), 
+        hsl(204 100% 59%)
+      );
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-align: middle;
+      padding-left: 650px;
+}
 
+.goal_ask{
+    padding-top: 100px;
+    padding-left: 650px;
+    } 
+
+.goal_ask1 {
+    padding-top: 100px;
+    padding-left: 650px;
+}
+
+
+.goal{
+    border: none;
+    -webkit-appearance: none;
+    -ms-appearancel: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: #f2f2f2;
+    border-radius: 3px;
+    width: 250px;
+    outline: none;
+    padding: 12px;
+}
+
+#goal1 {
+  margin-left: 50px;
+}
+
+#goal2 {
+    margin-left: 50px;
+  }
+
+
+
+input:focus::placeholder {
+    color: transparent;
+}
+
+input::placeholder {
+color:grey;
+transition: color 0.3s ease;
+}
+
+input[type=text]:focus {
+    border: 3px solid lightseagreen;
+    box-shadow: inset 0 0 0 3px #fff,
+			0 0 0 4px black,
+			3px -3px 30px #1beabd, 
+			-3px 3px 30px #10abff;
+  }
+
+input[type=text]{
+border: 3px solid lightseagreen;
+
+  }
+
+.submit{
+    padding-top: 60px;
+    padding-left: 880px;
+
+}
+
+.submit_button{
+    -webkit-appearance: none;
+    -ms-appearancel: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: #f2f2f2;
+    border-radius: 3px;
+    width: 150px;
+    outline: none;
+    padding: 12px;
+    border: 3px solid rgb(106, 0, 226);
+    background: linear-gradient(21deg, #10abff, #1beabd);
+    font: bold;
+    font-size: larger;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    padding-bottom: 10px;
+}
+
+#a3 {
+
+    padding-top:60px;
+    font-size: 22px;
+    padding-left:  80px;
+    padding-bottom:15px;
+}
