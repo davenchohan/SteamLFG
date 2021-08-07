@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/9c0e4b65c1.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/stylesheets/editprofile.css">
+    <link rel="shortcut icon" type="image/png" href="/steamlogo.png" />
+    <title>Hours Logged</title>
+</head>
+<body>
+    <header>
+        <img src="/steamlogo.png" alt="steamlogo" class="logo">
+        <h1 class="title">SteamLFG</h1>
+    </header>
+    <div class="content">
+        <div id="editprofile">
+            <h1 id="profiletitle">Hours Logged</h1>
+            <table id="bigtable5">
+                <tr>
+                    <th>PLAYED</th>
+                    <th>SLEPT</th>
+                    <th>EXERCISED</th>
+                </tr>
+                <tr th:each="record : ${records}">
+                    <td th:text="${record.getHoursplayed()}"></td>
+                    <td th:text="${record.getHoursslept()}"></td>
+                    <td th:text="${record.getHoursexercised()}"></td>
+                </tr>
+            </table>
+            <form action="#" method="post" th:action="@{/hourstats}" th:object="${hour}">
+                <input type="number" style="margin-top: 10px;" th:field=*{hoursplayed} placeholder="Hours Played" required> <br>
+                <input type="number" style="margin-top: 10px;" th:field=*{hoursslept} placeholder="Hours Slept" required> <br>
+                <input type="number" style="margin-top: 10px;" th:field=*{hoursexercised} placeholder="Hours Exercised" required> <br>
+                <input type="submit" value="Log Hours" class="submitHoursButton">
+            </form>
+            <form th:action="@{/profile}" >
+                <button class="goodbutton" > Back</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
