@@ -1241,6 +1241,8 @@ public String setSteamID(@ModelAttribute("loggeduser") User loggeduser, Map<Stri
     stmt.executeUpdate("CREATE TABLE IF NOT EXISTS grouptable (id serial, groupname varchar(20), maxmembers integer, game varchar(20))");
     stmt.executeUpdate("DROP TABLE groupconnections");
     stmt.executeUpdate("CREATE TABLE IF NOT EXISTS groupconnections (id serial, gid integer, uid integer, request integer, type varchar(20))");
+    stmt.executeUpdate("DROP TABLE hourTable");
+    stmt.executeUpdate("CREATE TABLE IF NOT EXISTS hourTable (id serial, hoursid integer, hoursplayed integer, hoursslept integer, hoursexercised integer)");
     return "redirect:/mainpage";
    
     } catch (Exception e) {
