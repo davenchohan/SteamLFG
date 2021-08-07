@@ -84,6 +84,12 @@ document.getElementById("slider1").addEventListener("input", function(event){
     document.getElementById("current-value1").style.left = `${value/0.2425}%`
    });
 
+   document.getElementById("slider3").addEventListener("input", function(event){
+    let value = event.target.value;
+    document.getElementById("current-value2").innerText  = value;
+    document.getElementById("current-value2").classList.add("active");
+    document.getElementById("current-value2").style.left = `${value/0.2425}%`
+   });
 const apiData = {
     url: 'http://api.steampowered.com/ISteamUser/',
     version: 'v0001',
