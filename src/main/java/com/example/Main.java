@@ -955,9 +955,35 @@ public class Main {
   )
 
   public String AddExp(@ModelAttribute("loggeduser") User loggeduser, Map<String, Object> model, User user) {
+    System.out.println(loggeduser.getType());  
     try (Connection connection = dataSource.getConnection()) {
     Statement stmt = connection.createStatement();
     Statement stmt2 = connection.createStatement();
+    ArrayList<ObjGroup> groupout = new ArrayList<ObjGroup>();
+    Statement stmt3 = connection.createStatement();
+    Statement stmt4 = connection.createStatement();
+      ResultSet srs3 = stmt3.executeQuery("SELECT * FROM groupconnections WHERE uid="+ loggeduser.getId());
+      while(srs3.next()){
+        ObjGroup grouplist = new ObjGroup();
+        int groupid = srs3.getInt("gid");
+        ResultSet srs4 = stmt4.executeQuery("SELECT * FROM grouptable WHERE id="+ groupid);
+        while(srs4.next()){
+        grouplist.setGroupname(srs4.getString("groupname"));
+        grouplist.setGame(srs4.getString("game"));
+        grouplist.setGid(groupid);
+        System.out.println("hello");
+        }
+            
+            groupout.add(grouplist);
+      }
+      model.put("groupout",groupout);
+    if(loggeduser.getType()!=null){
+      if(!(loggeduser.getType().equals("admin"))){
+        model.put("message", "You need to be an admin to do that");
+        model.put("records", loggeduser);
+        return "profile";
+        }
+    }
     ArrayList<User> output = new ArrayList<User>();
     ResultSet rs = stmt.executeQuery("SELECT * FROM accounts WHERE id="+loggeduser.getId());
     while(rs.next()){
@@ -979,7 +1005,6 @@ public class Main {
    output.add(loggeduser);
    model.put("records", output);
     }
-    
     return "profile";
   } catch (Exception e) {
     model.put("message", e.getMessage());
