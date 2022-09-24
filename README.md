@@ -5,6 +5,8 @@ Project Proposal
 06/25/2021
 Developers: Joshua Huang, Dalveer Dosanjh, Daven Chohan, Omar Elshehawi, Wesam Shalabi
 
+Link: https://cmpt276web.herokuapp.com/
+
 SteamLFG is a website designed to help users find people to play games with. Users
 can sign up/login to keep track of hours played, interact with other users, and maintain a healthy
 gaming lifestyle. Furthermore, the app aims to encourage healthy habits related to video
