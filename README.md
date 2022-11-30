@@ -5,7 +5,7 @@ Project Proposal
 06/25/2021
 Developers: Joshua Huang, Dalveer Dosanjh, Daven Chohan, Omar Elshehawi, Wesam Shalabi
 
-Link: https://cmpt276web.herokuapp.com/
+Link: https://cmpt276web.herokuapp.com/         Heroku disabled website as of Nov 28, 2022 due to free site hosting no longer being offered.
 
 SteamLFG is a website designed to help users find people to play games with. Users
 can sign up/login to keep track of hours played, interact with other users, and maintain a healthy
